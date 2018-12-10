@@ -15,13 +15,6 @@ enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
  */
 #define REGSIZE 8
 #define hlSIZE 2
-typedef struct {
-	union{
-		paddr_t _32;
-		ioaddr_t _16;
-		bool _8[hlSIZE];
-	};
-} REGS;
 
 typedef struct {
  
@@ -29,9 +22,15 @@ typedef struct {
   /* Do NOT change the order of the GPRs' definitions. */
   
  
-  union{
-	 rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
-	 REGS gpr[REGSIZE];
+  union{ 
+	struct{ 
+	   rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
+	 };
+	union{ 
+		paddr_t _32;
+		ioaddr_t _16;
+		bool _8[hlSIZE];
+	} gpr[REGSIZE];
   };
 
   vaddr_t eip;
