@@ -16,4 +16,8 @@ submit: clean
 setup:
 	STUID=$(STUID) STUNAME=$(STUNAME) bash setup.sh
 
+recover:
+	STUID=$(STUID) STUNAME=$(STUNAME) bash recover.sh
+
+
 .PHONY: default clean submit
