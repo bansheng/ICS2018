@@ -1,4 +1,3 @@
-set -e
 
 [ -z ${STUID} ]   && echo "STUID must be set (RTFM)"   && exit
 [ -z ${STUNAME} ] && echo "STUNAME must be set (RTFM)" && exit
