@@ -63,9 +63,9 @@ static int cmd_si(char *args) {
 // 打印寄存器内容的子函数
 static void print_regster(int size, int index) {
 	switch(size) {
-		case 1: printf("%s\t%-2x\t\t\t%d\n", reg_name(index, 1), reg_b(index), reg_b(index)); break;
-		case 2: printf("%s\t%-4x\t\t%d\n", reg_name(index, 2), reg_w(index), reg_w(index)); break;
-		case 4: printf("%s\t%-8x\t%d\n", reg_name(index, 4), reg_l(index), reg_l(index)); break;
+		case 1: printf("%s\t%02X\t\t\t%d\n", reg_name(index, 1), reg_b(index), reg_b(index)); break;
+		case 2: printf("%s\t%04X\t\t%d\n", reg_name(index, 2), reg_w(index), reg_w(index)); break;
+		case 4: printf("%s\t%08X\t%d\n", reg_name(index, 4), reg_l(index), reg_l(index)); break;
 		//case type_eip: printf("EIP/t%-08x/t%d\n", cpu.eip, cpu.eip); 
 	}
 	
@@ -113,7 +113,7 @@ static int cmd_scan(char *args) {
 		printf("Please input the size and address to scan\n");
 	}
 	for(int i=0; i<size; i++)
-		printf("%-8x\t", vaddr_read(address + i * 4, 4));
+		printf("%08X\t", vaddr_read(address + i * 4, 4));
 	printf("\n");
 	return 0;
 }
