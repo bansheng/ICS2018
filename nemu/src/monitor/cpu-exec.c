@@ -23,6 +23,7 @@ void monitor_statistic() {
 }
 
 /* Simulate how the CPU works. */
+// n为要运行的命令条数 由于为无符号数 -1代表运行完
 void cpu_exec(uint64_t n) {
   if (nemu_state == NEMU_END || nemu_state == NEMU_ABORT) {
     printf("Program execution has ended. To restart the program, exit NEMU and run again.\n");
