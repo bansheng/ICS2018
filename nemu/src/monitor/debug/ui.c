@@ -41,13 +41,11 @@ static int cmd_help(char *args);
 
 // 单步执行
 static int cmd_si(char *args) {
-	printf("11111\n");
 	// 先处理无参数
 	if (args == NULL) {
-		printf("222\n");
 		cpu_exec(1);
+		return 0;
 	}
-	printf("333\n");
 	int n = 0;
 	if (sscanf(args, "%d", &n) == EOF) {
 		printf("Please input the right argment!\n");
