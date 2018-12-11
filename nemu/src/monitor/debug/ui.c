@@ -110,7 +110,7 @@ static int cmd_scan(char *args) {
 		return 0;
 	}
 	int size = -1, address = -1;
-	if (sscanf(args, "%d %x", &size, &address) == EOF || size==-1 || address==-1 ) {
+	if (sscanf(args, "%d %x", &size, &address) == EOF || size==-1 || address < 0 ) {
 		printf("Please input the size and address to scan\n");
 		return 0;
 	}
