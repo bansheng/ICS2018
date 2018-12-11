@@ -63,10 +63,10 @@ static int cmd_si(char *args) {
 // 打印寄存器内容的子函数
 static void print_regster(int size, int index) {
 	switch(size) {
-		case 1: printf("%s\t%#04X\t\t%d\n", reg_name(index, 1), reg_b(index), reg_b(index)); break;
-		case 2: printf("%s\t%#06X\t\t%d\n", reg_name(index, 2), reg_w(index), reg_w(index)); break;
-		case 4: printf("%s\t%#010X\t%d\n", reg_name(index, 4), reg_l(index), reg_l(index)); break;
-		//case type_eip: printf("EIP/t%-08x/t%d\n", cpu.eip, cpu.eip); 
+		case 1: printf("%%%s\t%#04X\t\t%d\n", reg_name(index, 1), reg_b(index), reg_b(index)); break;
+		case 2: printf("%%%s\t%#06X\t\t%d\n", reg_name(index, 2), reg_w(index), reg_w(index)); break;
+		case 4: printf("%%%s\t%#010X\t%d\n", reg_name(index, 4), reg_l(index), reg_l(index)); break;
+		case -1: printf("%%eip\t%#010X\t%d\n", cpu.eip, cpu.eip); break;
 	}
 	
 }
@@ -91,6 +91,7 @@ static int cmd_info(char *args) {
 			for(int i=0; i<8; i++)
 				//print_regster(type_8, i);
 				print_regster(1, i);
+			print_regster(-1, 0);
 			break;
 		case 'w':
 		case 'W':
