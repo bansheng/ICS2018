@@ -112,6 +112,7 @@ static int cmd_scan(char *args) {
 	int size = -1, address = -1;
 	if (sscanf(args, "%d %x", &size, &address) == EOF || size==-1 || address==-1 ) {
 		printf("Please input the size and address to scan\n");
+		return 0;
 	}
 	for(int i=0; i<size; i++)
 		printf("%#010X\t", vaddr_read(address + i * 4, 4));
