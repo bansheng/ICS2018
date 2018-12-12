@@ -109,7 +109,7 @@ void print_wp() {
 	}
 	printf("NO\tEXPR\t\tValue\n");
 	while(pre) {
-		printf("%-d\t%-16s%#8x  %d\n",pre->NO, pre->expr, pre->value, pre->value);
+		printf("%-d\t%-16s%#08x  %d\n",pre->NO, pre->expr, pre->value, pre->value);
 		pre = pre->next;
 	}
 }
