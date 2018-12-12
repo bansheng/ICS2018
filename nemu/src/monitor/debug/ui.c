@@ -42,16 +42,16 @@ static int cmd_help(char *args);
 // 单步执行
 static int cmd_si(char *args) {
 	// 先处理无参数
-	if (args == NULL) {
+	 if (args == NULL) {
 		cpu_exec(1);
 		return 0;
 	}
 	int n = 0;
 	if (sscanf(args, "%d", &n) == EOF) {
 		printf("Please input the right argment!\n");
-	}
+	}	
 	else
-	{
+	{ 
 		cpu_exec(n);
 	}
 	return 0;
@@ -74,12 +74,12 @@ static void print_regster(int size, int index) {
 // 打印程序状态
 static int cmd_info(char *args) {
 	if(args == NULL)
-	{
+	{ 
 		printf("Unknown Type to print\n");
 		return 0;
 	}
 	switch(*args)
-	{
+	{ 
 		case 'r':
 		case 'R':
 			for(int i=0; i<8; i++)
@@ -95,6 +95,7 @@ static int cmd_info(char *args) {
 			break;
 		case 'w':
 		case 'W':
+			print_wp();
 			break;
 		default:
 			break;
@@ -134,6 +135,25 @@ static int cmd_p(char *args) {
 	return 0;
 }
 
+// 设置监视点
+static int cmd_setWP(char *args) {
+	new_wp(args);
+	return 0;
+}
+
+// 删除监视点
+static int cmd_delWP(char *args) {
+	int n = 0;
+	if (sscanf(args, "%d", &n) == EOF) {
+		printf("Please input the right argment!\n");
+	}	
+	else
+	{ 
+		del_wp(n);
+	}
+	return 0;
+}
+
 // define the cmd_table 命令表
 static struct {
   char *name;
@@ -149,6 +169,8 @@ static struct {
   { "info", "Print the regsters or watchpoints", cmd_info },
   { "x", "Scan the memory to find the value", cmd_scan }, //扫描内存
   { "p", "Caculate the Expression", cmd_p }, //计算表达式
+  { "w", "Set the watchpoint", cmd_setWP }, //设置监视点
+  { "d", "Delete the watchpoint", cmd_delWP }, //删除监视点
 };
 // 定义最大支持的命令表下标
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
