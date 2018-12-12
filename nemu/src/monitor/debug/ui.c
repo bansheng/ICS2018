@@ -104,20 +104,29 @@ static int cmd_info(char *args) {
 }
 
 // 扫描内存
+#define MAX_EXPR_LENGTH 128
 static int cmd_scan(char *args) {
 	if(args == NULL)
 	{
 		printf("Unknown size and address to scan\n");
 		return 0;
 	}
-	int size = -1, address = -1;
-	if (sscanf(args, "%d %x", &size, &address) == EOF || size==-1 || address < 0 ) {
-		printf("Please input the \"Right\" size and address to scan\n");
+	char EXPR[MAX_EXPR_LENGTH];
+	int size = -1;
+	if (sscanf(args, "%d %s", &size, EXPR) == EOF || size==-1) {
+		printf("Please input the \"Right\" size to scan\n");
 		return 0;
 	}
-	for(int i=0; i<size; i++)
-		printf("%#010X\t", vaddr_read(address + i * 4, 4));
-	printf("\n");
+	bool success = true;
+	printf("%s\n", EXPR);
+	uint32_t result = expr(EXPR, &success);
+	if(!success) printf("Please input the \"Right\" address to scan\n");
+	else
+	{
+		for(int i=0; i<size; i++)
+			printf("%#010X\t", vaddr_read(result + i * 4, 4));
+		printf("\n");
+	}
 	return 0;
 }
 
