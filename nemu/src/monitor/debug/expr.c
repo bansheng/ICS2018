@@ -243,13 +243,13 @@ uint32_t eval(int l,int r, bool *legal) {
 			uint32_t val = eval (l + 1, r, legal);
 			switch (token[l].type)
  			{
-				//case POINTOR:current_sreg = R_DS;return swaddr_read (val,4);
+				case POINTOR:  return vaddr_read(val, 4);
 				case MINUS:return -val;
 				case '!':return !val;
 				default: 
 					//printf("不合法表达式\n"); //有些主运算符无法处于第一位
-					*legal = false;
-					return -1;
+					//*legal = false;
+					return val;
 			} 
 		}
 		uint32_t val1 = eval (l, op - 1, legal);
@@ -286,7 +286,7 @@ uint32_t expr(char *e, bool *success) {
 		//printf("REGISTER: %d\n", token[i].type == REGISTER);
  		if (token[i].type == '*' && (i == 0 || (token[i - 1].type != NUMBER && token[i - 1].type != HEX && token[i - 1].type != REGISTER && token[i - 1].type != MARK && token[i - 1].type !=')'))) {
 			token[i].type = POINTOR;
-			printf("pointer %s\n", token[i+1].str);
+			//printf("pointer %s\n", token[i+1].str);
 			token[i].priority = 6;
 		}
 		if (token[i].type == '-' && (i == 0 || (token[i - 1].type != NUMBER && token[i - 1].type != HEX && token[i - 1].type != REGISTER && token[i - 1].type != MARK && token[i - 1].type !=')'))) {
