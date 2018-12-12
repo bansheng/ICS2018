@@ -70,9 +70,9 @@ void free_wp(WP *wp) {
 			}
 		}
 	if (isFound) {
+		printf("The watchpoint of No.%d ( %s ) has been deleted!\n", wp->NO, (wp->expr));
 		(wp->expr)[0] = '\0';
 		wp->value = 0;
-		printf("The watchpoint of No.%d has been deleted!\n", wp->NO);
 	}
 	else {
 		printf("The watchpoint of No.%d doesn't exist, delete watchpoint failed!\n", wp->NO);
@@ -89,9 +89,10 @@ bool check_wp() {
 		int a = expr(pre->expr, &success);
 		if(a != pre->value) {
 			printf("EXPR: %s\n", pre->expr);
-			printf("Previous value: %#x  %d", pre->value, pre->value);
+			printf("Previous\t\t\tNow\n");
+			printf("%#8x\t%d", pre->value, pre->value);
 			printf(" <==> ");
-			printf("Now value: %#x  %d\n", a, a);
+			printf("%#8x\t%d\n\n", a, a);
 			pre->value = a;
 			ischanged = true;
 		}
@@ -107,8 +108,8 @@ void print_wp() {
 		return;
 	}
 	while(pre) {
-		printf("%2d. %s\n",pre->NO, pre->expr);
-		printf("value:%#x  %d\n", pre->value, pre->value);
+		printf("NO.%2d %s\n",pre->NO, pre->expr);
+		printf("value:%#x  %d\n\n", pre->value, pre->value);
 		pre = pre->next;
 	}
 }
