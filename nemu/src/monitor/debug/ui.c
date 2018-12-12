@@ -128,9 +128,9 @@ static int cmd_p(char *args) {
 		return 0;
 	}
 	bool success = true;
-	uint32_t result = expr(args, &success);
+	int result = expr(args, &success);
 	if(!success) printf("不合法表达式\n"); //有些主运算符无法处于第一位
-	else printf("%u\n", result);
+	else printf("%d\n", result);
 	return 0;
 }
 
