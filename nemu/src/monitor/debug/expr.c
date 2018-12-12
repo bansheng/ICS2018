@@ -286,6 +286,7 @@ uint32_t expr(char *e, bool *success) {
 		//printf("REGISTER: %d\n", token[i].type == REGISTER);
  		if (token[i].type == '*' && (i == 0 || (token[i - 1].type != NUMBER && token[i - 1].type != HEX && token[i - 1].type != REGISTER && token[i - 1].type != MARK && token[i - 1].type !=')'))) {
 			token[i].type = POINTOR;
+			printf("pointer %s\n", token[i+1].str);
 			token[i].priority = 6;
 		}
 		if (token[i].type == '-' && (i == 0 || (token[i - 1].type != NUMBER && token[i - 1].type != HEX && token[i - 1].type != REGISTER && token[i - 1].type != MARK && token[i - 1].type !=')'))) {
