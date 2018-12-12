@@ -24,7 +24,7 @@ static struct rule {
 	 */
 	{"\\b[0-9]+\\b",NUMBER,0},			// number
 	{"\\b0[xX][0-9a-fA-F]+\\b",HEX,0},//hex
-	{"\\$[e|E][ax|AX|bx|BX|cx|CX|dx|DX|bp|BP|sp|SP|si|SI|di|DI]",REGISTER,0},		// register
+	{"\\$[eax|EAX|ebx|EBX|ecx|ECX|edx|EDX|ebp|EBP|esp|ESP|esi|ESI|edi|EDI]",REGISTER,0},		// register
 	{"\\$[A|B|C|D|a|b|c|d][h|H|l|H|x|X]",REGISTER,0},		// register
 	{"\\b[a-zA-Z_0-9]+" , MARK, 0},		// mark
 	{"!=",NEQ,3},						// not equal	
