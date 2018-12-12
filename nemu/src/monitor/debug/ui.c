@@ -129,7 +129,7 @@ static int cmd_scan(char *str) {
     }
 	
 	bool success = true;
-	printf("%s\n", args);
+	//printf("%s\n", args);
 	uint32_t result = expr(args, &success);
 	if(!success) printf("Please input the \"Right\" address to scan\n");
 	else
