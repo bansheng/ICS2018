@@ -188,19 +188,19 @@ uint32_t eval(int l,int r, bool *legal) {
 				else num = reg_l(i);
 			}
 			else if (strlen (token[l].str) == 2) {
-			if (token[l].str[1] == 'x' || token[l].str[1] == 'p' || token[l].str[1] == 'i') {
-				int i;
-				for (i = R_AX; i <= R_DI; i ++)
-					if (strcmp (token[l].str,regsw[i]) == 0)break;
-				num = reg_w(i);
-			}
-			else if (token[l].str[1] == 'l' || token[l].str[1] == 'h') {
-				int i;
-				for (i = R_AL; i <= R_BH; i ++)
-					if (strcmp (token[l].str,regsb[i]) == 0)break;
-				num = reg_b(i);
-			}
-			else assert (1);
+				if (token[l].str[1] == 'x' || token[l].str[1] == 'p' || token[l].str[1] == 'i') {
+					int i;
+					for (i = R_AX; i <= R_DI; i ++)
+						if (strcmp (token[l].str,regsw[i]) == 0)break;
+					num = reg_w(i);
+				}
+				else if (token[l].str[1] == 'l' || token[l].str[1] == 'h') {
+					int i;
+					for (i = R_AL; i <= R_BH; i ++)
+						if (strcmp (token[l].str,regsb[i]) == 0)break;
+					num = reg_b(i);
+				}
+				else assert (1);
 			}
 		}
 		// 这个部分用于查找符号表中的变量的值
