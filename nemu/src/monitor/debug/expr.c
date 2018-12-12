@@ -248,8 +248,8 @@ uint32_t eval(int l,int r, bool *legal) {
 				case '!':return !val;
 				default: 
 					//printf("不合法表达式\n"); //有些主运算符无法处于第一位
-					//*legal = false;
-					return val;
+					*legal = false;
+					return -1;
 			} 
 		}
 		uint32_t val1 = eval (l, op - 1, legal);
