@@ -24,7 +24,8 @@ static struct rule {
 	 */
 	{"\\b[0-9]+\\b",NUMBER,0},			// number
 	{"\\b0[xX][0-9a-fA-F]+\\b",HEX,0},//hex
-	{"\\$[a-zA-Z]+",REGISTER,0},		// register
+	{"\\$[e|E][ax|AX|bx|BX|cx|CX|dx|DX|bp|BP|sp|SP|si|SI|di|DI]",REGISTER,0},		// register
+	{"\\$[A|B|C|D|a|b|c|d][h|H|l|H|x|X]",REGISTER,0},		// register
 	{"\\b[a-zA-Z_0-9]+" , MARK, 0},		// mark
 	{"!=",NEQ,3},						// not equal	
 	{"!",'!',6},						// not
@@ -274,6 +275,7 @@ uint32_t expr(char *e, bool *success) {
   	}
 	int i;
 	for (i = 0;i < nr_token; i ++) { //识别负数和指针
+		printf("%d\n", token[i].type == MARK);
  		if (token[i].type == '*' && (i == 0 || (token[i - 1].type != NUMBER && token[i - 1].type != HEX && token[i - 1].type != REGISTER && token[i - 1].type != MARK && token[i - 1].type !=')'))) {
 			token[i].type = POINTOR;
 			token[i].priority = 6;
