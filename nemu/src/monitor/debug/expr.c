@@ -166,7 +166,7 @@ int dominant_operator (int l,int r)
 }
 
 uint32_t eval(int l,int r, bool *legal) {
-	if (!legal) return -1;
+	if (!(*legal)) return -1;
 	if (l > r) {Assert (l>r,"表达式计算错误未知!\n");return -1;}
 	if (l == r) 
 	{
@@ -225,7 +225,7 @@ uint32_t eval(int l,int r, bool *legal) {
 		else
 		{
 			printf("type = %d\n", token[l].type);
-			legal = false;
+			*legal = false;
 			return -1;
 		}
 		return num;
@@ -243,7 +243,7 @@ uint32_t eval(int l,int r, bool *legal) {
 				case '!':return !val;
 				default: 
 					//printf("不合法表达式\n"); //有些主运算符无法处于第一位
-					legal = false;
+					*legal = false;
 					return -1;
 			} 
 		}
@@ -261,7 +261,7 @@ uint32_t eval(int l,int r, bool *legal) {
 			case OR:return val1 || val2;
 			default:
 				//printf("不合法表达式\n"); //有些主运算符无法处于第一位
-				legal = false;
+				*legal = false;
 				return -1;
   		}
   	}
@@ -285,7 +285,7 @@ uint32_t expr(char *e, bool *success) {
   	}
 	/* TODO: Insert codes to evaluate the expression. */	
 	*success = true;
-	printf("%d\n", *success);
+	printf("success = %d\n", *success);
 	return eval(0, nr_token-1, success);
 }
 
