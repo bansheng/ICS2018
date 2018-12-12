@@ -8,7 +8,7 @@
 
 enum {
 	NOTYPE = 256, 
-	EQ , NEQ , AND , OR , MINUS , POINTOR , NUMBER , HEX , REGISTER , MARK
+	EQ , NEQ , AND , OR , MINUS , POINTOR , NUMBER , HEX , REGISTER , MARK, GE, LE
 	/* TODO: Add more token types */
 
 };
@@ -24,7 +24,7 @@ static struct rule {
 	 */
 	{"\\b[0-9]+\\b",NUMBER,0},			// number
 	{"\\b0[xX][0-9a-fA-F]+\\b",HEX,0},//hex
-	{"\\$(eax|EAX|ebx|EBX|ecx|ECX|edx|EDX|ebp|EBP|esp|ESP|esi|ESI|edi|EDI)",REGISTER,0},		// register
+	{"\\$(eax|EAX|ebx|EBX|ecx|ECX|edx|EDX|ebp|EBP|esp|ESP|esi|ESI|edi|EDI|eip|EIP)",REGISTER,0},		// register
 	{"\\$(([ABCD][HLX])|([abcd][hlx]))",REGISTER,0},		// register
 	{"\\b[a-zA-Z_0-9]+" , MARK, 0},		// mark
 	{"!=",NEQ,3},						// not equal	
@@ -37,6 +37,10 @@ static struct rule {
 	{"-",'-',4},						// sub
 	{"==", EQ,3},						// equal
 	{"&&",AND,2},						// and
+	{">", '>', 3},      				// greater
+	{"<", '<', 3}, 						// lower
+	{">=", GE, 3},						// greater or equal
+	{"<=", LE, 3},						// lower or equal
 	{"\\|\\|",OR,1},					// or
 	{"\\(",'(',7},                      // left bracket   
 	{"\\)",')',7},                      // right bracket 
@@ -239,7 +243,7 @@ uint32_t eval(int l,int r, bool *legal) {
 			uint32_t val = eval (l + 1, r, legal);
 			switch (token[l].type)
  			{
-				//case POINTOR:current_sreg = R_DS;return swaddr_read (val,4);
+				case POINTOR:  return vaddr_read(val, 4);
 				case MINUS:return -val;
 				case '!':return !val;
 				default: 
@@ -258,6 +262,10 @@ uint32_t eval(int l,int r, bool *legal) {
 			case '/':return val1 / val2;
 			case EQ:return val1 == val2;
 			case NEQ:return val1 != val2;
+			case '>':return val1 > val2;
+			case '<':return val1 < val2;
+			case GE:return val1 >= val2;
+			case LE:return val1 <= val2;
 			case AND:return val1 && val2;
 			case OR:return val1 || val2;
 			default:
@@ -278,6 +286,7 @@ uint32_t expr(char *e, bool *success) {
 		//printf("REGISTER: %d\n", token[i].type == REGISTER);
  		if (token[i].type == '*' && (i == 0 || (token[i - 1].type != NUMBER && token[i - 1].type != HEX && token[i - 1].type != REGISTER && token[i - 1].type != MARK && token[i - 1].type !=')'))) {
 			token[i].type = POINTOR;
+			//printf("pointer %s\n", token[i+1].str);
 			token[i].priority = 6;
 		}
 		if (token[i].type == '-' && (i == 0 || (token[i - 1].type != NUMBER && token[i - 1].type != HEX && token[i - 1].type != REGISTER && token[i - 1].type != MARK && token[i - 1].type !=')'))) {
