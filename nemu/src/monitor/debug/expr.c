@@ -275,7 +275,7 @@ uint32_t expr(char *e, bool *success) {
   	}
 	int i;
 	for (i = 0;i < nr_token; i ++) { //识别负数和指针
-		printf("%d\n", token[i].type == MARK);
+		//printf("%d\n", token[i].type == MARK);
  		if (token[i].type == '*' && (i == 0 || (token[i - 1].type != NUMBER && token[i - 1].type != HEX && token[i - 1].type != REGISTER && token[i - 1].type != MARK && token[i - 1].type !=')'))) {
 			token[i].type = POINTOR;
 			token[i].priority = 6;
