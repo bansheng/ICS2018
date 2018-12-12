@@ -90,9 +90,9 @@ bool check_wp() {
 		if(a != pre->value) {
 			printf("EXPR: %s\n", pre->expr);
 			printf("Previous\t\t\tNow\n");
-			printf("%#8x\t%d", pre->value, pre->value);
+			printf("%#8x  %d", pre->value, pre->value);
 			printf(" <==> ");
-			printf("%#8x\t%d\n\n", a, a);
+			printf("%#8x  %d\n", a, a);
 			pre->value = a;
 			ischanged = true;
 		}
@@ -107,11 +107,12 @@ void print_wp() {
 		printf("No watvhpoint to print\n");
 		return;
 	}
+	printf("NO\tEXPR\t\t\tValue\n");
 	while(pre) {
-		printf("NO.%2d %s\n",pre->NO, pre->expr);
-		printf("value:%#x  %d\n\n", pre->value, pre->value);
+		printf("%4d%16s%#8x  %d\n",pre->NO, pre->expr, pre->value, pre->value);
 		pre = pre->next;
 	}
+	printf("\n");
 }
 
 
