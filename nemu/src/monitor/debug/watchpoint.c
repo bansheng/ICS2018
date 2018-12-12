@@ -107,12 +107,11 @@ void print_wp() {
 		printf("No watvhpoint to print\n");
 		return;
 	}
-	printf("NO\tEXPR\t\t\tValue\n");
+	printf("NO\tEXPR\t\tValue\n");
 	while(pre) {
-		printf("%-4d%-16s%#8x  %d\n",pre->NO, pre->expr, pre->value, pre->value);
+		printf("%-d\t%-16s%#8x  %d\n",pre->NO, pre->expr, pre->value, pre->value);
 		pre = pre->next;
 	}
-	printf("\n");
 }
 
 
