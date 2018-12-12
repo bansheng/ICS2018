@@ -6,11 +6,9 @@
 #include <sys/types.h>
 #include <regex.h>
 
-#define max_string_long 32
-#define max_token_num 32
 enum {
 	NOTYPE = 256, 
-	EQ , NEQ , AND , OR , MINUS , POINTOR , NUMBER , HNUMBER , REGISTER , MARK
+	EQ , NEQ , AND , OR , MINUS , POINTOR , NUMBER , HEX , REGISTER , MARK
 	/* TODO: Add more token types */
 
 };
@@ -24,23 +22,23 @@ static struct rule {
 	/* TODO: Add more rules.
 	 * Pay attention to the precedence level of different rules.
 	 */
-	{"\\b[0-9]+\\b",NUMBER,0},				// number
-	{"\\b0[xX][0-9a-fA-F]+\\b",HNUMBER,0},		// 16 number
-	{"\\$[a-zA-Z]+",REGISTER,0},				// register
-	{"\\b[a-zA-Z_0-9]+" , MARK , 0},		// mark
+	{"\\b[0-9]+\\b",NUMBER,0},			// number
+	{"\\b0[xX][0-9a-fA-F]+\\b",HEX,0},//hex
+	{"\\$[a-zA-Z]+",REGISTER,0},		// register
+	{"\\b[a-zA-Z_0-9]+" , MARK, 0},		// mark
 	{"!=",NEQ,3},						// not equal	
 	{"!",'!',6},						// not
 	{"\\*",'*',5},						// mul
 	{"/",'/',5},						// div
-	{"	+",NOTYPE,0},					// tabs
+	{"\\t+",NOTYPE,0},					// tabs
 	{" +",NOTYPE,0},					// spaces
 	{"\\+",'+',4},						// plus
 	{"-",'-',4},						// sub
 	{"==", EQ,3},						// equal
 	{"&&",AND,2},						// and
-	{"\\|\\|",OR,1},						// or
-	{"\\(",'(',7},                        // left bracket   
-	{"\\)",')',7},                        // right bracket 
+	{"\\|\\|",OR,1},					// or
+	{"\\(",'(',7},                      // left bracket   
+	{"\\)",')',7},                      // right bracket 
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -50,56 +48,50 @@ static regex_t re[NR_REGEX];
 /* Rules are used for many times.
  * Therefore we compile them only once before any usage.
  */
-void init_regex() {
+void init_regex() { // 将正则表达式进行编译,写入re数组
 	int i;
 	char error_msg[128];
 	int ret;
 	for(i = 0; i < NR_REGEX; i ++) { 
 		ret = regcomp(&re[i], rules[i].regex, REG_EXTENDED); 
 		if(ret != 0) {
-			regerror(ret, &re[i], error_msg, 128);
+			regerror(ret, &re[i], error_msg, 128); //解释错误信息
 			Assert(ret == 0, "regex compilation failed: %s\n%s", error_msg, rules[i].regex);
 		}
 	}
 }
 
-typedef struct ttt {
+/* str成员就是用来做这件事情的
+ * 需要注意的是, str成员的长度是有限的, 当你发现缓冲区将要溢出的时候, 要进行相应的处理
+ */
+typedef struct tokens {
 	int type;
-	char str[max_string_long];
+	char str[32];
 	int priority;
 } Tokens;
 
-Tokens token[max_token_num];
+Tokens token[32];
 int nr_token;
-
-/*int	regcomp(regex_t *__restrict, const char *__restrict, int);
-size_t	regerror(int, const regex_t *__restrict, char *__restrict, size_t);
-int	regexec(const regex_t *__restrict, const char *__restrict,
-			size_t, regmatch_t [__restrict], int);
-void	regfree(regex_t *);*/
-
-
 
 static bool make_token(char *e) {
 	int position = 0;
 	int i;
-	regmatch_t pmatch;
+	regmatch_t pmatch; //存放匹配开始位置和结束位置
 	nr_token = 0;
 	while(e[position] != '\0') {
 		/* Try all rules one by one. */
-		for(i = 0; i < NR_REGEX; i ++) {
+		for(i = 0; i < NR_REGEX; i ++) { //必须从开始完成匹配
 			if(regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
 				char *substr_start = e + position;
 				char *tmp = e + position + 1;
-				int substr_len = pmatch.rm_eo;
-//				Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s", i, rules[i].regex, position, substr_len, substr_len, substr_start);
+				int substr_len = pmatch.rm_eo; // eo位置是不匹配字符
 				/* TODO: Now a new token is recognized with rules[i]. Add codes
 				 * to record the token in the array ``tokens''. For certain 
 				 * types of tokens, some extra actions should be performed.
 				 */
 				switch(rules[i].token_type) {
 					case NOTYPE: break;
-					case REGISTER:
+					case REGISTER: //寄存器把那个特殊的头部去掉
 						token[nr_token].type = rules[i].token_type;
 						token[nr_token].priority = rules[i].priority; 
 						strncpy (token[nr_token].str,tmp,substr_len-1);
@@ -112,6 +104,7 @@ static bool make_token(char *e) {
 						strncpy (token[nr_token].str,substr_start,substr_len);
 						token[nr_token].str[substr_len]='\0';
 						nr_token ++;
+						break;
 				}
 				position += substr_len;
 				break;
@@ -125,6 +118,7 @@ static bool make_token(char *e) {
  	}
 	return true; 
 }
+
 bool check_parentheses (int l,int r)
 {
 	int i;
@@ -135,54 +129,63 @@ bool check_parentheses (int l,int r)
 		{
 			if (token[i].type == '(')lc ++;
 			if (token[i].type == ')')rc ++;
-			if (rc > lc)return false;	
+			if (rc > lc) return false;	//右括号数目不能超过左边括号数目
 		}
-		if (lc == rc)return true;
+		if (lc == rc) return true;
 	}
 	return false;
 }
+
+/*
+ *寻找 token[l] 到 token[r] 间的主运算符
+ *出现在一对括号中的token不是主运算符. 注意到这里不会出现有括号包围整个表达式的情况, 因为这种情况已经在check_parentheses()相应的if块中被处理了.
+ *主运算符的优先级在表达式中是最低的. 这是因为主运算符是最后一步才进行的运算符.
+ *当有多个运算符的优先级都是最低时, 根据结合性, 最后被结合的运算符才是主运算符. 一个例子是1 + 2 + 3, 它的主运算符应该是右边的+.
+ */
+
 int dominant_operator (int l,int r)
 {
-	int i,j;
+	int i;
 	int min_priority = 10;
 	int oper = l;
+	int cnt = 0;
 	for (i = l; i <= r;i ++)
 	{
-		if (token[i].type == NUMBER || token[i].type == HNUMBER || token[i].type == REGISTER || token[i].type == MARK)
+		if (token[i].type == NUMBER || token[i].type == HEX || token[i].type == REGISTER || token[i].type == MARK)
 			continue;
-		int cnt = 0;
-		bool key = true;
-		for (j = i - 1; j >= l ;j --)
-		{ 
-			if (token[j].type == '(' && !cnt){key = false;break;}
-			if (token[j].type == '(')cnt --;
-			if (token[j].type == ')')cnt ++; 
+		
+		if (token[i].type == '(') cnt++;
+		if (token[i].type == ')') cnt--;
+		if (cnt != 0) continue; //左边还有括号,还是处于括号之中
+		
+		if (token[i].priority <= min_priority) {
+			min_priority=token[i].priority; oper=i;
 		}
-		if (!key)continue;
-		if (token[i].priority <= min_priority){min_priority = token[i].priority;oper = i;}
  	}
 	return oper;
 }
-uint32_t eval(int l,int r) {
-	if (l > r){Assert (l>r,"something happened!\n");return 0;}
+
+uint32_t eval(int l,int r, bool *legal) {
+	if (!legal) return -1;
+	if (l > r) {Assert (l>r,"表达式计算错误未知!\n");return -1;}
 	if (l == r) 
 	{
 		uint32_t num = 0;
 		if (token[l].type == NUMBER)
 			sscanf(token[l].str,"%d",&num);
-		if (token[l].type == HNUMBER)
+		else if (token[l].type == HEX)
 			sscanf(token[l].str,"%x",&num);
-		if (token[l].type == REGISTER)
+		else if (token[l].type == REGISTER)
 		{
 			if (strlen (token[l].str) == 3) {
-			int i;
-			for (i = R_EAX; i <= R_EDI; i ++)
-				if (strcmp (token[l].str,regsl[i]) == 0)break;
+				int i;
+				for (i = R_EAX; i <= R_EDI; i ++)
+					if (strcmp (token[l].str,regsl[i]) == 0) break;
 				if (i > R_EDI)
-				if (strcmp (token[l].str,"eip") == 0)
-					num = cpu.eip;
-				else Assert (1,"no this register!\n");
-			else num = reg_l(i);
+					if (strcmp (token[l].str,"eip") == 0)
+						num = cpu.eip;
+					else Assert (1,"no this register!\n");
+				else num = reg_l(i);
 			}
 			else if (strlen (token[l].str) == 2) {
 			if (token[l].str[1] == 'x' || token[l].str[1] == 'p' || token[l].str[1] == 'i') {
@@ -200,6 +203,7 @@ uint32_t eval(int l,int r) {
 			else assert (1);
 			}
 		}
+		// 这个部分用于查找符号表中的变量的值
 /*		if (token[l].type == MARK)*/
 /*		{*/
 /*			int i;*/
@@ -207,7 +211,7 @@ uint32_t eval(int l,int r) {
 /*			{*/
 /*				if ((symtab[i].st_info&0xf) == STT_OBJECT)*/
 /*				{*/
-/*					char tmp [max_string_long];*/
+/*					char tmp [32];*/
 /*					int tmplen = symtab[i+1].st_name - symtab[i].st_name - 1;*/
 /*					strncpy (tmp,strtab+symtab[i].st_name,tmplen);*/
 /*					tmp [tmplen] = '\0';*/
@@ -220,24 +224,25 @@ uint32_t eval(int l,int r) {
 /*		}*/
 		return num;
 	}
-	else if (check_parentheses (l,r) == true)return eval (l + 1,r - 1);
+	else if (check_parentheses (l,r) == true) return eval(l + 1, r - 1, legal);
  	else {
 		int op = dominant_operator (l,r);
-//		printf ("op = %d\n",op);
  		if (l == op || token [op].type == POINTOR || token [op].type == MINUS || token [op].type == '!')
 		{
-			uint32_t val = eval (l + 1,r);
+			uint32_t val = eval (l + 1, r, legal);
 			switch (token[l].type)
  			{
 				//case POINTOR:current_sreg = R_DS;return swaddr_read (val,4);
 				case MINUS:return -val;
 				case '!':return !val;
-				default :Assert (1,"default\n");
+				default: 
+					//printf("不合法表达式\n"); //有些主运算符无法处于第一位
+					legal = false;
+					return -1;
 			} 
 		}
-
-		uint32_t val1 = eval (l,op - 1);
-		uint32_t val2 = eval (op + 1,r);
+		uint32_t val1 = eval (l, op - 1, legal);
+		uint32_t val2 = eval (op + 1, r, legal);
 		switch (token[op].type)
 		{
 			case '+':return val1 + val2;
@@ -249,31 +254,32 @@ uint32_t eval(int l,int r) {
 			case AND:return val1 && val2;
 			case OR:return val1 || val2;
 			default:
-			break;
+				//printf("不合法表达式\n"); //有些主运算符无法处于第一位
+				legal = false;
+				return -1;
   		}
   	}
-	assert (1);
-	return -123456;
 }
+
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
 		*success = false;
 		return 0;
   	}
 	int i;
-	for (i = 0;i < nr_token; i ++) {
- 		if (token[i].type == '*' && (i == 0 || (token[i - 1].type != NUMBER && token[i - 1].type != HNUMBER && token[i - 1].type != REGISTER && token[i - 1].type != MARK && token[i - 1].type !=')'))) {
+	for (i = 0;i < nr_token; i ++) { //识别负数和指针
+ 		if (token[i].type == '*' && (i == 0 || (token[i - 1].type != NUMBER && token[i - 1].type != HEX && token[i - 1].type != REGISTER && token[i - 1].type != MARK && token[i - 1].type !=')'))) {
 			token[i].type = POINTOR;
 			token[i].priority = 6;
 		}
-		if (token[i].type == '-' && (i == 0 || (token[i - 1].type != NUMBER && token[i - 1].type != HNUMBER && token[i - 1].type != REGISTER && token[i - 1].type != MARK && token[i - 1].type !=')'))) {
+		if (token[i].type == '-' && (i == 0 || (token[i - 1].type != NUMBER && token[i - 1].type != HEX && token[i - 1].type != REGISTER && token[i - 1].type != MARK && token[i - 1].type !=')'))) {
 			token[i].type = MINUS;
 			token[i].priority = 6;
  		}
   	}
 	/* TODO: Insert codes to evaluate the expression. */	
 	*success = true;
-	return eval (0,nr_token-1);
+	return eval (0, nr_token-1, success);
 }
 
 

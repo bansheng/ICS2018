@@ -120,6 +120,20 @@ static int cmd_scan(char *args) {
 	return 0;
 }
 
+// 计算表达式
+static int cmd_p(char *args) {
+	if(args == NULL)
+	{
+		printf("Please Input the expression to caculate\n");
+		return 0;
+	}
+	bool success = true;
+	uint32_t result = expr(args, &success);
+	if(!success) printf("不合法表达式\n"); //有些主运算符无法处于第一位
+	else printf("%u\n", result);
+	return 0;
+}
+
 // define the cmd_table 命令表
 static struct {
   char *name;
@@ -133,7 +147,8 @@ static struct {
   /* TODO: Add more commands */
   { "si", "Single instruction execution", cmd_si },
   { "info", "Print the regsters or watchpoints", cmd_info },
-  { "x", "Scan the memory to find the value", cmd_scan },//扫描内存
+  { "x", "Scan the memory to find the value", cmd_scan }, //扫描内存
+  { "p", "Caculate the Expression", cmd_p }, //计算表达式
 };
 // 定义最大支持的命令表下标
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
