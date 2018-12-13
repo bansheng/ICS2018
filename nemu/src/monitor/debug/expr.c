@@ -75,7 +75,8 @@ typedef struct tokens {
 	int priority;
 } Tokens;
 
-Tokens token[32];
+#define MAX_TOEKN_NUM 1000
+Tokens token[MAX_TOEKN_NUM];
 int nr_token;
 
 static bool make_token(char *e) {

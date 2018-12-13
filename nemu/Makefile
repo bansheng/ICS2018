@@ -60,6 +60,9 @@ gdb: $(BINARY)
 	$(call git_commit, "gdb")
 	gdb -s $(BINARY) --args $(NEMU_EXEC)
 
+count:
+	find . -name "*.[ch]" | xargs grep '^.' | wc -l
+
 clean: 
 	-rm -rf $(BUILD_DIR)
 	$(MAKE) -C tools/gen-expr clean
