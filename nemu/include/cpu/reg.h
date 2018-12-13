@@ -22,19 +22,19 @@ typedef struct {
   /* Do NOT change the order of the GPRs' definitions. */
   
  
-  union{ 
-	struct{ 
-	   rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
-	 };
 	union{ 
-		paddr_t _32;
-		ioaddr_t _16;
-		bool _8[hlSIZE];
-	} gpr[REGSIZE];
-  };
-
-  vaddr_t eip;
-
+		struct{ 
+		   rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
+		};
+		union{ 
+			paddr_t _32;
+			ioaddr_t _16;
+			bool _8[hlSIZE];
+		} gpr[REGSIZE];
+	};
+	
+	vaddr_t eip;
+	
 } CPU_state;
 
 extern CPU_state cpu;
