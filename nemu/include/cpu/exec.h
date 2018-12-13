@@ -3,6 +3,7 @@
 
 #include "nemu.h"
 
+// 定义一个执行阶段相关的helper函数,执行的时候参数容易处理
 #define make_EHelper(name) void concat(exec_, name) (vaddr_t *eip)
 typedef void (*EHelper) (vaddr_t *);
 

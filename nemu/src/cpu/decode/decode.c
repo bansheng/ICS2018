@@ -9,6 +9,7 @@ void decoding_set_jmp(bool is_jmp) {
   decoding.is_jmp = is_jmp;
 }
 
+// 这些译码函数会进一步分解成各种不同操作数的译码的组合, 以实现操作数译码的解耦
 #define make_DopHelper(name) void concat(decode_op_, name) (vaddr_t *eip, Operand *op, bool load_val)
 
 /* Refer to Appendix A in i386 manual for the explanations of these abbreviations */

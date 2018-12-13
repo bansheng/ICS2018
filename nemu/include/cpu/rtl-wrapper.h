@@ -3,6 +3,7 @@
 
 #include "macro.h"
 
+// 译码
 #define RTL_PREFIX interpret
 
 #define rtl_li        concat(RTL_PREFIX, _rtl_li      )
