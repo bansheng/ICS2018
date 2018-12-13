@@ -1,3 +1,7 @@
+function env_set() {
+    sed -i -e "/^export $2=.*/d" ~/.bashrc
+    echo "export $2=`readlink -e $1`" >> ~/.bashrc
+}
 
 [ -z ${STUID} ]   && echo "STUID must be set (RTFM)"   && exit
 [ -z ${STUNAME} ] && echo "STUNAME must be set (RTFM)" && exit
@@ -24,5 +28,9 @@ git branch -u hustpa/pa2 pa2
 git branch -u hustpa/pa3 pa3
 git branch -u hustpa/pa4 pa4
 git branch -u hustpa/pa5 pa5
+echo "set ENV ..."
+env_set nemu NEMU_HOME
+env_set nexus-am AM_HOME
+env_set navy-apps NAVY_HOME
+source ~/.bashrc
 echo "done!"
-
