@@ -6,44 +6,61 @@ make_EHelper(mov) {
 }
 
 make_EHelper(push) {
-  TODO();
+	// TODO();
+	if(id_dest->width == 1){
+	  	uint8_t utmp = id_dest->val;
+		int8_t temp = utmp;
+		id_dest->val = temp;
+	}
+   	rtl_push(&id_dest->val);  
 
-  print_asm_template1(push);
+	print_asm_template1(push);
 }
 
 make_EHelper(pop) {
-  TODO();
-
-  print_asm_template1(pop);
+	// TODO();
+	rtl_pop(&at);
+	if(id_dest->width == 1){
+		uint8_t utemp = at;
+		int8_t temp = utemp; 
+		id_dest->val = temp;
+	}
+	else 
+	  	id_dest->val = at;
+	
+	print_asm_template1(pop);
 }
 
 make_EHelper(pusha) {
-  TODO();
+	TODO();
 
-  print_asm("pusha");
+	print_asm("pusha");
 }
 
 make_EHelper(popa) {
-  TODO();
+	TODO();
 
-  print_asm("popa");
+	print_asm("popa");
 }
 
 make_EHelper(leave) {
-  TODO();
-
-  print_asm("leave");
+	// TODO();
+	reg_l(4) = reg_l(5);
+	rtl_pop(&at);
+	reg_w(5) = at;
+	
+	print_asm("leave");
 }
 
 make_EHelper(cltd) {
-  if (decoding.is_operand_size_16) {
-    TODO();
-  }
-  else {
-    TODO();
-  }
+	if (decoding.is_operand_size_16) {
+		TODO();
+	}
+	else {
+		TODO();
+	}
 
-  print_asm(decoding.is_operand_size_16 ? "cwtl" : "cltd");
+	print_asm(decoding.is_operand_size_16 ? "cwtl" : "cltd");
 }
 
 make_EHelper(cwtl) {

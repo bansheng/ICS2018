@@ -4,6 +4,7 @@
 #define str_temp(x) #x
 #define str(x) str_temp(x)
 
+// ##作为连接符,连接前后两个字符串
 #define concat_temp(x, y) x ## y
 #define concat(x, y) concat_temp(x, y)
 #define concat3(x, y, z) concat(concat(x, y), z)

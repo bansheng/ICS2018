@@ -9,17 +9,18 @@ typedef void (*EHelper) (vaddr_t *);
 
 #include "cpu/decode.h"
 
+// 取指令函数
 static inline uint32_t instr_fetch(vaddr_t *eip, int len) {
-  uint32_t instr = vaddr_read(*eip, len);
+	uint32_t instr = vaddr_read(*eip, len);
 #ifdef DEBUG
-  uint8_t *p_instr = (void *)&instr;
-  int i;
-  for (i = 0; i < len; i ++) {
-    decoding.p += sprintf(decoding.p, "%02x ", p_instr[i]);
-  }
+	uint8_t *p_instr = (void *)&instr;
+	int i;
+	for (i = 0; i < len; i ++) {
+		decoding.p += sprintf(decoding.p, "%02x ", p_instr[i]);
+	}
 #endif
-  (*eip) += len;
-  return instr;
+	(*eip) += len;
+	return instr;
 }
 
 #ifdef DEBUG

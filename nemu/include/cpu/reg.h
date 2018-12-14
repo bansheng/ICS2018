@@ -34,6 +34,21 @@ typedef struct {
 	};
 	
 	vaddr_t eip;
+	union {
+		struct {
+			uint8_t CF  :   1;
+			uint8_t DEF1:	  1;
+			uint8_t DEF2:	  4;
+			uint8_t ZF  :   1;
+			uint8_t SF  :   1;
+			uint8_t DEF3:   1;
+			uint8_t IF  :   1;
+			uint8_t DEF4:   1;
+			uint8_t OF  :   1;
+			uint32_t DEF5:  20;
+		} eflags;
+		uint32_t flags;
+	};
 	
 } CPU_state;
 
