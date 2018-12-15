@@ -28,18 +28,16 @@ static inline void idex(vaddr_t *eip, opcode_entry *e) {
     e->decode(eip);
 
   e->execute(eip);
-  bool a =true;
-  if( decoding.jmp_eip != 0 || a)
-  {
-  	printf("0x%x\n", decoding.opcode);
-  	a = false;
-  }
-  else
-  {
-  	printf("0x%x\n", cpu.eip);
-  	assert(0);
-  }
-  	
+/*  if( decoding.jmp_eip != 0 || a)*/
+/*  {*/
+/*  	printf("0x%x\n", decoding.opcode);*/
+/*  }*/
+/*  else*/
+/*  {*/
+/*  	printf("0x%x\n", cpu.eip);*/
+/*  	assert(0);*/
+/*  }*/
+/*  	*/
 }
 
 static make_EHelper(2byte_esc);
