@@ -28,8 +28,12 @@ static inline void idex(vaddr_t *eip, opcode_entry *e) {
     e->decode(eip);
 
   e->execute(eip);
-  if( decoding.jmp_eip != 0)
+  bool a =true;
+  if( decoding.jmp_eip != 0 || a)
+  {
   	printf("0x%x\n", decoding.opcode);
+  	a = false;
+  }
   else
   {
   	printf("0x%x\n", cpu.eip);
