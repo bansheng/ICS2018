@@ -160,3 +160,36 @@ Building select-sort [x86-nemu] with AM_HOME {/home/dyd/U201514658/NEMU/ics2018/
 Building am [x86-nemu]
 Building klib [x86-nemu]
 Building compiler-rt [x86-nemu]
+[1;34m[src/monitor/monitor.c,72,load_img] The image is /home/dyd/U201514658/NEMU/ics2018/nexus-am/tests/cputest/build/select-sort-x86-nemu.bin[0m
+[1;34m[src/monitor/monitor.c,28,welcome] Debug: [1;32mON[0m[0m
+[1;34m[src/monitor/monitor.c,31,welcome] If debug mode is on, A log file will be generated to record every instruction NEMU executes. This may lead to a large log file. If it is not necessary, you can turn it off in include/common.h.[0m
+[1;34m[src/monitor/monitor.c,36,welcome] Build time: 10:01:30, Dec 14 2018[0m
+Welcome to NEMU!
+For help, type "help"
+invalid opcode(eip = 0x00007ba8): d8 7b 00 00 78 01 10 00 ...
+
+There are two cases which will trigger this unexpected exception:
+1. The instruction at eip = 0x00007ba8 is not implemented.
+2. Something is implemented incorrectly.
+Find this eip(0x00007ba8) in the disassembling result to distinguish which case it is.
+
+[1;31mIf it is the first case, see
+ _ ____   ___    __    __  __                         _ 
+(_)___ \ / _ \  / /   |  \/  |                       | |
+ _  __) | (_) |/ /_   | \  / | __ _ _ __  _   _  __ _| |
+| ||__ < > _ <| '_ \  | |\/| |/ _` | '_ \| | | |/ _` | |
+| |___) | (_) | (_) | | |  | | (_| | | | | |_| | (_| | |
+|_|____/ \___/ \___/  |_|  |_|\__,_|_| |_|\__,_|\__,_|_|
+
+for more details.
+
+If it is the second case, remember:
+* The machine is always right!
+* Every line of untested code is always wrong![0m
+
+[1;31mnemu: ABORT[0m at eip = 0x00007bb0
+
+Building unalign [x86-nemu] with AM_HOME {/home/dyd/U201514658/NEMU/ics2018/nexus-am}
+Building am [x86-nemu]
+Building klib [x86-nemu]
+Building compiler-rt [x86-nemu]
