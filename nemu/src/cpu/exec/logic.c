@@ -2,7 +2,7 @@
 #include "cpu/cc.h"
 
 make_EHelper(test) {
-	//TODO();
+	// TODO();
 	rtl_and(&at, &id_dest->val, &id_src->val);
 	t0 = 0;
 	rtl_set_OF(&t0);
@@ -13,7 +13,7 @@ make_EHelper(test) {
 }
 
 make_EHelper(and) {
-	//TODO()
+	// TODO()
 	rtl_and(&at, &id_dest->val, &id_src->val);
 	t0 = 0;
 
@@ -25,7 +25,7 @@ make_EHelper(and) {
 }
 
 make_EHelper(xor) {
-	//TODO();
+	// TODO();
 	rtl_xor(&at, &id_dest->val, &id_src->val);
 	t0 = 0;
 
@@ -77,8 +77,11 @@ make_EHelper(shl) {
 }
 
 make_EHelper(shr) {
-	TODO();
+	// TODO();
 	// unnecessary to update CF and OF in NEMU
+	rtl_shr(&t2, &id_dest->val, &id_src->val);
+	operand_write(id_dest, &t2);
+	rtl_update_ZFSF(&t2, id_dest->width);
 
 	print_asm_template2(shr);
 }
@@ -93,7 +96,9 @@ make_EHelper(setcc) {
 }
 
 make_EHelper(not) {
-	TODO();
+	// TODO();
+	rtl_not(&id_dest->val, &id_dest->val);
+	operand_write(id_dest, &id_dest->val);
 
 	print_asm_template1(not);
 }

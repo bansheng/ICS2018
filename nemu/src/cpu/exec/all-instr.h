@@ -1,44 +1,64 @@
 #include "cpu/exec.h"
 
 make_EHelper(mov);
+make_EHelper(movzx);
+make_EHelper(movsx);
+make_EHelper(cltd);
+make_EHelper(cwtl);
+
+make_EHelper(call);
+make_EHelper(call_rm);
+make_EHelper(ret);
+
+make_EHelper(push);
+make_EHelper(pop);
+make_EHelper(pusha);
+make_EHelper(popa);
+make_EHelper(leave);
+
+make_EHelper(sub);
+make_EHelper(sbb);
+make_EHelper(add);
+make_EHelper(div);
+make_EHelper(idiv);
+make_EHelper(adc);
+make_EHelper(inc);
+make_EHelper(dec);
+make_EHelper(neg);
+make_EHelper(mul);
+make_EHelper(imul);
+make_EHelper(imul1);
+make_EHelper(imul2);
+
+make_EHelper(xor);
+make_EHelper(and);
+make_EHelper(or);
+make_EHelper(shl);
+make_EHelper(shr);
+make_EHelper(sar);
+make_EHelper(rol);
+make_EHelper(not);
+
+make_EHelper(cmp);
+
+make_EHelper(lea);
+
+make_EHelper(jmp);
+make_EHelper(jmp_rm);
+make_EHelper(jcc);
+
+make_EHelper(test);
+
+make_EHelper(nop);
+make_EHelper(setcc);
 
 make_EHelper(operand_size);
 
 make_EHelper(inv);
 make_EHelper(nemu_trap);
 
-// 01 
-make_EHelper(call);
-// 02
-make_EHelper(nop);
-// 03 
-make_EHelper(push);
-// 04 
-make_EHelper(sub);
-// 05
-make_EHelper(jmp);
-// 06 
-make_EHelper(xor);
-// 07
-make_EHelper(pop);
-// 08
-make_EHelper(ret); 
-
-//9th 已经完成
-make_EHelper(lea);
-//10th 
-make_EHelper(and);
-//11th
-make_EHelper(add);
-//12th
-make_EHelper(cmp);
-//13th
-make_EHelper(test);
-//14
-make_EHelper(setcc);
-//15
-make_EHelper(movzx);
-//16th
-make_EHelper(jcc);
-//17th
-make_EHelper(leave);
+make_EHelper(out);
+make_EHelper(in);
+make_EHelper(int);
+make_EHelper(lidt);
+make_EHelper(iret);
