@@ -26,11 +26,16 @@ static inline void idex(vaddr_t *eip, opcode_entry *e) {
   /* eip is pointing to the byte next to opcode */
   if (e->decode)
     e->decode(eip);
-  if( decoding.opcode != 0)
+
+  e->execute(eip);
+  if( decoding.jmp_eip != 0)
   	printf("0x%x\n", decoding.opcode);
   else
-  	panic("aaaa\n");
-  e->execute(eip);
+  {
+  	printf("0x%x\n", cpu.eip);
+  	assert(0);
+  }
+  	
 }
 
 static make_EHelper(2byte_esc);
