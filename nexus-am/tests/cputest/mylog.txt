@@ -2,240 +2,126 @@ Building shuixianhua [x86-nemu] with AM_HOME {/home/dyd/U201514658/NEMU/ics2018/
 Building am [x86-nemu]
 Building klib [x86-nemu]
 Building compiler-rt [x86-nemu]
-[1;34m[src/monitor/monitor.c,72,load_img] The image is /home/dyd/U201514658/NEMU/ics2018/nexus-am/tests/cputest/build/shuixianhua-x86-nemu.bin[0m
-[1;34m[src/monitor/monitor.c,28,welcome] Debug: [1;32mON[0m[0m
-[1;34m[src/monitor/monitor.c,31,welcome] If debug mode is on, A log file will be generated to record every instruction NEMU executes. This may lead to a large log file. If it is not necessary, you can turn it off in include/common.h.[0m
-[1;34m[src/monitor/monitor.c,36,welcome] Build time: 10:01:30, Dec 14 2018[0m
-Welcome to NEMU!
-For help, type "help"
-invalid opcode(eip = 0x001000c9): 99 f7 ff 89 c8 0f af c1 ...
-
-There are two cases which will trigger this unexpected exception:
-1. The instruction at eip = 0x001000c9 is not implemented.
-2. Something is implemented incorrectly.
-Find this eip(0x001000c9) in the disassembling result to distinguish which case it is.
-
-[1;31mIf it is the first case, see
- _ ____   ___    __    __  __                         _ 
-(_)___ \ / _ \  / /   |  \/  |                       | |
- _  __) | (_) |/ /_   | \  / | __ _ _ __  _   _  __ _| |
-| ||__ < > _ <| '_ \  | |\/| |/ _` | '_ \| | | |/ _` | |
-| |___) | (_) | (_) | | |  | | (_| | | | | |_| | (_| | |
-|_|____/ \___/ \___/  |_|  |_|\__,_|_| |_|\__,_|\__,_|_|
-
-for more details.
-
-If it is the second case, remember:
-* The machine is always right!
-* Every line of untested code is always wrong![0m
-
-[1;31mnemu: ABORT[0m at eip = 0x001000d1
-
++ CC src/cpu/exec/exec.c
++ CC src/cpu/exec/data-mov.c
+Makefile:31: recipe for target 'build/obj/cpu/exec/data-mov.o' failed
+/home/dyd/U201514658/NEMU/ics2018/nexus-am/Makefile.app:31: recipe for target 'run' failed
+Makefile:12: recipe for target 'Makefile.shuixianhua' failed
 Building bubble-sort [x86-nemu] with AM_HOME {/home/dyd/U201514658/NEMU/ics2018/nexus-am}
 Building am [x86-nemu]
 Building klib [x86-nemu]
 Building compiler-rt [x86-nemu]
-[1;34m[src/monitor/monitor.c,72,load_img] The image is /home/dyd/U201514658/NEMU/ics2018/nexus-am/tests/cputest/build/bubble-sort-x86-nemu.bin[0m
-[1;34m[src/monitor/monitor.c,28,welcome] Debug: [1;32mON[0m[0m
-[1;34m[src/monitor/monitor.c,31,welcome] If debug mode is on, A log file will be generated to record every instruction NEMU executes. This may lead to a large log file. If it is not necessary, you can turn it off in include/common.h.[0m
-[1;34m[src/monitor/monitor.c,36,welcome] Build time: 10:01:30, Dec 14 2018[0m
-Welcome to NEMU!
-For help, type "help"
-Makefile:56: recipe for target 'run' failed
++ CC src/cpu/exec/data-mov.c
+Makefile:31: recipe for target 'build/obj/cpu/exec/data-mov.o' failed
 /home/dyd/U201514658/NEMU/ics2018/nexus-am/Makefile.app:31: recipe for target 'run' failed
 Makefile:12: recipe for target 'Makefile.bubble-sort' failed
 Building load-store [x86-nemu] with AM_HOME {/home/dyd/U201514658/NEMU/ics2018/nexus-am}
 Building am [x86-nemu]
 Building klib [x86-nemu]
 Building compiler-rt [x86-nemu]
-[1;34m[src/monitor/monitor.c,72,load_img] The image is /home/dyd/U201514658/NEMU/ics2018/nexus-am/tests/cputest/build/load-store-x86-nemu.bin[0m
-[1;34m[src/monitor/monitor.c,28,welcome] Debug: [1;32mON[0m[0m
-[1;34m[src/monitor/monitor.c,31,welcome] If debug mode is on, A log file will be generated to record every instruction NEMU executes. This may lead to a large log file. If it is not necessary, you can turn it off in include/common.h.[0m
-[1;34m[src/monitor/monitor.c,36,welcome] Build time: 10:01:30, Dec 14 2018[0m
-Welcome to NEMU!
-For help, type "help"
-invalid opcode(eip = 0x00007ba8): d8 7b 00 00 38 01 10 00 ...
-
-There are two cases which will trigger this unexpected exception:
-1. The instruction at eip = 0x00007ba8 is not implemented.
-2. Something is implemented incorrectly.
-Find this eip(0x00007ba8) in the disassembling result to distinguish which case it is.
-
-[1;31mIf it is the first case, see
- _ ____   ___    __    __  __                         _ 
-(_)___ \ / _ \  / /   |  \/  |                       | |
- _  __) | (_) |/ /_   | \  / | __ _ _ __  _   _  __ _| |
-| ||__ < > _ <| '_ \  | |\/| |/ _` | '_ \| | | |/ _` | |
-| |___) | (_) | (_) | | |  | | (_| | | | | |_| | (_| | |
-|_|____/ \___/ \___/  |_|  |_|\__,_|_| |_|\__,_|\__,_|_|
-
-for more details.
-
-If it is the second case, remember:
-* The machine is always right!
-* Every line of untested code is always wrong![0m
-
-[1;31mnemu: ABORT[0m at eip = 0x00007bb0
-
++ CC src/cpu/exec/data-mov.c
+Makefile:31: recipe for target 'build/obj/cpu/exec/data-mov.o' failed
+/home/dyd/U201514658/NEMU/ics2018/nexus-am/Makefile.app:31: recipe for target 'run' failed
+Makefile:12: recipe for target 'Makefile.load-store' failed
 Building prime [x86-nemu] with AM_HOME {/home/dyd/U201514658/NEMU/ics2018/nexus-am}
 Building am [x86-nemu]
 Building klib [x86-nemu]
 Building compiler-rt [x86-nemu]
-[1;34m[src/monitor/monitor.c,72,load_img] The image is /home/dyd/U201514658/NEMU/ics2018/nexus-am/tests/cputest/build/prime-x86-nemu.bin[0m
-[1;34m[src/monitor/monitor.c,28,welcome] Debug: [1;32mON[0m[0m
-[1;34m[src/monitor/monitor.c,31,welcome] If debug mode is on, A log file will be generated to record every instruction NEMU executes. This may lead to a large log file. If it is not necessary, you can turn it off in include/common.h.[0m
-[1;34m[src/monitor/monitor.c,36,welcome] Build time: 10:01:30, Dec 14 2018[0m
-Welcome to NEMU!
-For help, type "help"
-invalid opcode(eip = 0x0010006e): 99 f7 f9 85 d2 74 1e 41 ...
-
-There are two cases which will trigger this unexpected exception:
-1. The instruction at eip = 0x0010006e is not implemented.
-2. Something is implemented incorrectly.
-Find this eip(0x0010006e) in the disassembling result to distinguish which case it is.
-
-[1;31mIf it is the first case, see
- _ ____   ___    __    __  __                         _ 
-(_)___ \ / _ \  / /   |  \/  |                       | |
- _  __) | (_) |/ /_   | \  / | __ _ _ __  _   _  __ _| |
-| ||__ < > _ <| '_ \  | |\/| |/ _` | '_ \| | | |/ _` | |
-| |___) | (_) | (_) | | |  | | (_| | | | | |_| | (_| | |
-|_|____/ \___/ \___/  |_|  |_|\__,_|_| |_|\__,_|\__,_|_|
-
-for more details.
-
-If it is the second case, remember:
-* The machine is always right!
-* Every line of untested code is always wrong![0m
-
-[1;31mnemu: ABORT[0m at eip = 0x00100076
-
++ CC src/cpu/exec/data-mov.c
+Makefile:31: recipe for target 'build/obj/cpu/exec/data-mov.o' failed
+/home/dyd/U201514658/NEMU/ics2018/nexus-am/Makefile.app:31: recipe for target 'run' failed
+Makefile:12: recipe for target 'Makefile.prime' failed
 Building add [x86-nemu] with AM_HOME {/home/dyd/U201514658/NEMU/ics2018/nexus-am}
 Building am [x86-nemu]
 Building klib [x86-nemu]
 Building compiler-rt [x86-nemu]
-[1;34m[src/monitor/monitor.c,72,load_img] The image is /home/dyd/U201514658/NEMU/ics2018/nexus-am/tests/cputest/build/add-x86-nemu.bin[0m
-[1;34m[src/monitor/monitor.c,28,welcome] Debug: [1;32mON[0m[0m
-[1;34m[src/monitor/monitor.c,31,welcome] If debug mode is on, A log file will be generated to record every instruction NEMU executes. This may lead to a large log file. If it is not necessary, you can turn it off in include/common.h.[0m
-[1;34m[src/monitor/monitor.c,36,welcome] Build time: 10:01:30, Dec 14 2018[0m
-Welcome to NEMU!
-For help, type "help"
-[1;31mnemu: HIT GOOD TRAP[0m at eip = 0x00100027
-
-[1;34m[src/monitor/cpu-exec.c,23,monitor_statistic] total guest instructions = 1497[0m
++ CC src/cpu/exec/data-mov.c
+Makefile:31: recipe for target 'build/obj/cpu/exec/data-mov.o' failed
+/home/dyd/U201514658/NEMU/ics2018/nexus-am/Makefile.app:31: recipe for target 'run' failed
+Makefile:12: recipe for target 'Makefile.add' failed
 Building recursion [x86-nemu] with AM_HOME {/home/dyd/U201514658/NEMU/ics2018/nexus-am}
 Building am [x86-nemu]
 Building klib [x86-nemu]
 Building compiler-rt [x86-nemu]
-[1;34m[src/monitor/monitor.c,72,load_img] The image is /home/dyd/U201514658/NEMU/ics2018/nexus-am/tests/cputest/build/recursion-x86-nemu.bin[0m
-[1;34m[src/monitor/monitor.c,28,welcome] Debug: [1;32mON[0m[0m
-[1;34m[src/monitor/monitor.c,31,welcome] If debug mode is on, A log file will be generated to record every instruction NEMU executes. This may lead to a large log file. If it is not necessary, you can turn it off in include/common.h.[0m
-[1;34m[src/monitor/monitor.c,36,welcome] Build time: 10:01:30, Dec 14 2018[0m
-Welcome to NEMU!
-For help, type "help"
-invalid opcode(eip = 0x0010018b): 68 23 38 00 00 ff 15 f8 ...
-
-There are two cases which will trigger this unexpected exception:
-1. The instruction at eip = 0x0010018b is not implemented.
-2. Something is implemented incorrectly.
-Find this eip(0x0010018b) in the disassembling result to distinguish which case it is.
-
-[1;31mIf it is the first case, see
- _ ____   ___    __    __  __                         _ 
-(_)___ \ / _ \  / /   |  \/  |                       | |
- _  __) | (_) |/ /_   | \  / | __ _ _ __  _   _  __ _| |
-| ||__ < > _ <| '_ \  | |\/| |/ _` | '_ \| | | |/ _` | |
-| |___) | (_) | (_) | | |  | | (_| | | | | |_| | (_| | |
-|_|____/ \___/ \___/  |_|  |_|\__,_|_| |_|\__,_|\__,_|_|
-
-for more details.
-
-If it is the second case, remember:
-* The machine is always right!
-* Every line of untested code is always wrong![0m
-
-[1;31mnemu: ABORT[0m at eip = 0x00100193
-
++ CC src/cpu/exec/data-mov.c
+Makefile:31: recipe for target 'build/obj/cpu/exec/data-mov.o' failed
+/home/dyd/U201514658/NEMU/ics2018/nexus-am/Makefile.app:31: recipe for target 'run' failed
+Makefile:12: recipe for target 'Makefile.recursion' failed
 Building select-sort [x86-nemu] with AM_HOME {/home/dyd/U201514658/NEMU/ics2018/nexus-am}
 Building am [x86-nemu]
 Building klib [x86-nemu]
 Building compiler-rt [x86-nemu]
-[1;34m[src/monitor/monitor.c,72,load_img] The image is /home/dyd/U201514658/NEMU/ics2018/nexus-am/tests/cputest/build/select-sort-x86-nemu.bin[0m
-[1;34m[src/monitor/monitor.c,28,welcome] Debug: [1;32mON[0m[0m
-[1;34m[src/monitor/monitor.c,31,welcome] If debug mode is on, A log file will be generated to record every instruction NEMU executes. This may lead to a large log file. If it is not necessary, you can turn it off in include/common.h.[0m
-[1;34m[src/monitor/monitor.c,36,welcome] Build time: 10:01:30, Dec 14 2018[0m
-Welcome to NEMU!
-For help, type "help"
-invalid opcode(eip = 0x00007ba8): d8 7b 00 00 78 01 10 00 ...
-
-There are two cases which will trigger this unexpected exception:
-1. The instruction at eip = 0x00007ba8 is not implemented.
-2. Something is implemented incorrectly.
-Find this eip(0x00007ba8) in the disassembling result to distinguish which case it is.
-
-[1;31mIf it is the first case, see
- _ ____   ___    __    __  __                         _ 
-(_)___ \ / _ \  / /   |  \/  |                       | |
- _  __) | (_) |/ /_   | \  / | __ _ _ __  _   _  __ _| |
-| ||__ < > _ <| '_ \  | |\/| |/ _` | '_ \| | | |/ _` | |
-| |___) | (_) | (_) | | |  | | (_| | | | | |_| | (_| | |
-|_|____/ \___/ \___/  |_|  |_|\__,_|_| |_|\__,_|\__,_|_|
-
-for more details.
-
-If it is the second case, remember:
-* The machine is always right!
-* Every line of untested code is always wrong![0m
-
-[1;31mnemu: ABORT[0m at eip = 0x00007bb0
-
++ CC src/cpu/exec/data-mov.c
+Makefile:31: recipe for target 'build/obj/cpu/exec/data-mov.o' failed
+/home/dyd/U201514658/NEMU/ics2018/nexus-am/Makefile.app:31: recipe for target 'run' failed
+Makefile:12: recipe for target 'Makefile.select-sort' failed
 Building unalign [x86-nemu] with AM_HOME {/home/dyd/U201514658/NEMU/ics2018/nexus-am}
 Building am [x86-nemu]
 Building klib [x86-nemu]
 Building compiler-rt [x86-nemu]
-[1;34m[src/monitor/monitor.c,72,load_img] The image is /home/dyd/U201514658/NEMU/ics2018/nexus-am/tests/cputest/build/unalign-x86-nemu.bin[0m
-[1;34m[src/monitor/monitor.c,28,welcome] Debug: [1;32mON[0m[0m
-[1;34m[src/monitor/monitor.c,31,welcome] If debug mode is on, A log file will be generated to record every instruction NEMU executes. This may lead to a large log file. If it is not necessary, you can turn it off in include/common.h.[0m
-[1;34m[src/monitor/monitor.c,36,welcome] Build time: 10:01:30, Dec 14 2018[0m
-Welcome to NEMU!
-For help, type "help"
-[1;31mnemu: HIT GOOD TRAP[0m at eip = 0x00100027
-
-[1;34m[src/monitor/cpu-exec.c,23,monitor_statistic] total guest instructions = 111[0m
++ CC src/cpu/exec/data-mov.c
+Makefile:31: recipe for target 'build/obj/cpu/exec/data-mov.o' failed
+/home/dyd/U201514658/NEMU/ics2018/nexus-am/Makefile.app:31: recipe for target 'run' failed
+Makefile:12: recipe for target 'Makefile.unalign' failed
 Building shift [x86-nemu] with AM_HOME {/home/dyd/U201514658/NEMU/ics2018/nexus-am}
 Building am [x86-nemu]
 Building klib [x86-nemu]
 Building compiler-rt [x86-nemu]
-[1;34m[src/monitor/monitor.c,72,load_img] The image is /home/dyd/U201514658/NEMU/ics2018/nexus-am/tests/cputest/build/shift-x86-nemu.bin[0m
-[1;34m[src/monitor/monitor.c,28,welcome] Debug: [1;32mON[0m[0m
-[1;34m[src/monitor/monitor.c,31,welcome] If debug mode is on, A log file will be generated to record every instruction NEMU executes. This may lead to a large log file. If it is not necessary, you can turn it off in include/common.h.[0m
-[1;34m[src/monitor/monitor.c,36,welcome] Build time: 10:01:30, Dec 14 2018[0m
-Welcome to NEMU!
-For help, type "help"
-invalid opcode(eip = 0x00007bb8): d8 7b 00 00 dd 00 10 00 ...
-
-There are two cases which will trigger this unexpected exception:
-1. The instruction at eip = 0x00007bb8 is not implemented.
-2. Something is implemented incorrectly.
-Find this eip(0x00007bb8) in the disassembling result to distinguish which case it is.
-
-[1;31mIf it is the first case, see
- _ ____   ___    __    __  __                         _ 
-(_)___ \ / _ \  / /   |  \/  |                       | |
- _  __) | (_) |/ /_   | \  / | __ _ _ __  _   _  __ _| |
-| ||__ < > _ <| '_ \  | |\/| |/ _` | '_ \| | | |/ _` | |
-| |___) | (_) | (_) | | |  | | (_| | | | | |_| | (_| | |
-|_|____/ \___/ \___/  |_|  |_|\__,_|_| |_|\__,_|\__,_|_|
-
-for more details.
-
-If it is the second case, remember:
-* The machine is always right!
-* Every line of untested code is always wrong![0m
-
-[1;31mnemu: ABORT[0m at eip = 0x00007bc0
-
++ CC src/cpu/exec/data-mov.c
+Makefile:31: recipe for target 'build/obj/cpu/exec/data-mov.o' failed
+/home/dyd/U201514658/NEMU/ics2018/nexus-am/Makefile.app:31: recipe for target 'run' failed
+Makefile:12: recipe for target 'Makefile.shift' failed
 Building goldbach [x86-nemu] with AM_HOME {/home/dyd/U201514658/NEMU/ics2018/nexus-am}
 Building am [x86-nemu]
 Building klib [x86-nemu]
 Building compiler-rt [x86-nemu]
++ CC src/cpu/exec/data-mov.c
+Makefile:31: recipe for target 'build/obj/cpu/exec/data-mov.o' failed
+/home/dyd/U201514658/NEMU/ics2018/nexus-am/Makefile.app:31: recipe for target 'run' failed
+Makefile:12: recipe for target 'Makefile.goldbach' failed
+Building mul-longlong [x86-nemu] with AM_HOME {/home/dyd/U201514658/NEMU/ics2018/nexus-am}
+Building am [x86-nemu]
+Building klib [x86-nemu]
+Building compiler-rt [x86-nemu]
++ CC src/cpu/exec/data-mov.c
+Makefile:31: recipe for target 'build/obj/cpu/exec/data-mov.o' failed
+/home/dyd/U201514658/NEMU/ics2018/nexus-am/Makefile.app:31: recipe for target 'run' failed
+Makefile:12: recipe for target 'Makefile.mul-longlong' failed
+Building movsx [x86-nemu] with AM_HOME {/home/dyd/U201514658/NEMU/ics2018/nexus-am}
+Building am [x86-nemu]
+Building klib [x86-nemu]
+Building compiler-rt [x86-nemu]
++ CC src/cpu/exec/data-mov.c
+Makefile:31: recipe for target 'build/obj/cpu/exec/data-mov.o' failed
+/home/dyd/U201514658/NEMU/ics2018/nexus-am/Makefile.app:31: recipe for target 'run' failed
+Makefile:12: recipe for target 'Makefile.movsx' failed
+Building max [x86-nemu] with AM_HOME {/home/dyd/U201514658/NEMU/ics2018/nexus-am}
+Building am [x86-nemu]
+Building klib [x86-nemu]
+Building compiler-rt [x86-nemu]
++ CC src/cpu/exec/data-mov.c
+Makefile:31: recipe for target 'build/obj/cpu/exec/data-mov.o' failed
+/home/dyd/U201514658/NEMU/ics2018/nexus-am/Makefile.app:31: recipe for target 'run' failed
+Makefile:12: recipe for target 'Makefile.max' failed
+Building bit [x86-nemu] with AM_HOME {/home/dyd/U201514658/NEMU/ics2018/nexus-am}
+Building am [x86-nemu]
+Building klib [x86-nemu]
+Building compiler-rt [x86-nemu]
++ CC src/cpu/exec/data-mov.c
+Makefile:31: recipe for target 'build/obj/cpu/exec/data-mov.o' failed
+/home/dyd/U201514658/NEMU/ics2018/nexus-am/Makefile.app:31: recipe for target 'run' failed
+Makefile:12: recipe for target 'Makefile.bit' failed
+Building if-else [x86-nemu] with AM_HOME {/home/dyd/U201514658/NEMU/ics2018/nexus-am}
+Building am [x86-nemu]
+Building klib [x86-nemu]
+Building compiler-rt [x86-nemu]
++ CC src/cpu/exec/data-mov.c
+Makefile:31: recipe for target 'build/obj/cpu/exec/data-mov.o' failed
+/home/dyd/U201514658/NEMU/ics2018/nexus-am/Makefile.app:31: recipe for target 'run' failed
+Makefile:12: recipe for target 'Makefile.if-else' failed
+Building sum [x86-nemu] with AM_HOME {/home/dyd/U201514658/NEMU/ics2018/nexus-am}
+Building am [x86-nemu]
+Building klib [x86-nemu]
+Building compiler-rt [x86-nemu]
+/home/dyd/U201514658/NEMU/ics2018/nexus-am/Makefile.app:31: recipe for target 'run' failed
+Makefile:12: recipe for target 'Makefile.sum' failed
