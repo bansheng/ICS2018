@@ -12,11 +12,16 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 }
 
 int sprintf(char *out, const char *fmt, ...) {
-  return 0;
+	va_list args;
+	va_start(args, fmt);
+	vsprintf(out,fmt, args);// This still uses standaes formating
+	va_end(args);
+	return 0;// Before return you can redefine it back if you want...
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
-  return 0;
+	
+  	return 0;
 }
 
 #endif
