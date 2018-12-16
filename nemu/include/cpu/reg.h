@@ -33,7 +33,7 @@ typedef struct {
 		} gpr[REGSIZE];
 	};
 	
-	vaddr_t eip;
+	
 	union {
 		struct {
 			uint8_t CF  :   1;
@@ -50,11 +50,15 @@ typedef struct {
 		uint32_t flags;
 	};
 	
-	struct{
+	bool INTR;
+
+	struct {
 		uint16_t limit;
 		uint32_t base;
-	}idtr;
+	} idtr;
+	uint16_t cs;
 	
+	vaddr_t eip;
 } CPU_state;
 
 extern CPU_state cpu;
