@@ -340,3 +340,16 @@ Building pascal [x86-nemu] with AM_HOME {/home/dyd/U201514658/NEMU/ics2018/nexus
 Building am [x86-nemu]
 Building klib [x86-nemu]
 Building compiler-rt [x86-nemu]
+[1;34m[src/monitor/monitor.c,72,load_img] The image is /home/dyd/U201514658/NEMU/ics2018/nexus-am/tests/cputest/build/pascal-x86-nemu.bin[0m
+[1;34m[src/monitor/monitor.c,28,welcome] Debug: [1;32mON[0m[0m
+[1;34m[src/monitor/monitor.c,31,welcome] If debug mode is on, A log file will be generated to record every instruction NEMU executes. This may lead to a large log file. If it is not necessary, you can turn it off in include/common.h.[0m
+[1;34m[src/monitor/monitor.c,36,welcome] Build time: 12:28:49, Dec 16 2018[0m
+Welcome to NEMU!
+For help, type "help"
+[1;31mnemu: HIT GOOD TRAP[0m at eip = 0x00100027
+
+[1;34m[src/monitor/cpu-exec.c,23,monitor_statistic] total guest instructions = 3876[0m
+Building switch [x86-nemu] with AM_HOME {/home/dyd/U201514658/NEMU/ics2018/nexus-am}
+Building am [x86-nemu]
+Building klib [x86-nemu]
+Building compiler-rt [x86-nemu]
