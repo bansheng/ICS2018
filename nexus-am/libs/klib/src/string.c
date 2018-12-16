@@ -58,6 +58,7 @@ int strcmp(const char* s1, const char* s2) { //pass
 }
 
 int strncmp(const char* s1, const char* s2, size_t n) { //pass
+	assert((s1 != NULL) && (s2 != NULL));
 	int a = 0;
 	while( (a = (*s1 - *s2)) == 0 && *s1 && *s2 && n--) {
 		s1++;
@@ -67,12 +68,13 @@ int strncmp(const char* s1, const char* s2, size_t n) { //pass
 }
 
 void* memset(void* v,int c,size_t n) {
-  char * pvTo=(char *)v;
-  assert(v != NULL);
-  while(n-- >0)
-    *pvTo++ = (char)c;
-  *pvTo = '\0';
-  return v;
+	void* ret = v;
+    while(n--)
+    {
+        *(char*)v = (char)c;
+        v = (char*)v + 1; //移动一个字节
+    }
+    return ret;
 }
 
 void* memcpy(void* out, const void* in, size_t n) {
