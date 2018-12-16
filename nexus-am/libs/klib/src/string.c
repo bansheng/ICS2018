@@ -2,11 +2,11 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
-size_t strlen(const char *s) {
-  int len = 0;
-  while(*s++ != '\0')
-        len++;
-  return len;
+size_t strlen(const char *s) { // pass
+	size_t size = 0;
+	while(*(s++)) size++;
+	// printf("%s %d\n", s, (int)size);
+	return size;
 }
 
 char *strcpy(char* dst,const char* src) {
@@ -69,7 +69,7 @@ void* memcpy(void* out, const void* in, size_t n) {
 }
 
 int memcmp(const void* s1, const void* s2, size_t n){
-  /*assert((s1 != NULL) && (s2 != NULL));
+  assert((s1 != NULL) && (s2 != NULL));
   char *tmp1 = (char *)s1;
   char *tmp2 = (char *)s2;
   while(n--){
@@ -83,7 +83,7 @@ int memcmp(const void* s1, const void* s2, size_t n){
   if(*tmp1 > *tmp2)
        return 1;
   if(*tmp1 < *tmp2)
-       return -1;*/
+       return -1;
   return 0;
 }
 
