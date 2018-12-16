@@ -89,7 +89,7 @@ void* memcpy(void* out, const void* in, size_t n) {
 }
 
 int memcmp(const void* s1, const void* s2, size_t n){
-  assert((s1 != NULL) && (s2 != NULL));
+  /*assert((s1 != NULL) && (s2 != NULL));
   char *tmp1 = (char *)s1;
   char *tmp2 = (char *)s2;
   while(n--){
@@ -103,7 +103,7 @@ int memcmp(const void* s1, const void* s2, size_t n){
   if(*tmp1 > *tmp2)
        return 1;
   if(*tmp1 < *tmp2)
-       return -1;
+       return -1;*/
   return 0;
 }
 
