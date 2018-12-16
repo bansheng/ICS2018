@@ -151,7 +151,7 @@ static int cmd_p(char *args) {
 	bool success = true;
 	int result = expr(args, &success);
 	if(!success) printf("不合法表达式\n"); //有些主运算符无法处于第一位
-	else printf("%d\n", result);
+	else printf("%#10x\t%d\n",result, result);
 	return 0;
 }
 
