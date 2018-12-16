@@ -1,8 +1,8 @@
 #include "cpu/exec.h"
 
 make_EHelper(mov) {
-  operand_write(id_dest, &id_src->val);
-  print_asm_template2(mov);
+	operand_write(id_dest, &id_src->val);
+	print_asm_template2(mov);
 }
 
 make_EHelper(push) {
@@ -29,6 +29,8 @@ make_EHelper(pop) {
 	}
 	else 
 	  	id_dest->val = t0;
+	// 写入
+	operand_write(id_dest, &id_src->val);
 	
 	print_asm_template1(pop);
 }
