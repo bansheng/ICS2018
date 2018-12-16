@@ -89,14 +89,22 @@ void* memcpy(void* out, const void* in, size_t n) {
 }
 
 int memcmp(const void* s1, const void* s2, size_t n){
-	const char *begin1 = (const char *)s1;
-	const char *begin2 = (const char *)s2;
-	int a = 0;
-	while( (a = (*begin1 - *begin2)) == 0 && n--) {
-		begin1++;
-		begin2++;
-	}
-	return a;
+  /*assert((s1 != NULL) && (s2 != NULL));
+  char *tmp1 = (char *)s1;
+  char *tmp2 = (char *)s2;
+  while(n--){
+     while(*tmp1 == *tmp2){
+        if(*tmp1 == '\0')
+            return 0;
+        tmp1++;
+        tmp2++;
+     }
+  }
+  if(*tmp1 > *tmp2)
+       return 1;
+  if(*tmp1 < *tmp2)
+       return -1;*/
+  return 0;
 }
 
 #endif
