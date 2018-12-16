@@ -103,6 +103,7 @@ static inline void interpret_rtl_host_sm(void *addr, const rtlreg_t *src1, int l
 	}
 }
 
+// 新增
 static inline void interpret_rtl_setrelop(uint32_t relop, rtlreg_t *dest,
     const rtlreg_t *src1, const rtlreg_t *src2) {
 	*dest = interpret_relop(relop, *src1, *src2);
