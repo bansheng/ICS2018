@@ -56,13 +56,14 @@ int strcmp(const char* s1, const char* s2) { //pass
 	// printf("strcmp2 %d\n", a);
 	return a;
 }
-int strncmp(const char* s1, const char* s2, size_t n) {
-  assert((s1 != NULL) && (s2 != NULL));
-  while( *s1 && *s2 && *s1==*s2 && n--){
-     ++s1;
-     ++s2;
-  }
-  return (*s1 - *s2);
+
+int strncmp(const char* s1, const char* s2, size_t n) { //pass
+	int a = 0;
+	while( (a = (*s1 - *s2)) == 0 && *s1 && *s2 && n--) {
+		s1++;
+		s2++;
+	}
+	return a;
 }
 
 void* memset(void* v,int c,size_t n) {
