@@ -9,18 +9,32 @@ size_t strlen(const char *s) { // pass
 	return size;
 }
 
-char *strcpy(char* dst,const char* src) {
-  char *srcdst = dst;
-  while((*dst++ = *src++) != '\0');
-  return srcdst;
+char *strcpy(char* dst,const char* src) { //pass
+	// 注意前后覆盖的问题
+	return strncpy(dst, src, strlen(src));
 }
 
-char* strncpy(char* dst, const char* src, size_t n) {
-  char *srcdst = dst;
-  while(*src != '\0' && n--)
-     *dst++ = *src++;
-  *dst = '\0';
-  return srcdst;
+char* strncpy(char* dst, const char* src, size_t n) { //pass
+	size_t size_src = strlen(src);
+	if( n > size_src) return strncpy(dst, src, size_src);
+	else // n <= size_src
+	{
+		// printf("strncpy1 %s %s %d\n", dst, src, (int)n);
+		// 注意前后覆盖的问题
+		char ch[n+1];
+		char *head = ch;
+		size_t i = 0;
+		while( i < n ) {
+			*(head+i) = *(src+i);
+			i++;
+		} 
+		ch[n] = '\0';
+		head = ch;
+		char *result = dst;
+		while((*(dst++) = *(head++))) ;
+		// printf("strncpy2 %s\n", dst);
+		return result;
+	}
 }
 
 char* strcat(char* dst, const char* src) {
