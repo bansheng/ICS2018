@@ -75,7 +75,7 @@ void difftest_step(uint32_t eip) {
   if(ref_r.eax != cpu.eax || ref_r.ecx != cpu.ecx || ref_r.edx != cpu.edx ||
 		 ref_r.ebx != cpu.ebx || ref_r.esp != cpu.esp || ref_r.ebp != cpu.ebp ||
 		 ref_r.esi != cpu.esi || ref_r.edi != cpu.edi || ref_r.eip != cpu.eip) {
-	if(cpu.eip != 0x100005)
+	//if(cpu.eip != 0x100005)
     	nemu_state = NEMU_ABORT;
     printf("qemus eax:0x%08x, cpu eax:0x%08x @eip:0x%08x\n", ref_r.eax, cpu.eax, cpu.eip);
     printf("qemus ecx:0x%08x, cpu ecx:0x%08x @eip:0x%08x\n", ref_r.ecx, cpu.ecx, cpu.eip);
