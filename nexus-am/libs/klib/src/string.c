@@ -70,6 +70,7 @@ int strncmp(const char* s1, const char* s2, size_t n) { //pass
 }
 
 void* memset(void* v,int c,size_t n) {
+	printf("11111111111111111111111111\n");
 	void* ret = v;
     while(n--)
     {
@@ -77,6 +78,7 @@ void* memset(void* v,int c,size_t n) {
         v = (char*)v + 1; //移动一个字节
     }
     return ret;
+	return NULL;
 }
 
 void* memcpy(void* out, const void* in, size_t n) {
