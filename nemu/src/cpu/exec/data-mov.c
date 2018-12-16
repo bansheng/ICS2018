@@ -21,7 +21,7 @@ make_EHelper(pop) {
 	// TODO();
 	rtl_pop(&t0);
 	
-	printf("%d width %d",id_dest->type, id_dest->width);
+	printf("%d width %d\n",id_dest->type, id_dest->width);
 	if(id_dest->width == 1){
 		uint8_t utemp = t0;
 		int8_t temp = utemp; 
