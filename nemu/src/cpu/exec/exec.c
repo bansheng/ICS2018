@@ -238,31 +238,34 @@ static inline void update_eip(void) {
   else { cpu.eip = decoding.seq_eip; }
 }
 
+
+
+// exec_wrapper
 void exec_wrapper(bool print_flag) {
-  vaddr_t ori_eip = cpu.eip;
+	vaddr_t ori_eip = cpu.eip;
 
 #ifdef DEBUG
-  decoding.p = decoding.asm_buf;
-  decoding.p += sprintf(decoding.p, "%8x:   ", ori_eip);
+	decoding.p = decoding.asm_buf;
+	decoding.p += sprintf(decoding.p, "%8x:   ", ori_eip);
 #endif
 
-  decoding.seq_eip = ori_eip;
-  exec_real(&decoding.seq_eip);
+	decoding.seq_eip = ori_eip;
+	exec_real(&decoding.seq_eip);
 
 #ifdef DEBUG
-  int instr_len = decoding.seq_eip - ori_eip;
-  sprintf(decoding.p, "%*.s", 50 - (12 + 3 * instr_len), "");
-  strcat(decoding.asm_buf, decoding.assembly);
-  Log_write("%s\n", decoding.asm_buf);
-  if (print_flag) {
-    puts(decoding.asm_buf);
-  }
+	int instr_len = decoding.seq_eip - ori_eip;
+	sprintf(decoding.p, "%*.s", 50 - (12 + 3 * instr_len), "");
+	strcat(decoding.asm_buf, decoding.assembly);
+	Log_write("%s\n", decoding.asm_buf);
+	if (print_flag) {
+		puts(decoding.asm_buf);
+	}
 #endif
 
-  update_eip();
+	update_eip();
 
 #if defined(DIFF_TEST)
-  void difftest_step(uint32_t);
-  difftest_step(ori_eip);
+	void difftest_step(uint32_t);
+	difftest_step(ori_eip);
 #endif
 }
