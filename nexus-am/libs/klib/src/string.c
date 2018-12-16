@@ -46,15 +46,16 @@ char* strcat(char* dst, const char* src) { //pass
 	return result;
 }
 
-int strcmp(const char* s1, const char* s2) {
-  assert((s1 != NULL) && (s2 != NULL));
-  while( *s1 && *s2 && *s1==*s2){
-     ++s1;
-     ++s2;
-  }
-  return (*s1 - *s2);
+int strcmp(const char* s1, const char* s2) { //pass
+	// printf("strcmp1 %s %s\n", s1, s2);
+	int a = 0;
+	while( (a = (*s1 - *s2)) == 0 && *s1 && *s2) {
+		s1++;
+		s2++;
+	}
+	// printf("strcmp2 %d\n", a);
+	return a;
 }
-
 int strncmp(const char* s1, const char* s2, size_t n) {
   assert((s1 != NULL) && (s2 != NULL));
   while( *s1 && *s2 && *s1==*s2 && n--){
