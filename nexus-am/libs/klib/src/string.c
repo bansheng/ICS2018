@@ -37,12 +37,13 @@ char* strncpy(char* dst, const char* src, size_t n) { //pass
 	}
 }
 
-char* strcat(char* dst, const char* src) {
-  char *temp = dst;
-  while(*dst != '\0')
-     dst++;
-  while((*dst++ = *src++) != '\0');
-  return temp;
+char* strcat(char* dst, const char* src) { //pass
+	// printf("strcat1 %s %s\n", dst, src);
+	char *result = dst;
+	while(*dst) dst++;
+	strcpy(dst, src);
+	// printf("strcat2 %s\n", dst);
+	return result;
 }
 
 int strcmp(const char* s1, const char* s2) {
