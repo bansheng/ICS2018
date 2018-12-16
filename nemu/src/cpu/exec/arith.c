@@ -23,7 +23,7 @@ make_EHelper(sub) {
 	rtl_sext(&t2, &id_src->val, id_src->width);
 
 	rtl_sub(&t0, &t1, &t2);
-	t3 = (t0 < t1);
+	t3 = (t0 > t1);
 	rtl_set_CF(&t3);
 	t3 = ((((int32_t)(t1) < 0) == (((int32_t)(t2) >> 31) == 0)) && (((int32_t)(t0) < 0) != ((int32_t)(t1) < 0))); // 负正得正 正负得负
 	rtl_set_OF(&t3);
