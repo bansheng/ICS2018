@@ -5,6 +5,7 @@
 size_t strlen(const char *s) { // pass
 	size_t size = 0;
 	while(*(s++)) size++;
+	printf("%s %d\n", s, (int)size);
 	return size;
 }
 
@@ -18,6 +19,7 @@ char* strncpy(char* dst, const char* src, size_t n) { //pass
 	if( n > size_src) return strncpy(dst, src, size_src);
 	else // n <= size_src
 	{
+		printf("strncpy1 %s %s %d\n", dst, src, (int)n);
 		// 注意前后覆盖的问题
 		char ch[n+1];
 		char *head = ch;
@@ -30,33 +32,40 @@ char* strncpy(char* dst, const char* src, size_t n) { //pass
 		head = ch;
 		char *result = dst;
 		while((*(dst++) = *(head++))) ;
+		printf("strncpy2 %s\n", dst);
 		return result;
 	}
 }
 
 char* strcat(char* dst, const char* src) { //pass
+	printf("strcat1 %s %s\n", dst, src);
 	char *result = dst;
 	while(*dst) dst++;
 	strcpy(dst, src);
+	printf("strcat2 %s\n", dst);
 	return result;
 }
 
 int strcmp(const char* s1, const char* s2) { //pass
+	printf("strcmp1 %s %s\n", s1, s2);
 	int a = 0;
 	while( (a = (*s1 - *s2)) == 0 && *s1 && *s2) {
 		s1++;
 		s2++;
 	}
+	printf("strcmp2 %d\n", a);
 	return a;
 }
 
 int strncmp(const char* s1, const char* s2, size_t n) { //pass
+	printf("strncmp1 %s %s %d\n", s1, s2, (int)n);
 	int a = 0;
 	while( (a = (*s1 - *s2)) == 0 && *s1 && *s2 && n) {
 		s1++;
 		s2++;
 		n--;
 	}
+	printf("strncmp2 %d\n", a);
 	return a;
 }
 
