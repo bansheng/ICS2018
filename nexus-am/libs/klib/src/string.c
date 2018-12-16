@@ -10,17 +10,17 @@ size_t strlen(const char *s) { // pass
 }
 
 char *strcpy(char* dst,const char* src) {
-  char *srcdst = dst;
-  while((*dst++ = *src++) != '\0');
-  return srcdst;
+	char *srcdst = dst;
+	while((*dst++ = *src++) != '\0');
+	return srcdst;
 }
 
 char* strncpy(char* dst, const char* src, size_t n) {
-  char *srcdst = dst;
-  while(*src != '\0' && n--)
-     *dst++ = *src++;
-  *dst = '\0';
-  return srcdst;
+	char *srcdst = dst;
+	while(*src != '\0' && n--)
+ 		*dst++ = *src++;
+	*dst = '\0';
+	return srcdst;
 }
 
 char* strcat(char* dst, const char* src) { //pass
