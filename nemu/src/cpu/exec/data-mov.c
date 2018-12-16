@@ -21,7 +21,7 @@ make_EHelper(pop) {
 	// TODO();
 	rtl_pop(&t0);
 	
-	printf("%d width %d\n",id_dest->type, id_dest->width);
+	
 	if(id_dest->width == 1){
 		uint8_t utemp = t0;
 		int8_t temp = utemp; 
@@ -30,7 +30,8 @@ make_EHelper(pop) {
 	else 
 	  	id_dest->val = t0;
 	// 写入
-	operand_write(id_dest, &id_src->val);
+	printf("%d width %d  0x%x\n",id_dest->type, id_dest->width, id_dest->val);
+	operand_write(id_dest, &id_dest->val);
 	
 	print_asm_template1(pop);
 }
