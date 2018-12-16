@@ -1,6 +1,4 @@
-#include "klib.h"
-
-#if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
+#include <stdio.h>
 
 size_t strlen(const char *s) { // pass
 	size_t size = 0;
@@ -72,7 +70,7 @@ void* memset(void* v,int c,size_t n) {
 
 void* memcpy(void* out, const void* in, size_t n) {
 	void *ret = out; //可能会出现覆盖的问题
-	char *begin1 = (char *)out;
+	const char *begin1 = (const char *)out;
 	const char *begin2 = (const char *)in;
 	while(n--)
 	{
@@ -92,4 +90,15 @@ int memcmp(const void* s1, const void* s2, size_t n){
 	return a;
 }
 
-#endif
+int main(){
+	char ch1[30] = "hello, world";
+	char ch2[20] = "hello, dyd";
+	// printf("%u\n", strlen(ch2));
+	printf("%s\n", ch1);
+	int a = strncmp(ch1, ch2, 10);
+	printf("%d\n", a);
+/*	printf("%s\n", ch1);*/
+	return 0;
+}
+
+
