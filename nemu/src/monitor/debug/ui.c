@@ -212,7 +212,7 @@ static int cmd_help(char *args) {
 
 void ui_mainloop(int is_batch_mode) {
 // 定义调试
-  is_batch_mode = 0;
+//is_batch_mode = 0;
   if (is_batch_mode) { 
     cmd_c(NULL);
     return;
