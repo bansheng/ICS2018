@@ -20,13 +20,14 @@ make_EHelper(push) {
 make_EHelper(pop) {
 	// TODO();
 	rtl_pop(&t0);
+	//printf("width %d", id_dest->width);
 	if(id_dest->width == 1){
 		uint8_t utemp = t0;
 		int8_t temp = utemp; 
 		id_dest->val = temp;
 	}
 	else 
-	  	id_dest->val = at;
+	  	id_dest->val = t0;
 	
 	print_asm_template1(pop);
 }
