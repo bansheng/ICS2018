@@ -78,13 +78,14 @@ void* memset(void* v,int c,size_t n) {
 }
 
 void* memcpy(void* out, const void* in, size_t n) {
-  char * pbIn = (char *)in;
-  char * pbOut = (char *)out;
-  assert(pbIn != NULL && pbOut != NULL);//不能存在空指针
-  assert(pbIn >= pbOut+n || pbOut >= pbIn+n);//防止内存重叠
-  while(n-- >0)
-     *pbOut++ = *pbIn++;
-  return out;
+	void *ret = out; //可能会出现覆盖的问题
+	char *begin1 = (char *)out;
+	const char *begin2 = (const char *)in;
+	while(n--)
+	{
+		*(begin1+n-1) = *(begin2+n-1);
+	}
+	return ret;
 }
 
 int memcmp(const void* s1, const void* s2, size_t n){
