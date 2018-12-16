@@ -1,0 +1,4 @@
+Building shuixianhua [x86-nemu] with AM_HOME {/home/dyd/U201514658/NEMU/ics2018/nexus-am}
+Building am [x86-nemu]
+Building klib [x86-nemu]
+Building compiler-rt [x86-nemu]
