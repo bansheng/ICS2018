@@ -103,12 +103,6 @@ static inline void interpret_rtl_host_sm(void *addr, const rtlreg_t *src1, int l
 	}
 }
 
-// 新增
-static inline void interpret_rtl_setrelop(uint32_t relop, rtlreg_t *dest,
-    const rtlreg_t *src1, const rtlreg_t *src2) {
-	*dest = interpret_relop(relop, *src1, *src2);
-}
-
 static inline void interpret_rtl_j(vaddr_t target) {
 	cpu.eip = target;
 	decoding_set_jmp(true);
@@ -189,10 +183,17 @@ static inline void rtl_pop(rtlreg_t* dest) {
  	cpu.esp += 4;
 }
 
+// 新增
+//static inline void interpret_rtl_setrelop(uint32_t relop, rtlreg_t *dest,
+//    const rtlreg_t *src1, const rtlreg_t *src2) {
+//	*dest = interpret_relop(relop, *src1, *src2);
+
+//}
 static inline void rtl_setrelopi(uint32_t relop, rtlreg_t *dest,
     const rtlreg_t *src1, int imm) {
 	// dest <- (src1 relop imm ? 1 : 0)
-	TODO();
+	// TODO();
+	*dest = interpret_relop(relop, *src1, imm);
 }
 
 static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
