@@ -50,7 +50,7 @@ make_EHelper(cmp) {
 
 make_EHelper(inc) {
 	// TODO();
-	printf("inc %d\n", id_dest->val);
+	//printf("inc %d\n", *id_dest);
 	rtl_addi(&t2, &id_dest->val, 1);
 	operand_write(id_dest, &t2);
 	rtl_update_ZFSF(&t2, id_dest->width);
@@ -60,7 +60,7 @@ make_EHelper(inc) {
 	rtl_and(&t0, &t0, &t1);
 	rtl_msb(&t0, &t0, id_dest->width);
 	rtl_set_OF(&t0);
-	printf("inc2 %d\n", id_dest->val);
+	//printf("inc2 %d\n", id_dest);
 	print_asm_template1(inc);
 }
 
