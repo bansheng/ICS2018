@@ -14,10 +14,10 @@ size_t input_read(uintptr_t reg, void *buf, size_t size) {
       press = inl(I8042_DATA_PORT);
       //printf("key2=%d\n",(uint32_t)press);
       kbd->keycode = press;
-      if(press != _KEY_NONE)
-         kbd->keydown = 1;
-      else
-         kbd->keydown = 0;
+/*      if(press != _KEY_NONE)*/
+/*         kbd->keydown = 1;*/
+/*      else*/
+/*         kbd->keydown = 0;*/
       return sizeof(_KbdReg);
     }
   }
