@@ -4,8 +4,8 @@
 #include "common.h"
 
 #define Log(format, ...) \
-  printk("\33[1;35m[%s,%d,%s] " format "\33[0m\n", \
-      __FILE__, __LINE__, __func__, ## __VA_ARGS__)
+  /* printk("\33[1;35m[%s,%d,%s] " format "\33[0m\n", \
+      __FILE__, __LINE__, __func__, ## __VA_ARGS__) */
 
 #define panic(format, ...) \
   do { \
