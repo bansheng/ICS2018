@@ -9,59 +9,60 @@ enum { OP_TYPE_REG, OP_TYPE_MEM, OP_TYPE_IMM };
 
 #define OP_STR_SIZE 40
 
-typedef struct {
-  uint32_t type;
-  int width;
-  union {
-    uint32_t reg;
-    rtlreg_t addr;
-    uint32_t imm;
-    int32_t simm;
-  };
-  rtlreg_t val;
-  char str[OP_STR_SIZE];
+typedef struct { // 操作数
+	uint32_t type;
+	int width;
+	union {
+		uint32_t reg;
+		rtlreg_t addr;
+		uint32_t imm;
+		int32_t simm;
+	};
+	rtlreg_t val;
+	char str[OP_STR_SIZE];
 } Operand;
 
-typedef struct {
-  uint32_t opcode;
-  vaddr_t seq_eip;  // sequential eip
-  bool is_operand_size_16;
-  uint8_t ext_opcode;
-  bool is_jmp;
-  vaddr_t jmp_eip;
-  Operand src, dest, src2;
+typedef struct { //解码出的信息
+	uint32_t opcode;
+	vaddr_t seq_eip;  // sequential eip
+	bool is_operand_size_16;
+	uint8_t ext_opcode;
+	bool is_jmp;
+	vaddr_t jmp_eip;
+	Operand src, dest, src2;
 #ifdef DEBUG
-  char assembly[80];
-  char asm_buf[128];
-  char *p;
+	char assembly[80];
+	char asm_buf[128];
+	char *p;
 #endif
 } DecodeInfo;
 
-typedef union {
-  struct {
-    uint8_t R_M		:3;
-    uint8_t reg		:3;
-    uint8_t mod		:2;
-  };
-  struct {
-    uint8_t dont_care	:3;
-    uint8_t opcode		:3;
-  };
-  uint8_t val;
+typedef union { //ModR_M字节的定义
+	struct {
+		uint8_t R_M		:3;
+		uint8_t reg		:3;
+		uint8_t mod		:2;
+	};
+	struct {
+		uint8_t dont_care	:3;
+		uint8_t opcode		:3;
+	};
+	uint8_t val;
 } ModR_M;
 
-typedef union {
-  struct {
-    uint8_t base	:3;
-    uint8_t index	:3;
-    uint8_t ss		:2;
-  };
-  uint8_t val;
+typedef union { //SIB字节的定义
+	struct {
+		uint8_t base	:3;
+		uint8_t index	:3;
+		uint8_t ss		:2;
+	};
+	uint8_t val;
 } SIB;
 
 void load_addr(vaddr_t *, ModR_M *, Operand *);
 void read_ModR_M(vaddr_t *, Operand *, bool, Operand *, bool);
 
+// 数据写入寄存器或者内存
 void operand_write(Operand *, rtlreg_t *);
 
 /* shared by all helper functions */
@@ -71,6 +72,7 @@ extern DecodeInfo decoding;
 #define id_src2 (&decoding.src2)
 #define id_dest (&decoding.dest)
 
+// 简化解码工作
 #define make_DHelper(name) void concat(decode_, name) (vaddr_t *eip)
 typedef void (*DHelper) (vaddr_t *);
 
@@ -87,6 +89,7 @@ make_DHelper(E);
 make_DHelper(setcc_E);
 make_DHelper(gp7_E);
 make_DHelper(test_I);
+
 make_DHelper(SI);
 make_DHelper(G2E);
 make_DHelper(E2G);

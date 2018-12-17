@@ -71,5 +71,20 @@ void difftest_step(uint32_t eip) {
 
   // TODO: Check the registers state with the reference design.
   // Set `nemu_state` to `NEMU_ABORT` if they are not the same.
-  TODO();
+  // TODO();
+  if(ref_r.eax != cpu.eax || ref_r.ecx != cpu.ecx || ref_r.edx != cpu.edx ||
+		 ref_r.ebx != cpu.ebx || ref_r.esp != cpu.esp || ref_r.ebp != cpu.ebp ||
+		 ref_r.esi != cpu.esi || ref_r.edi != cpu.edi || ref_r.eip != cpu.eip) {
+	//if(cpu.eip != 0x100005)
+    	nemu_state = NEMU_ABORT;
+    printf("qemus eax:0x%08x, cpu eax:0x%08x @eip:0x%08x\n", ref_r.eax, cpu.eax, cpu.eip);
+    printf("qemus ecx:0x%08x, cpu ecx:0x%08x @eip:0x%08x\n", ref_r.ecx, cpu.ecx, cpu.eip);
+    printf("qemus edx:0x%08x, cpu edx:0x%08x @eip:0x%08x\n", ref_r.edx, cpu.edx, cpu.eip);
+    printf("qemus ebx:0x%08x, cpu ebx:0x%08x @eip:0x%08x\n", ref_r.ebx, cpu.ebx, cpu.eip);
+    printf("qemus esp:0x%08x, cpu esp:0x%08x @eip:0x%08x\n", ref_r.esp, cpu.esp, cpu.eip);
+    printf("qemus ebp:0x%08x, cpu ebp:0x%08x @eip:0x%08x\n", ref_r.ebp, cpu.ebp, cpu.eip);
+    printf("qemus esi:0x%08x, cpu esi:0x%08x @eip:0x%08x\n", ref_r.esi, cpu.esi, cpu.eip);
+    printf("qemus edi:0x%08x, cpu edi:0x%08x @eip:0x%08x\n", ref_r.edi, cpu.edi, cpu.eip);
+    printf("qemus eip:0x%08x, cpu eip:0x%08x @eip:0x%08x\n", ref_r.eip, cpu.eip, cpu.eip);
+  } 
 }

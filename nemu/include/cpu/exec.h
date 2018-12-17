@@ -3,22 +3,24 @@
 
 #include "nemu.h"
 
+// 定义一个执行阶段相关的helper函数,执行的时候参数容易处理
 #define make_EHelper(name) void concat(exec_, name) (vaddr_t *eip)
 typedef void (*EHelper) (vaddr_t *);
 
 #include "cpu/decode.h"
 
+// 取指令函数
 static inline uint32_t instr_fetch(vaddr_t *eip, int len) {
-  uint32_t instr = vaddr_read(*eip, len);
+	uint32_t instr = vaddr_read(*eip, len);
 #ifdef DEBUG
-  uint8_t *p_instr = (void *)&instr;
-  int i;
-  for (i = 0; i < len; i ++) {
-    decoding.p += sprintf(decoding.p, "%02x ", p_instr[i]);
-  }
+	uint8_t *p_instr = (void *)&instr;
+	int i;
+	for (i = 0; i < len; i ++) {
+		decoding.p += sprintf(decoding.p, "%02x ", p_instr[i]);
+	}
 #endif
-  (*eip) += len;
-  return instr;
+	(*eip) += len;
+	return instr;
 }
 
 #ifdef DEBUG
