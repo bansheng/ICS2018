@@ -70,6 +70,7 @@ void _halt(int code) __attribute__((__noreturn__));
 // ======================= I/O Extension (IOE) =======================
 
 int _ioe_init();
+// return the device of NO.n (n >= 1)
 _Device *_device(int n);
 
 // ====================== Context Extension (CTE) ====================
