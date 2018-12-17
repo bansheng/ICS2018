@@ -7,7 +7,7 @@ static unsigned int dfs(unsigned int row, unsigned int ld, unsigned int rd) {
     return 1;
   } else {
     unsigned int pos = FULL & (~(row | ld | rd)), ans = 0;
-    while (pos) {
+    while (pos) { //pos的位置代表还有位置可以放
       unsigned int p = (pos & (~pos + 1));
       pos -= p;
       ans += dfs(row | p, (ld | p) << 1, (rd | p) >> 1);
