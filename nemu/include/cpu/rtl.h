@@ -209,7 +209,7 @@ make_rtl_setget_eflags(OF)
 make_rtl_setget_eflags(ZF)
 make_rtl_setget_eflags(SF)
 
-static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
+void rtl_update_ZF(const rtlreg_t* result, int width) {
 	// eflags.ZF <- is_zero(result[width * 8 - 1 .. 0])
 	//  TODO();
 	cpu.eflags.ZF = ((*result & (0xFFFFFFFF >> ((4 - width) * 8))) == 0);
