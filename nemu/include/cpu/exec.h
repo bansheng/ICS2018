@@ -23,6 +23,9 @@ static inline uint32_t instr_fetch(vaddr_t *eip, int len) {
 	return instr;
 }
 
+// raise_intr函数声明
+void raise_intr(uint8_t NO, vaddr_t ret_addr);
+
 #ifdef DEBUG
 #define print_asm(...) Assert(snprintf(decoding.assembly, 80, __VA_ARGS__) < 80, "buffer overflow!")
 #else
