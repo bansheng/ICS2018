@@ -12,7 +12,7 @@
 #endif
 
 /* You will define this macro in PA2 */
-// #define HAS_IOE
+#define HAS_IOE
 
 #include <stdint.h>
 #include <assert.h>
