@@ -29,7 +29,7 @@ make_EHelper(call) {
 	// TODO();
 	
 	t0 = decoding.seq_eip;
-	// printf("call 0x%x\n", t0);
+	printf("call 0x%x\n", t0);
 	rtl_push(&t0);
 	rtl_j(decoding.jmp_eip);
 	print_asm("call %x", decoding.jmp_eip);
@@ -38,7 +38,7 @@ make_EHelper(call) {
 make_EHelper(ret) {
 	// TODO();
 	rtl_pop(&decoding.jmp_eip);
-	// printf("ret 0x%x\n", decoding.jmp_eip);
+	printf("ret 0x%x\n", decoding.jmp_eip);
 	rtl_j(decoding.jmp_eip);
 	
 	print_asm("ret");
