@@ -49,7 +49,7 @@ make_rtl_arith_logic(div_r)
 make_rtl_arith_logic(idiv_q)
 make_rtl_arith_logic(idiv_r)
 
-inline void interpret_rtl_div64_q(rtlreg_t* dest,
+static inline void interpret_rtl_div64_q(rtlreg_t* dest,
     const rtlreg_t* src1_hi, const rtlreg_t* src1_lo, const rtlreg_t* src2) {
 	uint64_t dividend = ((uint64_t)(*src1_hi) << 32) | (*src1_lo);
 	uint32_t divisor = (*src2);
@@ -167,7 +167,7 @@ static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
 	}
 }
 
-static inline void rtl_push(const rtlreg_t* src1) {
+inline void rtl_push(const rtlreg_t* src1) {
 	// esp <- esp - 4
 	// M[esp] <- src1
 	// TODO();
