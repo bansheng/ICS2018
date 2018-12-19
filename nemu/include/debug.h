@@ -6,7 +6,6 @@
 #include <assert.h>
 
 #ifdef DEBUG
-volatile static int dummy = 0;
 extern FILE* log_fp;
 #	define Log_write(format, ...) \
   do { \
