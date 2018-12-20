@@ -211,41 +211,41 @@ static int cmd_help(char *args) {
 }
 
 void ui_mainloop(int is_batch_mode) {
-// 定义调试
-  is_batch_mode = 0;
-  if (is_batch_mode) { 
-    cmd_c(NULL);
-    return;
-  }
+	// 定义调试
+	//is_batch_mode = 0;
+	if (is_batch_mode) { 
+		cmd_c(NULL);
+		return;
+	}
 
-  for (char *str; (str = rl_gets())  != NULL; ) {
-    char *str_end = str + strlen(str);
+	for (char *str; (str = rl_gets())  != NULL; ) {
+		char *str_end = str + strlen(str);
 
-    /* extract the first token as the command */
-    char *cmd = strtok(str, " ");
-    if (cmd == NULL) { continue; }
+		/* extract the first token as the command */
+		char *cmd = strtok(str, " ");
+		if (cmd == NULL) { continue; }
 
-    /* treat the remaining string as the  arguments,
-     * which may need further parsing
-     */
-    char *args = cmd + strlen(cmd) + 1;
-    if (args >= str_end) { 
-      args = NULL;
-    }
- 
-#ifdef HAS_IOE
-    extern void sdl_clear_event_queue(void);
-    sdl_clear_event_queue();
-#endif
+		/* treat the remaining string as the  arguments,
+		* which may need further parsing
+		*/
+		char *args = cmd + strlen(cmd) + 1;
+		if (args >= str_end) { 
+			args = NULL;
+		}
 
-    int i;
-    for (i = 0; i < NR_CMD; i ++) { 
-      if (strcmp(cmd, cmd_table[i].name) == 0 ) {
-        if (cmd_table[i].handler(args) < 0) { return; }
-        break;
-      }
-    }
+		#ifdef HAS_IOE
+		extern void sdl_clear_event_queue(void);
+		sdl_clear_event_queue();
+		#endif
 
-    if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
-  }
+		int i;
+		for (i = 0; i < NR_CMD; i ++) { 
+			if (strcmp(cmd, cmd_table[i].name) == 0 ) {
+				if (cmd_table[i].handler(args) < 0) { return; }
+				break;
+			}
+		}
+
+		if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
+	}
 }
