@@ -11,7 +11,7 @@ FSIMG_PATH = $(NAVY_HOME)/fsimg
 RAMDISK_FILE = build/ramdisk.img
 
 OBJCOPY_FLAG = -S --set-section-flags .bss=alloc,contents -O binary
-OBJCOPY_APP = $(NAVY_HOME)/tests/dummy
+OBJCOPY_APP = $(NAVY_HOME)/tests/hello
 OBJCOPY_FILE = $(OBJCOPY_APP)/build/$(notdir $(OBJCOPY_APP))-$(ISA)
 
 .PHONY: update update-ramdisk-objcopy update-ramdisk-fsimg update-fsimg
