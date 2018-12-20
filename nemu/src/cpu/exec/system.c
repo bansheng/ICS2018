@@ -46,6 +46,9 @@ make_EHelper(int) {
 
 make_EHelper(iret) {
 	// TODO();
+	// irq error_code
+	rtl_pop(&t0);
+	rtl_pop(&t0);
 	
 	rtl_pop(&decoding.jmp_eip);
 	rtl_pop(&t0);
