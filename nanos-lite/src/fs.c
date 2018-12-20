@@ -109,7 +109,12 @@ size_t fs_write(int fd, const void *buf, size_t len) {
 			file_table[fd].write(buf, 0, len);
 			break;
 		case FD_FB:
-			file_table[fd].write(buf, 0, len);
+			if(file_table[fd].open_offset >= fs_size || len == 0)
+				return 0;
+			if(file_table[fd].open_offset + len > fs_size)
+				len = fs_size - file_table[fd].open_offset;
+			file_table[fd].write(buf, file_table[fd].open_offset, len);
+			file_table[fd].open_offset += len;
 			break;
 		case FD_EVENTS:
 		case FD_DISPINFO:
