@@ -2,7 +2,7 @@
 #include "syscall.h"
 
 uintptr_t sys_write(int fd, const void *buf, size_t count) {
-	Log(" 1 ");
+	// Log(" 1 ");
 	uintptr_t i = 0;
 	if (fd == 1 || fd == 2) {
 		for(; count > 0; count--) {
