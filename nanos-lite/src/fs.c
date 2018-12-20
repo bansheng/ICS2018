@@ -72,6 +72,7 @@ size_t fs_read(int fd, void *buf, size_t len) {
 	switch(fd) {
 		case FD_STDIN:
 		case FD_STDOUT:
+		case FD_STDERR:
 		case FD_FB:
 			break;
 		case FD_EVENTS:
@@ -109,6 +110,9 @@ size_t fs_write(int fd, const void *buf, size_t len) {
 			break;
 		case FD_FB:
 			file_table[fd].write(buf, 0, len);
+			break;
+		case FD_EVENTS:
+		case FD_DISPINFO:
 			break;
 		default:
 			// write to ramdisk
