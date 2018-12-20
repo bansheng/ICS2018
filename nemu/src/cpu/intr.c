@@ -27,7 +27,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
 	t0 = cpu.cs;
 	rtl_push(&t0);
 	rtl_push(&ret_addr);
-
+	
 	cpu.eflags.IF = 0;
 }
 
