@@ -9,18 +9,20 @@ void vecnull();
 
 _Context* irq_handle(_Context *tf) {
 	_Context *next = tf;
-	printf("cpu eax:0x%08x\n", tf->eax);
-    printf("cpu ecx:0x%08x\n", tf->ecx);
-    printf("cpu edx:0x%08x\n", tf->edx);
-    printf("cpu ebx:0x%08x\n", tf->ebx);
-    printf("cpu esp:0x%08x\n", tf->esp);
-    printf("cpu ebp:0x%08x\n", tf->ebp);
-    printf("cpu esi:0x%08x\n", tf->esi);
-    printf("cpu edi:0x%08x\n", tf->edi);
-    printf("cpu eip:0x%08x\n", tf->eip);
+/*	printf("cpu eax:0x%08x\n", tf->eax);*/
+/*    printf("cpu ecx:0x%08x\n", tf->ecx);*/
+/*    printf("cpu edx:0x%08x\n", tf->edx);*/
+/*    printf("cpu ebx:0x%08x\n", tf->ebx);*/
+/*    printf("cpu esp:0x%08x\n", tf->esp);*/
+/*    printf("cpu ebp:0x%08x\n", tf->ebp);*/
+/*    printf("cpu esi:0x%08x\n", tf->esi);*/
+/*    printf("cpu edi:0x%08x\n", tf->edi);*/
+/*    printf("cpu eip:0x%08x\n", tf->eip);*/
+	printf("%d\n", tf->irq);
 	if (user_handler) {
 		_Event ev = {0};
 		switch (tf->irq) {
+			case 1:
 			default: ev.event = _EVENT_ERROR; break;
 		}
 
