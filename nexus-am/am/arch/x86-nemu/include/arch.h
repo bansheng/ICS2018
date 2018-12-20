@@ -9,9 +9,10 @@
 typedef uint32_t size_t;
 
 struct _Context {
-  uintptr_t esi, ebx, eax, eip, edx, err, eflags, ecx, cs, esp, edi, ebp;
-  struct _Protect *prot;
-  int       irq;
+	struct _Protect *prot;
+	uintptr_t edi, esi, ebp, esp, ebx, edx, ecx, eax;
+	int       irq;
+	uintptr_t error_code, eip, cs, eflags; 
 };
 
 #define GPR1 eax

@@ -22,7 +22,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
 	| ((item.gd.offset_31_16 & 0xFFFF) << 16);
 	rtl_j(t1);
 	
-
+	// 保存eflags cs 返回地址
 	rtl_push(&cpu.flags);
 	t0 = cpu.cs;
 	rtl_push(&t0);
