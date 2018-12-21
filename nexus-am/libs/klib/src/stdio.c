@@ -130,7 +130,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 						if(result < 10)
 							num_s[j++] = result + '0';
 						else
-							num_s[j++] = result + 'A';
+							num_s[j++] = result - 10 + 'A';
 						num2 /= 16;
 					}
 				}
