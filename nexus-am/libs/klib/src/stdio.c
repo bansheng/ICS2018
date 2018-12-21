@@ -64,10 +64,11 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 		//base = 10;
 
 		num = 0;
+		_putc(*fmt);
+		_putc('\n');
 		switch(*fmt)
 		{
-			_putc(*fmt);
-			_putc('\n');
+			
 			case 's':
 				tmp = va_arg(ap, char *);
 				len = strlen(tmp);
