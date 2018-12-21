@@ -58,7 +58,7 @@ void init_fs() {
 int fs_open(const char *pathname, int flags, int mode) {
 	int i;
 	//Log("the total files : %d\n", NR_FILES);
-	// Log("pathname %s\n", pathname);
+	Log("pathname %s\n", pathname);
 	for (i = 0; i < NR_FILES; i++) {
 		// printf("file name: %s\n", file_table[i].name);
 		if (strcmp(file_table[i].name, pathname) == 0) {
