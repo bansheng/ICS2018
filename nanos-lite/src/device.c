@@ -19,18 +19,23 @@ static const char *keyname[256] __attribute__((used)) = {
 };
 
 size_t events_read(void *buf, size_t offset, size_t len) {
-	int key = read_key();
-	bool down = false;
-	if (key & 0x8000) {
-		key ^= 0x8000;
-		down = true;
-	}
-	if (key == _KEY_NONE) {
-		unsigned long t = uptime();
-		sprintf(buf, "uptime %u\n", t);
-	}
-	else {
-		sprintf(buf, "%s %s\n", keyname[key], down ? "keydown" : "keyup");
+	int key_code;
+
+	if ((key_code = read_key()) == _KEY_NONE) 
+	{
+		snprintf(buf, len, "t %d\n", uptime());
+	} 
+	else if (key_code & 0x8000) 
+	{
+		key_code ^= 0x8000;
+		snprintf(buf, len, "kd %s\n", keyname[key_code]);
+/*		extern void switch_game();*/
+/*		if (key_code == _KEY_F12)*/
+/*			switch_game();*/
+	} 
+	else 
+	{
+		snprintf(buf, len, "ku %s\n", keyname[key_code]);
 	}
 	return strlen(buf);
 }
