@@ -27,7 +27,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 	}
 	if (key == _KEY_NONE) {
 		unsigned long t = uptime();
-		sprintf(buf, "uptime %d\n", t);
+		sprintf(buf, "uptime %u\n", t);
 	}
 	else {
 		sprintf(buf, "%s %s\n", keyname[key], down ? "keydown" : "keyup");
