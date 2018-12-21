@@ -23,7 +23,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 
 	if ((key_code = read_key()) == _KEY_NONE) 
 	{
-		snprintf(buf, len, "t %d\n", uptime());
+		snprintf(buf, len, "t %u\n", uptime());
 	} 
 	else if (key_code & 0x8000) 
 	{

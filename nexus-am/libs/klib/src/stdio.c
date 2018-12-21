@@ -16,7 +16,7 @@ int printf(const char *fmt, ...) {
 	{
 		_putc(out[i]);	  
 	}
-	return 0;
+	return len;
 }
 
 enum {TYPE_INT, TYPE_UINT, TYPE_HEX, TYPE_STR};
@@ -140,7 +140,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 		}
 	}
 	*str = '\0';
-	return 0;
+	return strlen(str);
 }
 
 int sprintf(char *out, const char *fmt, ...) {
@@ -152,8 +152,18 @@ int sprintf(char *out, const char *fmt, ...) {
 	return val;
 }
 
+char mid_buf[65536+1];
 int snprintf(char *out, size_t n, const char *fmt, ...) {
-  return 0;
+	va_list args;
+	int  val;
+	va_start(args,fmt);
+	val = vsprintf(mid_buf,fmt,args);
+	va_end(args);
+	if(val > n) //越界
+	{
+		mid_buf[n] = '\0';
+	}
+	return strlen(strcpy(out, mid_buf));
 }
 
 #endif
