@@ -19,16 +19,17 @@ int printf(const char *fmt, ...) {
 	return len;
 }
 
-enum {TYPE_INT, TYPE_UINT, TYPE_HEX, TYPE_STR};
+/*enum {TYPE_INT, TYPE_UINT, TYPE_HEX, TYPE_STR};*/
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
 	char c;
 	char *str = out;
 	const char *tmp;
 	char num_s[100];
-	int i,j,len,num;
+	int i,j,len;
 	int flag,field_width;
-	unsigned int type = TYPE_INT;
+	int num = 0;
+	unsigned int num2 = 0;
 
 	for(;*fmt; fmt++)
 	{
@@ -63,9 +64,8 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 		}
 		//base = 10;
 
-		num = 0;
-/*		_putc(*fmt);*/
-/*		_putc('\n');*/
+		
+		j = 0;
 		switch(*fmt)
 		{
 			
@@ -78,63 +78,71 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 				}
 				continue;
 			case 'u': 
-				num = va_arg(ap, unsigned int);
-				type = TYPE_UINT;
+				num2 = va_arg(ap, unsigned int);
+				if(num2 == 0)
+				{
+					num_s[j++] = '0';
+				}
+				else
+				{
+	
+					while(num2)
+					{
+						num_s[j++] = num2%10 + '0';
+						num2 /= 10;
+					}
+				}
 				break;
 			case 'd': 
-				type = TYPE_INT;
 				num = va_arg(ap, int);
+				if(num == 0)
+				{
+					num_s[j++] = '0';
+				}
+				else
+				{
+					if(num < 0)
+					{
+						*str++ = '-';
+						num = -num;
+					}
+	
+					while(num)
+					{
+						num_s[j++] = num%10 + '0';
+						num /= 10;
+					}
+				}
 				break;
 			case 'X':  
-				num = va_arg(ap, unsigned int);
+				num2 = va_arg(ap, unsigned int);
 				*str++ = '0';
 				*str++ = 'X';
-				type = TYPE_HEX;
+				if(num2 == 0)
+				{
+					num_s[j++] = '0';
+				}
+				else
+				{
+					while(num2)
+					{
+						int result = num2%16;
+						if(result < 10)
+							num_s[j++] = result + '0';
+						else
+							num_s[j++] = result + 'A';
+						num2 /= 16;
+					}
+				}
 				break; 
 		}
 
-		j = 0;
-		if(num == 0)
-		{
-			num_s[j++] = '0';
-		}
-		else
-		{
-			if(num < 0 && type == TYPE_INT)
-			{
-				*str++ = '-';
-				num = -num;
-			}
-			
-			if(type != TYPE_HEX)
-			{
-				_putc(type + '0');
-				_putc('\n');
-				while(num)
-				{
-					num_s[j++] = num%10 + '0';
-					num /= 10;
-				}
-			}
-			else //16进制
-			{
-				while(num)
-				{
-					int result = num%16;
-					if(result < 10)
-						num_s[j++] = result + '0';
-					else
-						num_s[j++] = result + 'A';
-					num /= 16;
-				}
-			}
-				
-		}
+		int size = 0;
 		if(j < field_width)
 		{
-			num = field_width - j;
+			size = field_width - j;
 			c = flag & 1 ? '0' : ' ';
-			while(num--)
+			while(size--)
 			{
 				*str++ = c;
 			}
