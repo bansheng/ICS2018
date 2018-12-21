@@ -66,6 +66,8 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 		num = 0;
 		switch(*fmt)
 		{
+			_putc(*fmt);
+			_putc('\n');
 			case 's':
 				tmp = va_arg(ap, char *);
 				len = strlen(tmp);
@@ -74,6 +76,10 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 					*str++ = *tmp++;
 				}
 				continue;
+			case 'u': 
+				num = va_arg(ap, unsigned int);
+				type = TYPE_UINT;
+				break;
 			case 'd': 
 				type = TYPE_INT;
 				num = va_arg(ap, int);
@@ -84,10 +90,6 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 				*str++ = 'X';
 				type = TYPE_HEX;
 				break; 
-			case 'u': 
-				num = va_arg(ap, unsigned int);
-				type = TYPE_UINT;
-				break;
 		}
 
 		j = 0;
