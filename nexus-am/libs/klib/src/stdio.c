@@ -105,6 +105,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 			
 			if(type != TYPE_HEX)
 			{
+				_putc(type + '0');
 				while(num)
 				{
 					num_s[j++] = num%10 + '0';
