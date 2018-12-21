@@ -64,8 +64,8 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 		//base = 10;
 
 		num = 0;
-		_putc(*fmt);
-		_putc('\n');
+/*		_putc(*fmt);*/
+/*		_putc('\n');*/
 		switch(*fmt)
 		{
 			
