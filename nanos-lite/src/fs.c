@@ -74,6 +74,11 @@ int fs_open(const char *pathname, int flags, int mode) {
 
 size_t fs_read(int fd, void *buf, size_t len) {
 	size_t fs_size = fs_filesz(fd);
+	
+	// 检测当个文件多次读取的问题
+	len = fs_size;
+	
+	
 	//Log("in the read, fd = %d, file size = %d, len = %d, file open_offset = %d\n", fd, fs_size, len, file_table[fd].open_offset);
 	switch(fd) {
 		case FD_STDIN:
@@ -94,11 +99,12 @@ size_t fs_read(int fd, void *buf, size_t len) {
 			file_table[fd].open_offset += len;	
 			break;
 		default:
-			printf("read file size = %d, len = %d, file open_offset = %d\n", fs_size, len, file_table[fd].open_offset);
 			if(file_table[fd].open_offset >= fs_size)
 				return 0;
 			if(file_table[fd].open_offset + len > fs_size)
 				len = fs_size - file_table[fd].open_offset;
+				
+			printf("read file size = %d, len = %d, file open_offset = %d\n", fs_size, len, file_table[fd].open_offset);
 			ramdisk_read(buf, file_table[fd].disk_offset + file_table[fd].open_offset, len);
 			file_table[fd].open_offset += len;
 			break;
