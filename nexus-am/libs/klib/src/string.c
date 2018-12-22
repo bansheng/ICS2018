@@ -81,9 +81,11 @@ void* memcpy(void* out, const void* in, size_t n) {
 	void *ret = out; //可能会出现覆盖的问题
 	char *begin1 = (char *)out;
 	const char *begin2 = (const char *)in;
-	while(n--)
+	size_t i =0;
+	while(i<n)
 	{
-		*(begin1+n-1) = *(begin2+n-1);
+		*(begin1+i) = *(begin2+i);
+		i++;
 	}
 	return ret;
 }
