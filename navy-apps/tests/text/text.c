@@ -13,8 +13,6 @@ int main() {
   int i, n;
   for (i = 500; i < 1000; i ++) {
     fscanf(fp, "%d", &n);
-    if(i > 950)
-    	printf("read %d\n", n);
     assert(n == i + 1);
   }
 
