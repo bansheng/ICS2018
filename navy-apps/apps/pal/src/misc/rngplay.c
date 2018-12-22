@@ -437,9 +437,9 @@ PAL_RNGPlay(
    UINT            iTime;
    int             iDelay = 800 / (iSpeed == 0 ? 16 : iSpeed);
    FILE           *fp;
-
+   Log("222");
    fp = UTIL_OpenRequiredFile("rng.mkf");
-
+   Log("333");
    for (; iStartFrame <= iEndFrame; iStartFrame++)
    {
       iTime = SDL_GetTicks() + iDelay;
