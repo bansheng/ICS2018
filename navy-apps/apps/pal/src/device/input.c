@@ -242,7 +242,10 @@ PAL_InitInput(
 --*/
 {
    Log("InitInput start, size = %d", sizeof(g_InputState));
-   memset((void *)&g_InputState, 0, sizeof(g_InputState));
+   //memset((void *)&g_InputState, 0, sizeof(g_InputState));
+   g_InputState.dir = 0;
+   g_InputState.prevdir = 0;
+   g_InputState.dwKeyPress = 0;
    Log("InitInput over");
    g_InputState.dir = kDirUnknown;
    g_InputState.prevdir = kDirUnknown;
