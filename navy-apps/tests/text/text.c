@@ -3,7 +3,6 @@
 
 int main() {
   FILE *fp = fopen("/share/texts/num", "r+");
-  printf("1111111\n");
   assert(fp);
 
   fseek(fp, 0, SEEK_END);
@@ -14,7 +13,8 @@ int main() {
   int i, n;
   for (i = 500; i < 1000; i ++) {
     fscanf(fp, "%d", &n);
-    printf("read %d\n", n);
+    if(i > 950)
+    	printf("read %d\n", n);
     assert(n == i + 1);
   }
 
