@@ -63,7 +63,7 @@ int fs_open(const char *pathname, int flags, int mode) {
 		// 
 		if (strcmp(file_table[i].name, pathname) == 0) {
 			file_table[i].open_offset = 0;
-			// printf("file open: %s\n", file_table[i].name);
+			printf("file open: %s\n", file_table[i].name);
 			return i;
 		}
 	}
@@ -76,7 +76,7 @@ size_t fs_read(int fd, void *buf, size_t len) {
 	size_t fs_size = fs_filesz(fd);
 	
 	
-	//Log("in the read, fd = %d, file size = %d, len = %d, file open_offset = %d\n", fd, fs_size, len, file_table[fd].open_offset);
+	Log("in the read, fd = %d, file size = %d, len = %d, file open_offset = %d\n", fd, fs_size, len, file_table[fd].open_offset);
 	switch(fd) {
 		case FD_STDIN:
 		case FD_STDOUT:
