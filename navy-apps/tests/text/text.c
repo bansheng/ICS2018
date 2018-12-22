@@ -3,7 +3,7 @@
 
 int main() {
   FILE *fp = fopen("/share/texts/num", "r+");
-  printf("1111111\n");
+/*  printf("1111111\n");*/
   assert(fp);
 
   fseek(fp, 0, SEEK_END);
@@ -20,8 +20,8 @@ int main() {
 
   fseek(fp, 0, SEEK_SET);
   for (i = 0; i < 500; i ++) {
-  	printf("write %d\n", i + 1 + 1000);
     fprintf(fp, "%4d\n", i + 1 + 1000);
+/*    printf("write %d\n", i + 1 + 1000);*/
   }
 
   for (i = 500; i < 1000; i ++) {
