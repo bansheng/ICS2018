@@ -242,6 +242,7 @@ PAL_InitInput(
 --*/
 {
    memset((void *)&g_InputState, 0, sizeof(g_InputState));
+   printf("InitInput over");
    g_InputState.dir = kDirUnknown;
    g_InputState.prevdir = kDirUnknown;
 
