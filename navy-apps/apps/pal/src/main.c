@@ -237,7 +237,7 @@ PAL_TrademarkScreen(
    //Log("11111");
    //UTIL_Delay(1000);
    Log("2222");
-   PAL_FadeOut(1);
+   //PAL_FadeOut(1);
    Log("3333");
 }
 
