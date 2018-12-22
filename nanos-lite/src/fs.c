@@ -62,7 +62,7 @@ int fs_open(const char *pathname, int flags, int mode) {
 	for (i = 0; i < NR_FILES; i++) {
 		// 
 		if (strcmp(file_table[i].name, pathname) == 0) {
-			file_table[i].open_offset = 0;
+			//file_table[i].open_offset = 0;
 			printf("file open: %s\n", file_table[i].name);
 			return i;
 		}
@@ -168,7 +168,7 @@ size_t fs_lseek(int fd, size_t offset, int whence)
 
 int fs_close(int fd)
 {
-	file_table[fd].open_offset = 0;
+	//file_table[fd].open_offset = 0;
 	return 0;
 }
 
