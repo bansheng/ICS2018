@@ -11,6 +11,7 @@ int main() {
 
   fseek(fp, 500 * 5, SEEK_SET);
   int i, n;
+  printf("1111111\n");
   for (i = 500; i < 1000; i ++) {
     fscanf(fp, "%d", &n);
     printf("read %d\n", n);
