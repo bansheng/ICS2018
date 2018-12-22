@@ -232,7 +232,7 @@ PAL_TrademarkScreen(
 --*/
 {
    PAL_SetPalette(3, FALSE);
-   Log("11111");
+   //Log("11111");
    PAL_RNGPlay(6, 0, 1000, 25);
    Log("11111");
    UTIL_Delay(1000);
