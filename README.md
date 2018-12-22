@@ -1,3 +1,6 @@
+*2018.12.22 pa2 更新memcpy函数错误
+*2018.12.22 pa3 更新至pal，仙剑奇侠传还有错误不能跑
+
 # ICS2018 Programming Assignment
 
 This project is the programming assignment of the class ICS(Introduction to Computer System) in Department of Computer Science and Technology, Nanjing University.
