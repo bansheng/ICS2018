@@ -20,7 +20,7 @@ typedef struct {
 	WriteFn write;
 } Finfo;
 
-enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB, FD_EVENTS, FD_DISPINFO};
+enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB, FD_EVENTS, FD_DISPINFO, FD_TTY};
 
 size_t invalid_read(void *buf, size_t offset, size_t len) {
 	panic("should not reach here");
@@ -40,6 +40,7 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_FB] = {"/dev/fb", 0, 0, 0, NULL, fb_write},
   [FD_EVENTS] = {"/dev/events", 0, 0, 0, events_read},
   [FD_DISPINFO] = {"/proc/dispinfo", 128, 0, 0, dispinfo_read},
+  [FD_TTY] = {"/dev/tty", 0, 0, 0, invalid_read, serial_write},
 #include "files.h"
 };
 
@@ -63,7 +64,7 @@ int fs_open(const char *pathname, int flags, int mode) {
 		// 
 		if (strcmp(file_table[i].name, pathname) == 0) {
 			file_table[i].open_offset = 0;
-			//printf("file open: %s\n", file_table[i].name);
+			printf("file open: %s\n", file_table[i].name);
 			return i;
 		}
 	}
@@ -115,6 +116,7 @@ size_t fs_write(int fd, const void *buf, size_t len) {
 	
 	switch(fd) {
 		case FD_STDIN: break;
+		case FD_TTY:
 		case FD_STDOUT:
 		case FD_STDERR:
 			file_table[fd].write(buf, 0, len);
