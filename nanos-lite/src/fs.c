@@ -112,7 +112,6 @@ size_t fs_write(int fd, const void *buf, size_t len) {
 	size_t fs_size = fs_filesz(fd);
 	//Log("in the write, fd = %d, file size = %d, len = %d, file open_offset = %d\n", fd, fs_size, len, file_table[fd].open_offset);
 	
-	
 	switch(fd) {
 		case FD_STDIN: break;
 		case FD_TTY:
