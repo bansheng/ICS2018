@@ -94,6 +94,7 @@ size_t fs_read(int fd, void *buf, size_t len) {
 			file_table[fd].open_offset += len;	
 			break;
 		default:
+			printf("read file size = %d, len = %d, file open_offset = %d\n", fs_size, len, file_table[fd].open_offset);
 			if(file_table[fd].open_offset >= fs_size)
 				return 0;
 			if(file_table[fd].open_offset + len > fs_size)
