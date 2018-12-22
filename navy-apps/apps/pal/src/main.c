@@ -162,7 +162,6 @@ PAL_Init(
    SDL_WM_SetCaption("Pal", NULL);
 #endif
 #endif
-   Log("SOUND_OpenAudio success");
 }
 
 VOID
@@ -236,6 +235,7 @@ PAL_TrademarkScreen(
    PAL_RNGPlay(6, 0, 1000, 25);
    UTIL_Delay(1000);
    PAL_FadeOut(1);
+   Log("11111");
 }
 
 VOID
