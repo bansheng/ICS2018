@@ -69,10 +69,10 @@ int strncmp(const char* s1, const char* s2, size_t n) { //pass
 
 void* memset(void* v,int c,size_t n) {
 	void* ret = v;
-    while(n--)
+	char* go = v;
+    for(size_t i=0; i<n; i++)
     {
-        *(char*)v = (char)c;
-        v = (char*)v + 1; //移动一个字节
+    	*(go + i) = (char)c;
     }
     return ret;
 }
