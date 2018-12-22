@@ -241,7 +241,7 @@ PAL_InitInput(
 
 --*/
 {
-   Log("InitInput start");
+   Log("InitInput start %d", sizeof(g_InputState));
    memset((void *)&g_InputState, 0, sizeof(g_InputState));
    Log("InitInput over");
    g_InputState.dir = kDirUnknown;
