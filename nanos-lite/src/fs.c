@@ -76,7 +76,7 @@ size_t fs_read(int fd, void *buf, size_t len) {
 	size_t fs_size = fs_filesz(fd);
 	
 	// 检测当个文件多次读取的问题
-	// len = fs_size;
+	len = fs_size;
 	
 	
 	//Log("in the read, fd = %d, file size = %d, len = %d, file open_offset = %d\n", fd, fs_size, len, file_table[fd].open_offset);
