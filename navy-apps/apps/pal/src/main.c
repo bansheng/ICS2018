@@ -270,7 +270,7 @@ PAL_SplashScreen(
    int            cranepos[9][3], i, iImgPos = 200, iCraneFrame = 0, iTitleHeight;
    DWORD          dwTime, dwBeginTime;
    BOOL           fUseCD = TRUE;
-
+   Log("PAL_SplashScreen");
    if (palette == NULL)
    {
       fprintf(stderr, "ERROR: PAL_SplashScreen(): palette == NULL\n");
