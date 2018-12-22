@@ -440,7 +440,7 @@ PAL_RNGPlay(
    fp = UTIL_OpenRequiredFile("rng.mkf");
    for (; iStartFrame <= iEndFrame; iStartFrame++)
    {
-	  //Log("444");
+	  Log("444");
       iTime = SDL_GetTicks() + iDelay;
 	  //Log("555");
       if (PAL_RNGBlitToSurface(iNumRNG, iStartFrame, gpScreen, fp) == -1)
