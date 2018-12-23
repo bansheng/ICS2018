@@ -7,9 +7,9 @@
 #define STACK_SIZE (8 * PGSIZE)
 
 typedef union {
-  uint8_t stack[STACK_SIZE] PG_ALIGN;
+  uint8_t stack[STACK_SIZE] PG_ALIGN; //32KB 32K个字节
   struct {
-    _Context *tf;
+    _Context *cp;
     _Protect as;
     uintptr_t cur_brk;
     // we do not free memory, so use `max_brk' to determine when to call _map()

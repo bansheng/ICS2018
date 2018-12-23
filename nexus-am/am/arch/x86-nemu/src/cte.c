@@ -2,6 +2,8 @@
 #include <x86.h>
 #include <klib.h>
 
+#define STACK_SIZE 8 * 4096
+
 static _Context* (*user_handler)(_Event, _Context*) = NULL;
 
 void vecsys();
@@ -28,7 +30,7 @@ _Context* irq_handle(_Context *tf) {
 			default: ev.event = _EVENT_ERROR; break;
 		}
 
-		next = user_handler(ev, tf);
+		next = user_handler(ev, tf); //进程切换的依赖
 		if (next == NULL) {
 		  next = tf;
 		}
@@ -58,7 +60,20 @@ int _cte_init(_Context*(*handler)(_Event, _Context*)) {
 }
 
 _Context *_kcontext(_Area stack, void (*entry)(void *), void *arg) {
-  return NULL;
+	// entry本身是函数指针的值
+/*	struct _Context {*/
+/*	struct _Protect *prot;*/
+/*	uintptr_t edi, esi, ebp, esp, ebx, edx, ecx, eax;*/
+/*	int       irq;*/
+/*	uintptr_t error_code, eip, cs, eflags; */
+/*	};*/
+/*	_Context* ct = (_Context*)((uintptr_t)stack + STACK_SIZE - sizeof(_Context));*/
+	_Context* ct = (stack.end - sizeof(_Context));
+	memset(ct, 0, sizeof(_Context));
+	ct->eip = (uintptr_t)entry; //设置返回值
+	ct->cs = 8;
+	// ct->irq = 0x81; //yeild
+	return ct;
 }
 
 void _yield() {

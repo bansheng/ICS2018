@@ -22,7 +22,7 @@ void context_kload(PCB *pcb, void *entry) {
   stack.start = pcb->stack;
   stack.end = stack.start + sizeof(pcb->stack);
 
-  pcb->tf = _kcontext(stack, entry, NULL);
+  pcb->cp = _kcontext(stack, entry, NULL);
 }
 
 void context_uload(PCB *pcb, const char *filename) {
@@ -32,5 +32,5 @@ void context_uload(PCB *pcb, const char *filename) {
   stack.start = pcb->stack;
   stack.end = stack.start + sizeof(pcb->stack);
 
-  pcb->tf = _ucontext(&pcb->as, stack, stack, (void *)entry, NULL);
+  pcb->cp = _ucontext(&pcb->as, stack, stack, (void *)entry, NULL);
 }
