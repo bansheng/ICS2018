@@ -15,8 +15,7 @@ _Context* do_syscall(_Context *c) {
 	
 	switch (a[0]) {
 		case SYS_yield: 
-			schedule(c);
-			break;
+			return schedule(c);
 		case SYS_exit: 
 			naive_uload(NULL, "/bin/init"); 
 			break;
