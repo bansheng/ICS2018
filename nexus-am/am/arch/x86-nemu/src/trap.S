@@ -13,7 +13,7 @@ asm_trap:
   call irq_handle
   
   #转移栈指针
-  mov %esp, %eax
+  movl %eax, %esp
 
   addl $4, %esp
 
