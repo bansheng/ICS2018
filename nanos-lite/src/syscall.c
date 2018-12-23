@@ -4,7 +4,6 @@
 #include "proc.h"
 
 extern void naive_uload(PCB *pcb, const char *filename);
-extern _Context* schedule(_Context *prev);
 
 _Context* do_syscall(_Context *c) {
 	uintptr_t a[4], result = -1;
@@ -15,7 +14,8 @@ _Context* do_syscall(_Context *c) {
 	
 	switch (a[0]) {
 		case SYS_yield: 
-			return schedule(c);
+			result = 1; 
+			break;
 		case SYS_exit: 
 			naive_uload(NULL, "/bin/init"); 
 			break;
