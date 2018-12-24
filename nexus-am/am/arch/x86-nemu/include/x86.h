@@ -26,13 +26,13 @@
 #define PDXSHFT   22      // Offset of PDX in a linear address
 
 // Page table/directory entry flags
-#define PTE_P     0x001     // Present
-#define PTE_W     0x002     // Writeable
-#define PTE_U     0x004     // User
-#define PTE_PWT   0x008     // Write-Through
-#define PTE_PCD   0x010     // Cache-Disable
-#define PTE_A     0x020     // Accessed
-#define PTE_D     0x040     // Dirty
+#define PTE_P     0x001     // Present        	0000 0000 0001
+#define PTE_W     0x002     // Writeable      	0000 0000 0010
+#define PTE_U     0x004     // User  			0000 0000 0100
+#define PTE_PWT   0x008     // Write-Through	0000 0000 1000
+#define PTE_PCD   0x010     // Cache-Disable    0000 0001 0000
+#define PTE_A     0x020     // Accessed         0000 0010 0000
+#define PTE_D     0x040     // Dirty            0000 0100 0000
 
 // GDT entries
 #define NR_SEG    6       // GDT size

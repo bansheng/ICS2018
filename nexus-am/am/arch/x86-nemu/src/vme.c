@@ -50,20 +50,22 @@ int _vme_init(void* (*pgalloc_f)(size_t), void (*pgfree_f)(void*)) {
 }
 
 int _protect(_Protect *p) {
-  PDE *updir = (PDE*)(pgalloc_usr(1));
-  p->pgsize = 4096;
-  p->ptr = updir;
-  // map kernel space
-  for (int i = 0; i < NR_PDE; i ++) {
-    updir[i] = kpdirs[i];
-  }
+	PDE *updir = (PDE*)(pgalloc_usr(1));
+	p->pgsize = 4096;
+	p->ptr = updir; //目录表信息
+	// map kernel space
+	for (int i = 0; i < NR_PDE; i ++) {
+		updir[i] = kpdirs[i];
+	}
 
-  p->area.start = (void*)0x8000000;
-  p->area.end = (void*)0xc0000000;
-  return 0;
+	p->area.start = (void*)updir;//12位
+	p->area.end =  (void*)((uintptr_t)updir + PGSIZE*1);
+	return 0;
 }
 
 void _unprotect(_Protect *p) {
+	pgfree_usr(p->ptr);
+	p->ptr = p->area.start = p->area.end = NULL;
 }
 
 static _Protect *cur_as = NULL;
@@ -76,8 +78,35 @@ void _switch(_Context *c) {
   cur_as = c->prot;
 }
 
-int _map(_Protect *p, void *va, void *pa, int mode) {
-  return 0;
+// 它用于将地址空间p中虚拟地址va所在的虚拟页, 以prot的权限映射到pa所在的物理页. 当prot中的present位为0时, 表示让va的映射无效.
+int _map(_Protect *p, void *va, void *pa, int prot) {
+	PDE *dir = p->ptr; // 一级页表
+	PTE pde = dir[PDX(va)];//二级页表内容
+	PTE* pgtab; //取到二级页表
+	
+	if (pde & PTE_P) {
+		pgtab = (PTE *)PTE_ADDR(pde); //取到高20位,即为二级页表的起始位置
+		printf("%X %X\n", pde, *pgtab);
+		pgtab[PTX(va)] = PTE_ADDR(pa) | prot; //赋值内容
+		
+	} 
+	else
+	{
+		printf("映射无效\n");
+	}
+	return 1;
+	
+/*	if (*pde & PTE_P) {*/
+/*		pgtab = (PTE *)PTE_ADDR(*pde);*/
+/*	} */
+/*	else {*/
+/*		pgtab = (PTE *)palloc_f();*/
+/*		for (int i = 0; i < NR_PTE; i ++) {*/
+/*			pgtab[i] = 0;*/
+/*		}*/
+/*		*pde = PTE_ADDR(pgtab) | PTE_P;*/
+/*	}*/
+/*	pgtab[PTX(va)] = PTE_ADDR(pa) | PTE_P;*/
 }
 
 _Context *_ucontext(_Protect *p, _Area ustack, _Area kstack, void *entry, void *args) {
