@@ -31,7 +31,11 @@ void difftest_setregs(const void *r) {
 }
 
 void difftest_exec(uint64_t n) {
-  while (n --) gdb_si();
+	while (n --) 
+	{
+		printf("1111");
+		gdb_si();
+	}
 }
 
 static uint8_t mbr[] = {
