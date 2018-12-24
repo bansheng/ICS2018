@@ -108,36 +108,36 @@ static inline void parse_args(int argc, char *argv[]) {
 }
 
 int init_monitor(int argc, char *argv[]) {
-  /* Perform some global initialization. */
+	/* Perform some global initialization. */
 
-  /* Parse arguments. */
-  parse_args(argc, argv);
+	/* Parse arguments. */
+	parse_args(argc, argv);
 
-  /* Open the log file. */
-  init_log();
+	/* Open the log file. */
+	init_log();
 
-  /* Test the implementation of the `CPU_state' structure. */
-  reg_test();
+	/* Test the implementation of the `CPU_state' structure. */
+	reg_test();
 
-  /* Load the image to memory. */
-  long img_size = load_img();
+	/* Load the image to memory. */
+	long img_size = load_img();
 
-  /* Initialize this virtual computer system. */
-  restart();
+	/* Initialize this virtual computer system. */
+	restart();
 
-  /* Compile the regular expressions. */
-  init_regex();
+	/* Compile the regular expressions. */
+	init_regex();
 
-  /* Initialize the watchpoint pool. */
-  init_wp_pool();
+	/* Initialize the watchpoint pool. */
+	init_wp_pool();
 
-  /* Initialize devices. */
-  init_device();
+	/* Initialize devices. */
+	init_device();
 
-  init_difftest(diff_so_file, img_size);
+	init_difftest(diff_so_file, img_size);
 
-  /* Display welcome message. */
-  welcome();
+	/* Display welcome message. */
+	welcome();
 
-  return is_batch_mode;
+	return is_batch_mode;
 }
