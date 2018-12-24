@@ -26,14 +26,14 @@ void difftest_getregs(void *r) {
 void difftest_setregs(const void *r) {
   union gdb_regs qemu_r;
   gdb_getregs(&qemu_r);
-  memcpy(&qemu_r, r, DIFFTEST_REG_SIZE);
+  memcpy(&qemu_r, r,, DIFFTEST_REG_SIZE);
   gdb_setregs(&qemu_r);
 }
 
 void difftest_exec(uint64_t n) {
 	while (n --) 
 	{
-		printf("1111\n");
+		// printf("1111\n");
 		gdb_si();
 	}
 }
