@@ -2,8 +2,8 @@
 #define __COMMON_H__
 
 // 这两个宏用于调试工作
-// #define DEBUG
-// #define DIFF_TEST
+#define DEBUG
+#define DIFF_TEST
 
 #if _SHARE
 // do not enable these features while building a reference design
