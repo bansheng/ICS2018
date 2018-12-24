@@ -32,7 +32,7 @@ typedef struct {
 			bool _8[hlSIZE];
 		} gpr[REGSIZE];
 	};
-	
+	vaddr_t eip;
 	
 	union {
 		struct {
@@ -58,7 +58,6 @@ typedef struct {
 	} idtr;
 	uint16_t cs;
 	
-	vaddr_t eip;
 } CPU_state;
 
 extern CPU_state cpu;
