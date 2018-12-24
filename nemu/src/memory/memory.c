@@ -27,7 +27,7 @@ void paddr_write(paddr_t addr, uint32_t data, int len) {
 		mmio_write(addr, len, data, mmio_n);
 	else
 	{
-		printf("1111\n");
+		printf("%p\n", guest_to_host(addr));
 		memcpy(guest_to_host(addr), &data, len);
 		printf("1111\n");
 	}
@@ -95,9 +95,7 @@ void vaddr_write(vaddr_t addr, uint32_t data, int len) {
 		}
 	} 
 	else {
-		
 		paddr = page_translate(addr, true);
-		
 		paddr_write(paddr, len, data);
 	}
 }
