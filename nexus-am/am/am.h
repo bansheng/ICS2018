@@ -55,7 +55,7 @@ typedef struct _Context _Context;
 
 // A protected address space with user memory @area
 // and arch-dependent @ptr
-typedef struct _Protect {
+typedef struct _Protect { //16字节
   size_t pgsize;
   _Area area;
   void *ptr;
