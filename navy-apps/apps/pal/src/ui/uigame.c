@@ -606,6 +606,7 @@ PAL_SystemMenu(
       //
       // Load game
       //
+      Log("1111111111111111111111111");
       iSlot = PAL_SaveSlotMenu(gpGlobals->bCurrentSaveSlot);
       if (iSlot != MENUITEM_VALUE_CANCELLED)
       {
