@@ -68,7 +68,7 @@ _Context *_kcontext(_Area stack, void (*entry)(void *), void *arg) {
 /*	uintptr_t error_code, eip, cs, eflags; */
 /*	};*/
 /*	_Context* ct = (_Context*)((uintptr_t)stack + STACK_SIZE - sizeof(_Context));*/
-	_Context* ct = (stack.end - sizeof(_Context) - sizeof(void*) - sizeof(uintptr_t)); //包括esp和一个protect*
+	_Context* ct = (stack.end - sizeof(_Context) - sizeof(void*)); //包括esp和一个protect*
 	// printf("ct = %X  end = %X\n", (uintptr_t)ct, (uintptr_t)stack.end);
 	memset(ct, 0, sizeof(_Context));
 	*(uintptr_t *)(stack.end -sizeof(uintptr_t*))  = (uintptr_t)entry; //设置返回值

@@ -15,9 +15,9 @@ asm_trap:
   #转移栈指针
   movl %eax, %esp
 
-  addl $4, %esp
+  # addl $4, %esp 这个地方的esp已经是_Context
 
-  addl $4, %esp
+  addl $4, %esp # for prot
   popal
   addl $8, %esp
 
