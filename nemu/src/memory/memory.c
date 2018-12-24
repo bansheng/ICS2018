@@ -90,6 +90,7 @@ void vaddr_write(vaddr_t addr, uint32_t data, int len) {
 		}
 	} 
 	else {
+		printf("1111\n");
 		paddr = page_translate(addr, true);
 		paddr_write(paddr, len, data);
 	}

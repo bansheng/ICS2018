@@ -30,7 +30,6 @@ make_EHelper(call) {
 	
 	t0 = decoding.seq_eip;
 	// printf("call 0x%x\n", t0);
-	printf("1111\n");
 	rtl_push(&t0);
 	printf("2222\n");
 	rtl_j(decoding.jmp_eip);
