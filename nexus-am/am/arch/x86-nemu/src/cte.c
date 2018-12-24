@@ -72,7 +72,6 @@ _Context *_kcontext(_Area stack, void (*entry)(void *), void *arg) {
 	// printf("ct = %X  end = %X\n", (uintptr_t)ct, (uintptr_t)stack.end);
 	memset(ct, 0, sizeof(_Context));
 	ct->eip  = (uintptr_t)entry; //设置返回值
-	//printf("address=%X value=%X", stack.end, *(uintptr_t *)(stack.end));
 	ct->cs = 8;
 	// ct->irq = 0x81; //yeild
 	return ct;
