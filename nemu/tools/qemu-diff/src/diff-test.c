@@ -33,7 +33,7 @@ void difftest_setregs(const void *r) {
 void difftest_exec(uint64_t n) {
 	while (n --) 
 	{
-		printf("1111");
+		printf("1111\n");
 		gdb_si();
 	}
 }
