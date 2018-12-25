@@ -80,39 +80,25 @@ void _switch(_Context *c) {
 
 // 它用于将地址空间p中虚拟地址va所在的虚拟页, 以prot的权限映射到pa所在的物理页. 当prot中的present位为0时, 表示让va的映射无效.
 int _map(_Protect *p, void *va, void *pa, int prot) {
-	PDE *dir = p->ptr; // 一级页表
-	PTE pde = dir[PDX(va)];//二级页表内容
-	PTE* pgtab; //取到二级页表
 	
-	if (prot & PTE_P) {
-		pgtab = (PTE *)PTE_ADDR(pde); //取到高20位,即为二级页表的起始位置
-		// printf("%X %X\n", pde, *pgtab);
-		pgtab[PTX(va)] = PTE_ADDR(pa) | prot; //赋值内容
-		return 1;
+	
+	PDE *pde, *pgdir = p->ptr;
+	PTE *pgtab;
+
+	pde = &pgdir[PDX(va)]; //指向二级页表
+	if (*pde & prot) { //若已经分配
+		pgtab = (PTE *)PTE_ADDR(*pde);
+		// #define PTE_ADDR(pte)   ((uint32_t)(pte) & ~0xfff) 取高20位
+	} 
+	else {
+		pgtab = (PTE *)pgalloc_usr(1);
+		for (int i = 0; i < NR_PTE; i ++) {
+			pgtab[i] = 0;
+		}
+		*pde = PTE_ADDR(pgtab) | prot;
 	}
-	else
-	{
-		printf("映射无效\n");
-		return 0;
-/*		pgtab = (PDE*)(pgalloc_usr(1));*/
-/*		for (int i = 0; i < NR_PTE; i ++) {*/
-/*		  pgtab[i] = 0;*/
-/*		}*/
-/*		pde = PTE_ADDR(pgtab) | PTE_P;*/
-	}
-	
-	
-/*	if (*pde & PTE_P) {*/
-/*		pgtab = (PTE *)PTE_ADDR(*pde);*/
-/*	} */
-/*	else {*/
-/*		pgtab = (PTE *)palloc_f();*/
-/*		for (int i = 0; i < NR_PTE; i ++) {*/
-/*			pgtab[i] = 0;*/
-/*		}*/
-/*		*pde = PTE_ADDR(pgtab) | PTE_P;*/
-/*	}*/
-/*	pgtab[PTX(va)] = PTE_ADDR(pa) | PTE_P;*/
+	pgtab[PTX(va)] = PTE_ADDR(pa) | prot; //高20位为地址 低12位为权限
+	return 1;
 }
 
 _Context *_ucontext(_Protect *p, _Area ustack, _Area kstack, void *entry, void *args) {
