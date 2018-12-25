@@ -19,6 +19,6 @@ static _Context* do_event(_Event e, _Context* c) {
 }
 
 void init_irq(void) {
-  Log("Initializing interrupt/exception handler...");
-  _cte_init(do_event); //user_handler函数指针赋值
+	Log("Initializing interrupt/exception handler...");
+	_cte_init(do_event); //user_handler函数指针赋值
 }
