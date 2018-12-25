@@ -44,8 +44,8 @@ void context_kload(PCB *pcb, void *entry) {
 }
 
 void context_uload(PCB *pcb, const char *filename) {
-	_protect(&(pcb->as)); //创建m默认地址空间
-	printf("pcb0 地址空间%X\n", (uintptr_t)((pcb->as).ptr));
+	_protect(&(pcb->as)); //创建默认地址空间
+	// printf("pcb0 地址空间%X\n", (uintptr_t)((pcb->as).ptr));
 	uintptr_t entry = loader(pcb, filename);
 	_Area stack;
 	stack.start = pcb->stack;
