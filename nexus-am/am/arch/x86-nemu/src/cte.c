@@ -13,7 +13,7 @@ void vecnull();
 _Context* irq_handle(_Context *tf) {
 	_Context *next = tf;
 	extern void get_cur_as(_Context *c);
-	get_cur_as(tf); //保存地址空间
+	get_cur_as(tf); //取得地址空间 c->prot = cur_as;
 	if (user_handler) {
 		_Event ev = {0};
 		switch (tf->irq) {
@@ -28,7 +28,7 @@ _Context* irq_handle(_Context *tf) {
 		}
 	}
 	extern void _switch(_Context *c);
-	_switch(tf);
+	_switch(next); // 将调度目标进程的地址空间落实到MMU中
 	return next;
 }
 

@@ -86,7 +86,7 @@ int _map(_Protect *p, void *va, void *pa, int prot) {
 	
 	if (prot & PTE_P) {
 		pgtab = (PTE *)PTE_ADDR(pde); //取到高20位,即为二级页表的起始位置
-		printf("%X %X\n", pde, *pgtab);
+		// printf("%X %X\n", pde, *pgtab);
 		pgtab[PTX(va)] = PTE_ADDR(pa) | prot; //赋值内容
 		return 1;
 	}
