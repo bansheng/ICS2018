@@ -86,7 +86,9 @@ void vaddr_write(vaddr_t addr, uint32_t data, int len) {
 		/* data cross the page boundary */
 		assert(0);
 		for (int i = 0; i < len; i++) {
+			if(addr == 0x8048000) printf("0x8048000\n");
 			paddr = page_translate(addr, true);
+			if(addr == 0x8048000) printf("paddr=%X\n", paddr);
 			paddr_write(paddr, data, 1);
 			data >>= 8;
 			addr++;

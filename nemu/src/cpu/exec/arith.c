@@ -12,7 +12,6 @@ make_EHelper(add) {
 	t3 = ((((int32_t)(t1) >= 0) ^ (((int32_t)(t2) >= 0 ))) && (((int32_t)(t0) < 0) ^ (((int32_t)(t2) >= 0 )) )); //正正得负 负负得正
 	rtl_set_OF(&t3);
 	rtl_update_ZFSF(&t0, 4);
-	printf("addl\n");
 	operand_write(id_dest, &t0);
 	
 	print_asm_template2(add);
