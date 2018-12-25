@@ -17,7 +17,8 @@ _Context* do_syscall(_Context *c) {
 			result = 1; 
 			break;
 		case SYS_exit: 
-			naive_uload(NULL, "/bin/init"); 
+/*			naive_uload(NULL, "/bin/init"); */
+			_halt(0);
 			break;
 		case SYS_open:
 			result = fs_open((void *)a[1], a[2], a[3]);
