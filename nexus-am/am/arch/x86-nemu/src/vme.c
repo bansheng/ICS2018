@@ -81,7 +81,6 @@ void _switch(_Context *c) {
 // 它用于将地址空间p中虚拟地址va所在的虚拟页, 以prot的权限映射到pa所在的物理页. 当prot中的present位为0时, 表示让va的映射无效.
 int _map(_Protect *p, void *va, void *pa, int prot) {
 	
-	
 	PDE *pde, *pgdir = p->ptr;
 	PTE *pgtab;
 
