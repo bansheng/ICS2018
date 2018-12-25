@@ -30,7 +30,7 @@ void init_proc() {
 	context_uload(&pcb[0], "/bin/dummy");
 /*	*/
  	switch_boot_pcb();
- 	printf("init proc over\n");
+/* 	printf("init proc over\n");*/
 }
 
 _Context* schedule(_Context *prev) {
