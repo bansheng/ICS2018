@@ -29,6 +29,7 @@ _Context* irq_handle(_Context *tf) {
 	}
 	extern void _switch(_Context *c);
 	_switch(next); // 将调度目标进程的地址空间落实到MMU中
+	printf("切换地址空间:%X\n", (uintptr_t)(next->prot->ptr));
 	return next;
 }
 
