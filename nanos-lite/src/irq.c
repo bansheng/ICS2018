@@ -5,9 +5,13 @@ extern _Context* schedule(_Context *prev);
 
 static _Context* do_event(_Event e, _Context* c) {
   switch (e.event) {
-  	case _EVENT_YIELD: return schedule(c);
+  	case _EVENT_YIELD: 
+  		printf("_EVENT_YIELD\n");
+  		return schedule(c); //eax里面
 /*	case _EVENT_YIELD: printf("_EVENT_YIELD\n"); break;*/
-  	case _EVENT_SYSCALL: do_syscall(c); break;
+  	case _EVENT_SYSCALL: 
+  		printf("_EVENT_SYSCALL\n");
+  		do_syscall(c); break;
     default: panic("Unhandled event ID = %d", e.event);
   }
 
