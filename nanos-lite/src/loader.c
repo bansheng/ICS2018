@@ -14,7 +14,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 	Log("loaded: [%d]%s size:%d", fd, filename, nbyte);
 
 	void *end = DEFAULT_ENTRY + nbyte;
-	for (va = DEFAULT_ENTRY; va < end; va += PGSIZE) {
+	for (va = (void *)DEFAULT_ENTRY; va < end; va += PGSIZE) {
 		pa = new_page(1); //new_page(1) 和 _protect 的区别在于_protect里面还是有默认的内核地址映射的
 		// _map(_Protect *p, void *va, void *pa, int prot)
 		_map(as, va, pa, 1);

@@ -20,17 +20,17 @@ void hello_fun(void *arg) {
 }
 
 void init_proc() {
-/*	extern void naive_uload(PCB *pcb, const char *filename);*/
-/*	naive_uload(NULL, "/bin/init");*/
-	pcb_boot = pcb[0];
-	
-	extern void context_kload(PCB *pcb, void *entry);
-	context_kload(&pcb[0], (void *)hello_fun);
-	
 	extern void context_uload(PCB *pcb, const char *filename);
-	context_uload(&pcb[1], "/bin/dummy");
-	
- 	switch_boot_pcb();
+	context_uload(&pcb[0], "/bin/dummy");
+/*	pcb_boot = pcb[0];*/
+/*	*/
+/*	extern void context_kload(PCB *pcb, void *entry);*/
+/*	context_kload(&pcb[0], (void *)hello_fun);*/
+/*	*/
+/*	extern void context_uload(PCB *pcb, const char *filename);*/
+/*	context_uload(&pcb[1], "/bin/dummy");*/
+/*	*/
+/* 	switch_boot_pcb();*/
 }
 
 _Context* schedule(_Context *prev) {
