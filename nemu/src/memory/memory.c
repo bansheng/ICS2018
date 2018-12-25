@@ -36,10 +36,10 @@ paddr_t page_translate(vaddr_t addr, bool is_write) {
 	PDE pde, *pgdir;
 	PTE pte, *pgtab;
 	paddr_t paddr = addr;
-	printf("cr0 = %X\n", cpu.cr0.val);
+	//printf("cr0 = %X\n", cpu.cr0.val);
 
 	if (cpu.cr0.protect_enable && cpu.cr0.paging) {
-	printf("cr3 = %X\n", cpu.cr3.val);
+	//printf("cr3 = %X\n", cpu.cr3.val);
 	pgdir = (PDE *)(intptr_t)(cpu.cr3.page_directory_base << 12);
 	pde.val = paddr_read((intptr_t)&pgdir[(addr >> 22) & 0x3ff], 4);
 	assert(pde.present);
