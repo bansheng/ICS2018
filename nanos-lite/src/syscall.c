@@ -38,7 +38,7 @@ _Context* do_syscall(_Context *c) {
 			result = fs_close(a[1]);
 			break;
 		case SYS_brk:
-			result = 0;
+			result = mm_brk(a[1]);
 			break;
 		case SYS_execve:
 			// Log("execve %s", a[1]);
