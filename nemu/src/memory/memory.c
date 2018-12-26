@@ -48,8 +48,8 @@ paddr_t page_translate(vaddr_t addr, bool is_write) {
 		pte.val = paddr_read((intptr_t)&pgtab[(addr >> 12) & 0x3ff], 4);
 		if(!pte.present)
 		{
-			// printf("addr = 0x%X\n", addr);
-			//assert(pte.present);
+			printf("addr = 0x%X\n", addr);
+			assert(pte.present);
 		}
 			
 		pte.accessed = 1;
