@@ -31,7 +31,6 @@ void _exit(int status) {
 }
 
 int _open(const char *path, int flags, mode_t mode) {
-	printf("_open\n");
 	return _syscall_(SYS_open, (uintptr_t)path, flags, mode);
 }
 
@@ -42,7 +41,7 @@ int _write(int fd, void *buf, size_t count){
 void *_sbrk(intptr_t increment){
 	// panic("11111");
 	intptr_t old_pb = program_break;
-	printf("_sbrk old_pb=%X, increment=%X\n", old_pb, increment);
+	Log("_sbrk old_pb=%X, increment=%X\n", old_pb, increment);
 	if (_syscall_(SYS_brk, old_pb + increment, 0, 0) == 0) {
 		// panic("222");
 		program_break += increment;	
