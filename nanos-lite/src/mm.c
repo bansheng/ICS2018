@@ -16,7 +16,7 @@ void free_page(void *p) {
 
 /* The brk() system call handler. */
 int mm_brk(uintptr_t new_brk) {
-	// printf("new_brk = %X\n", new_brk);
+	printf("new_brk = %X\n", new_brk);
 	printf("current->cur_brk = %X\n", current->cur_brk);
 	if (current->cur_brk == 0) {
 		uintptr_t pa, va;
