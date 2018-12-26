@@ -101,13 +101,14 @@ int _map(_Protect *p, void *va, void *pa, int prot) {
 
 _Context *_ucontext(_Protect *p, _Area ustack, _Area kstack, void *entry, void *args) {
 	//包括返回地址和main的参数
-	_Context* ct = (ustack.end - sizeof(_Context) - 2*sizeof(uintptr_t)); 
+	_Context* ct = (ustack.end - sizeof(_Context) - 4*sizeof(uintptr_t)); 
 	
 	// printf("ct = %X  end = %X\n", (uintptr_t)ct, (uintptr_t)stack.end);
-	memset(ct, 0, sizeof(_Context));
+	memset(ct, 0, sizeof(_Context) + 4*sizeof(uintptr_t));
 	ct->prot = p; //设置地址空间
 	ct->eip  = (uintptr_t)entry; //设置返回值
 	ct->cs = 8;
+	ct->eflags = 0x2 | (1 << 9);  /* pre-set value | eflags.IF */
 	*(uintptr_t *)(ustack.end - sizeof(sizeof(uintptr_t))) = 0; //main的参数
 	// ct->irq = 0x81; //yeild
 	return ct;
