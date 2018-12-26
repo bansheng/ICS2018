@@ -19,11 +19,12 @@ int mm_brk(uintptr_t new_brk) {
 	printf("current->cur_brk = %X\n", current->cur_brk);
 	if (current->cur_brk == 0) {
 		current->cur_brk = current->max_brk = new_brk;
+/*		current->cur_brk = current->max_brk = 0;*/
 	} 
 	else {
 		if (new_brk > current->max_brk) {
 			uintptr_t pa, va;
-			for (va = (current->max_brk+0xfff) & ~0xfff; va < new_brk; va += PGSIZE) {
+			for (va = (current->max_brk+0xfff) & ~0xfff; va < new_brk; va += PGSIZE) { //取低12位
 				pa = (uintptr_t)new_page(1);
 				_map(&current->as, (void *)va, (void *)pa, 1);
 			}

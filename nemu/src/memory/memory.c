@@ -46,7 +46,12 @@ paddr_t page_translate(vaddr_t addr, bool is_write) {
 
 		pgtab = (PTE *)(intptr_t)(pde.page_frame << 12);
 		pte.val = paddr_read((intptr_t)&pgtab[(addr >> 12) & 0x3ff], 4);
-		assert(pte.present);
+		if(pte.present)
+		{
+			printf("addr = %X", addr);
+			assert(pte.present);
+		}
+			
 		pte.accessed = 1;
 		pte.dirty = is_write ? 1 : pte.dirty;
 
