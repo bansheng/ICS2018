@@ -1,6 +1,6 @@
 #include "common.h"
 #include <amdev.h>
-//#define __YEILD
+#define __YEILD
 size_t serial_write(const void *buf, size_t offset, size_t len) {
 	#ifdef __YEILD
 		_yield();
