@@ -54,13 +54,6 @@ int _cte_init(_Context*(*handler)(_Event, _Context*)) {
 }
 
 _Context *_kcontext(_Area stack, void (*entry)(void *), void *arg) {
-	// entry本身是函数指针的值
-/*	struct _Context {*/
-/*	struct _Protect *prot;*/
-/*	uintptr_t edi, esi, ebp, esp, ebx, edx, ecx, eax;*/
-/*	int       irq;*/
-/*	uintptr_t error_code, eip, cs, eflags; */
-/*	};*/
 /*	_Context* ct = (_Context*)((uintptr_t)stack + STACK_SIZE - sizeof(_Context));*/
 	_Context* ct = (stack.end - sizeof(_Context)); //包括esp和一个protect*
 	// printf("ct = %X  end = %X\n", (uintptr_t)ct, (uintptr_t)stack.end);
