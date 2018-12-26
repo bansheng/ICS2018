@@ -49,7 +49,7 @@ paddr_t page_translate(vaddr_t addr, bool is_write) {
 		if(!pte.present)
 		{
 			printf("addr = 0x%X\n", addr);
-			assert(pte.present);
+			//assert(pte.present);
 		}
 			
 		pte.accessed = 1;
