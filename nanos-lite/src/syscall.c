@@ -38,6 +38,7 @@ _Context* do_syscall(_Context *c) {
 			result = fs_close(a[1]);
 			break;
 		case SYS_brk:
+			printf("SYS_brk\n");
 			result = mm_brk(a[1]);
 			break;
 		case SYS_execve:
