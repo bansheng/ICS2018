@@ -24,12 +24,15 @@ _Context* irq_handle(_Context *tf) {
 
 		next = user_handler(ev, tf); //进程切换的依赖
 		if (next == NULL) {
-		  next = tf;
+			next = tf;
+		}
+		else
+		{
+			printf("切换地址空间:%X\n", (uintptr_t)(next->prot->ptr)); //ptr代表的是一级页表地址
 		}
 	}
 	extern void _switch(_Context *c);
 	_switch(next); // 将调度目标进程的地址空间落实到MMU中
-	printf("切换地址空间:%X\n", (uintptr_t)(next->prot->ptr)); //ptr代表的是一级页表地址
 	return next;
 }
 

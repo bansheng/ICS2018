@@ -15,7 +15,7 @@ _Context* do_syscall(_Context *c) {
 	switch (a[0]) {
 		case SYS_yield: 
 			result = 1;
-/*			printf("SYS_yield\n");*/
+			printf("SYS_yield\n");
 			break;
 		case SYS_exit: 
 /*			naive_uload(NULL, "/bin/init"); */
@@ -23,15 +23,19 @@ _Context* do_syscall(_Context *c) {
 			_halt(0);
 			break;
 		case SYS_open:
+			printf("SYS_open\n");
 			result = fs_open((void *)a[1], a[2], a[3]);
 			break;
 		case SYS_write:
+			printf("SYS_write\n");
 			result = fs_write(a[1], (void *)a[2], a[3]);
 			break;
 		case SYS_read:
+			printf("SYS_read\n");
 			result = fs_read(a[1], (void *)a[2], a[3]);
 			break;
 		case SYS_lseek:
+			printf("SYS_lseek\n");
 			result = fs_lseek(a[1], a[2], a[3]);
 			break;
 		case SYS_close:
