@@ -9,7 +9,7 @@ static _Context* (*user_handler)(_Event, _Context*) = NULL;
 void vecsys();
 void vecnull();
 void vectrap();
-
+void irq0();
 
 _Context* irq_handle(_Context *tf) {
 	_Context *next = tf;
@@ -39,7 +39,6 @@ _Context* irq_handle(_Context *tf) {
 }
 
 static GateDesc idt[NR_IRQ];
-void vectime();
 int _cte_init(_Context*(*handler)(_Event, _Context*)) {
   // initialize IDT
   for (unsigned int i = 0; i < NR_IRQ; i ++) {
@@ -49,7 +48,7 @@ int _cte_init(_Context*(*handler)(_Event, _Context*)) {
   // -------------------- system call --------------------------
   idt[0x80] = GATE(STS_TG32, KSEL(SEG_KCODE), vecsys, DPL_USER);
   idt[0x81] = GATE(STS_TG32, KSEL(SEG_KCODE), vectrap, DPL_USER);
-  idt[0x20] = GATE(STS_TG32, KSEL(SEG_KCODE), vectrap, DPL_USER);
+  idt[0x20] = GATE(STS_TG32, KSEL(SEG_KCODE), irq0, DPL_USER);
 
   set_idt(idt, sizeof(idt));
 
