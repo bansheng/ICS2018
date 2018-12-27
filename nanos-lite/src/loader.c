@@ -1,32 +1,36 @@
 #include "proc.h"
 #include "memory.h"
 #include "fs.h"
-#define DEFAULT_ENTRY ((void *)0x8048000)
+
+// #define DEFAULT_ENTRY 0x4000000
+#define DEFAULT_ENTRY 0x8048000
+
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
-	// TODO();
-	_Protect *as = &(pcb->as);
-	int fd = fs_open(filename, 0, 0);
-	size_t nbyte = fs_filesz(fd);
-	void *pa;
-	void *va;
-	void *end = DEFAULT_ENTRY + nbyte;
-	
-	printf("loaded: [%d]%s size:%d start=%X, end=%X\n", fd, filename, nbyte, DEFAULT_ENTRY, end);
-	
-	for (va = (void *)DEFAULT_ENTRY; va < end; va += PGSIZE) {
-		pa = new_page(1); //new_page(1) 和 _protect 的区别在于_protect里面还是有默认的内核地址映射的
-		// _map(_Protect *p, void *va, void *pa, int prot)
-		// printf("va = %X => pa = %X\n", va, pa);
-		_map(as, va, pa, 1);
-		fs_read(fd, pa, (end - va) < PGSIZE ? (end - va) : PGSIZE);
-	}
-	
-/*	int fd = fs_open(filename, 0, 0);*/
-/*	fs_read(fd, (void *)DEFAULT_ENTRY, fs_filesz(fd));*/
-/*	fs_close(fd);*/
-	
-	return (uintptr_t)DEFAULT_ENTRY;
+  // size_t size = get_ramdisk_size();
+  // int* addr = (int *)DEFAULT_ENTRY;
+  // // ramdisk_read(addr, 0, size);
+  // // return DEFAULT_ENTRY;
+  // int fd = fs_open(filename, 0, 0);
+  // if(fd != -1){
+  //   fs_read(fd, addr, fs_filesz(fd));
+  // }
+  // return DEFAULT_ENTRY;
+  int fd = fs_open(filename, 0, 0);
+  size_t size = fs_filesz(fd);
+  size_t page_cnt = (size + PGSIZE - 1) / PGSIZE;
+  void* pa;
+  void* va = (void*)DEFAULT_ENTRY;
+  for(int i = 0; i < page_cnt; i ++){
+    pa = new_page(1);
+    _map(&pcb->as, va, pa, 0);
+    fs_read(fd, pa, (((size - i * PGSIZE) < PGSIZE) ? (size - i * PGSIZE) : PGSIZE));
+    va += PGSIZE;
+  }
+  pcb->max_brk = (uintptr_t) va;
+  pcb->cur_brk = (uintptr_t) va;
+  fs_close(fd);
+  return DEFAULT_ENTRY;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {

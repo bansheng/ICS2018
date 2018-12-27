@@ -17,6 +17,42 @@ make_EHelper(lidt) {
 	print_asm_template1(lidt);
 }
 
+make_EHelper(stos){
+  if(id_dest->width == 4){
+    t0 = vaddr_read(cpu.es+cpu.edi, 4);
+    rtl_lr(&cpu.eax, t0, 4);
+    if(cpu.eflags.DF == 0){
+      rtl_addi(&cpu.edi, &cpu.edi, 4);
+    }
+    else{
+      rtl_subi(&cpu.edi, &cpu.edi, 4);
+    }
+  }
+  
+  else if (id_dest->width == 2)
+  {
+    t0 = vaddr_read(cpu.es+reg_w(R_DI), 2);
+    rtl_lr(&cpu.eax, t0, 2);
+    if(cpu.eflags.DF == 0){
+      rtl_addi(&cpu.edi, &cpu.edi, 2);
+    }
+    else{
+      rtl_subi(&cpu.edi, &cpu.edi, 2);
+    }
+  }
+  else{
+    t0 = vaddr_read(cpu.es+reg_w(R_DI), 1);
+    rtl_lr(&cpu.eax, t0, 1);
+    if(cpu.eflags.DF == 0){
+      rtl_addi(&cpu.edi, &cpu.edi, 1);
+    }
+    else{
+      rtl_subi(&cpu.edi, &cpu.edi, 1);
+    }
+  }
+  print_asm("stos");
+}
+
 make_EHelper(mov_r2cr) {
 	switch (id_dest->reg) {
 		case 0: cpu.cr0.val = id_src->val; break;

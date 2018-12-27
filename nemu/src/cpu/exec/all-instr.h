@@ -23,6 +23,7 @@ make_EHelper(ret);
 make_EHelper(jmp);
 make_EHelper(jmp_rm);
 make_EHelper(jcc);
+make_EHelper(stc);
 
 // arith.c算术
 make_EHelper(sub);
@@ -67,5 +68,6 @@ make_EHelper(in);
 make_EHelper(int);
 make_EHelper(lidt);
 make_EHelper(iret);
+make_EHelper(stos);
 make_EHelper(mov_cr2r);
 make_EHelper(mov_r2cr);

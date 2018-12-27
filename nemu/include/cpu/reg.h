@@ -20,12 +20,12 @@ enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
 typedef struct {
  
 
-  /* Do NOT change the order of the GPRs' definitions. */
-  
+	/* Do NOT change the order of the GPRs' definitions. */
+	
  
 	union{ 
 		struct{ 
-		   rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
+			 rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
 		};
 		union{ 
 			paddr_t _32;
@@ -37,16 +37,28 @@ typedef struct {
 	
 	union {
 		struct {
-			uint8_t CF  :   1;
-			uint8_t DEF1:	  1;
-			uint8_t DEF2:	  4;
-			uint8_t ZF  :   1;
-			uint8_t SF  :   1;
-			uint8_t DEF3:   1;
-			uint8_t IF  :   1;
-			uint8_t DEF4:   1;
-			uint8_t OF  :   1;
-			uint32_t DEF5:  20;
+				uint32_t CF:1;
+				uint32_t R1:1;
+				uint32_t PF:1;
+				uint32_t R2:1;
+				uint32_t AF:1;
+				uint32_t R3:1;
+				uint32_t ZF:1;
+				uint32_t SF:1;
+				uint32_t TF:1;
+				uint32_t IF:1;
+				uint32_t DF:1;
+				uint32_t OF:1;
+				uint32_t IOPL:1;
+				uint32_t NT:1;
+				uint32_t R4:1;
+				uint32_t RF:1;
+				uint32_t VM:1;
+				uint32_t AC:1;
+				uint32_t VIF:1;
+				uint32_t VIP:1;
+				uint32_t ID:1;
+				uint32_t R5:10;
 		} eflags;
 		uint32_t flags;
 	};
@@ -58,17 +70,18 @@ typedef struct {
 		uint32_t base;
 	} idtr;
 	uint16_t cs;
+	rtlreg_t es;
 	
 	CR0 cr0;
-  	CR3 cr3;
+		CR3 cr3;
 	
 } CPU_state;
 
 extern CPU_state cpu;
 
 static inline int check_reg_index(int index) {
-  assert(index >= 0 && index < 8);
-  return index;
+	assert(index >= 0 && index < 8);
+	return index;
 }
 
 #define reg_l(index) (cpu.gpr[check_reg_index(index)]._32) ///32位寄存器 
@@ -80,13 +93,13 @@ extern const char* regsw[];
 extern const char* regsb[];
 
 static inline const char* reg_name(int index, int width) {
-  assert(index >= 0 && index < 8);
-  switch (width) { 
-    case 4: return regsl[index];
-    case 1: return regsb[index];
-    case 2: return regsw[index];
-    default: assert(0);
-  }
+	assert(index >= 0 && index < 8);
+	switch (width) { 
+		case 4: return regsl[index];
+		case 1: return regsb[index];
+		case 2: return regsw[index];
+		default: assert(0);
+	}
 }
 
 #endif

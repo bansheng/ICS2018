@@ -52,3 +52,10 @@ make_EHelper(call_rm) {
 	rtl_jr(&id_dest->val);
 	print_asm("call *%s", id_dest->str);
 }
+
+make_EHelper(stc){
+  rtl_li(&t0, 1);
+  rtl_set_CF(&t0);
+
+  print_asm("stc");
+}
