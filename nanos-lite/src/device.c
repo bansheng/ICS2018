@@ -27,10 +27,11 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 	#endif
 	int key = read_key();
 	bool down = false;
-	Log("key = %d\n", key);
+	//Log("key = %d\n", key);
 	if (key & 0x8000) {
 		 key &= 0xfff;
 		extern void switch_pcb(int i);
+		switch_pcb(key);
 		down = true;
 	}
 	if (key == _KEY_NONE) {
