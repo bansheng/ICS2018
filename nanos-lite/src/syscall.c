@@ -18,7 +18,7 @@ _Context* do_syscall(_Context *c) {
 			printf("SYS_yield\n");
 			break;
 		case SYS_exit: 
-			naive_uload(NULL, "/bin/init"); 
+			naive_uload(current, "/bin/init"); 
 /*			printf("SYS_exit\n");*/
 			// _halt(0);
 			// break;

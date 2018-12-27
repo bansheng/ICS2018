@@ -30,7 +30,7 @@ _Context* irq_handle(_Context *tf) {
 		}
 		else
 		{
-			printf("切换地址空间:%X\n", (uintptr_t)(next->prot->ptr)); //ptr代表的是一级页表地址
+			// printf("切换地址空间:%X\n", (uintptr_t)(next->prot->ptr)); //ptr代表的是一级页表地址
 		}
 	}
 	extern void _switch(_Context *c);
