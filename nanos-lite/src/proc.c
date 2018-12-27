@@ -6,6 +6,12 @@ static PCB pcb[MAX_NR_PROC] __attribute__((used));
 static PCB pcb_boot;
 PCB *current;
 
+static int fg_pcb = 1;
+
+void switch_pcb(int i){
+    fg_pcb = i + 1;
+}
+
 void switch_boot_pcb() {
 	current = &pcb_boot;
 }
@@ -18,7 +24,7 @@ void hello_fun(void *arg) {
 		_yield();
 	}
 }
-static uint32_t count = 0;
+
 void init_proc() {
 	// pcb_boot = pcb[0];
 
@@ -27,30 +33,32 @@ void init_proc() {
 /*	context_kload(&pcb[0], (void *)hello_fun);*/
 /*	*/
 	extern void context_uload(PCB *pcb, const char *filename);
-	context_uload(&pcb[0], "/bin/init");
-	context_uload(&pcb[1], "/bin/hello");
+	context_uload(&pcb[0], "/bin/hello");
+    context_uload(&pcb[1], "/bin/pal");
+    context_uload(&pcb[2], "/bin/pal");
+    context_uload(&pcb[3], "/bin/pal");
 /*	*/
- 	switch_boot_pcb();
+	 switch_boot_pcb();
 /* 	printf("init proc over\n");*/
 }
 
+static uint32_t count = 0;
 _Context* schedule(_Context *prev) {
 	// save the context pointer
 	current->cp = prev;
 
 	// always select pcb[0] as the new process
 	// current = &pcb[0];
-    
 	if(count++ < 50)
-	    // current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
 	{
-		current = &pcb[0];
+		current = &pcb[fg_pcb];
 	}
-    else
+	else
 	{
-		count = 0;
-        current = &pcb[1];
+        count = 0;
+        current = &pcb[0];
 	}
+
 	// then return the new context
 	return current->cp;
 }

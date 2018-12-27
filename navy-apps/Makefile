@@ -1,7 +1,7 @@
 include Makefile.check
 
 APPS = init pal litenes
-TESTS = bmp dummy events hello text
+TESTS = bmp dummy events hello text am-apps
 
 APPS_ALL = $(addprefix $(NAVY_HOME)/apps/, $(APPS)) $(addprefix $(NAVY_HOME)/tests/, $(TESTS))
 
