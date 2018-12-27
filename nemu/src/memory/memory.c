@@ -32,75 +32,48 @@ void paddr_write(paddr_t addr, uint32_t data, int len) {
  		
 }
 
-paddr_t page_translate(vaddr_t addr, bool is_write) {
-	PDE pde, *pgdir;
-	PTE pte, *pgtab;
-	paddr_t paddr = addr;
-
-	if (cpu.cr0.paging) {
-		// printf("cr3 = %X\n", cpu.cr3.val);
-		pgdir = (PDE *)(intptr_t)(cpu.cr3.page_directory_base << 12);
-		pde.val = paddr_read((intptr_t)&pgdir[(addr >> 22) & 0x3ff], 4);
-		assert(pde.present);
-		pde.accessed = 1;
-
-		pgtab = (PTE *)(intptr_t)(pde.page_frame << 12);
-		pte.val = paddr_read((intptr_t)&pgtab[(addr >> 12) & 0x3ff], 4);
-		if(!pte.present)
-		{
-			printf("addr = 0x%X\n", addr);
-			assert(pte.present);
-		}
-		pte.accessed = 1;
-		pte.dirty = is_write ? 1 : pte.dirty;
-
-		paddr = (pte.page_frame << 12) | (addr & PAGE_MASK);
-	}
-
-	return paddr;
+paddr_t page_translate(vaddr_t vaddr){
+  //printf("Virtual Address:%d\n",vaddr);
+  uint32_t pdirent= paddr_read(((0xfffff000)&cpu.cr3.val)|((vaddr>>20)&0xffc),4);
+  //printf("Page Directory Table entry:%d\n",pdirent);
+  Assert(pdirent&1,"Page Directory Table Entry Invalid! Attempted address:%x",vaddr);
+  uint32_t ptblent=paddr_read(((0xfffff000)&pdirent)|((vaddr>>10)&0xffc),4);
+  //printf("Page Table Entry:%d\n",ptblent);
+  Assert(ptblent&1,"Page Table Entry Invalid! Current CR3:%d\nAttempted Address:%x \n The page table entry is %x\n The page table directory entry is %x\n Current EIP is %x",
+    cpu.cr3.val,vaddr,ptblent,pdirent,cpu.eip);
+  //printf("Actual address:%d\n",(ptblent&0xfffff000)|(vaddr&0xfff));
+  return (ptblent&0xfffff000)|(vaddr&0xfff);
 }
 
-#define CROSS_PAGE(addr, len) \
-  ((((addr) + (len) - 1) & ~PAGE_MASK) != ((addr) & ~PAGE_MASK))
-
 uint32_t vaddr_read(vaddr_t addr, int len) {
-	paddr_t paddr;
+  if(cpu.cr0.paging==0)
+    return paddr_read(addr, len);
+  else{
+    //printf("Virtual Address!\n");
+    if((addr&0xfff)+len>0x1000){
+      uint32_t lbytes = 0x1000-(addr&0xfff);
+      uint32_t lower = paddr_read(page_translate(addr),lbytes);
+      uint32_t higher = vaddr_read(addr+lbytes,len-lbytes);
+      return (higher<<(lbytes*8))|lower;
+    }
+    else {
+      uint32_t result = paddr_read(page_translate(addr),len);
+      return result;
+      }
 
-	if (CROSS_PAGE(addr, len)) {
-		/* data cross the page boundary */
-		union {
-			uint8_t bytes[4];
-			uint32_t dword;
-		} data = {0};
-		for (int i = 0; i < len; i++) {
-			paddr = page_translate(addr + i, false);
-			data.bytes[i] = (uint8_t)paddr_read(paddr, 1);
-		}
-		return data.dword;
-	} 
-	else {
-		paddr = page_translate(addr, false);
-		return paddr_read(paddr, len);
-	}
+  }
 }
 
 void vaddr_write(vaddr_t addr, uint32_t data, int len) {
-	paddr_t paddr;
-
-	if (CROSS_PAGE(addr, len)) {
-		/* data cross the page boundary */
-		assert(0);
-		for (int i = 0; i < len; i++) {
-			if(addr == 0x8048000) printf("0x8048000\n");
-			paddr = page_translate(addr, true);
-			if(addr == 0x8048000) printf("paddr=%X\n", paddr);
-			paddr_write(paddr, data, 1);
-			data >>= 8;
-			addr++;
-		}
-	} 
-	else {
-		paddr = page_translate(addr, true);
-		paddr_write(paddr, data, len);
-	}
+  if(cpu.cr0.paging==0)
+    paddr_write(addr, data, len);
+  else{
+    //printf("Virtual Address!\n");
+    if((addr&0xfff)+len>0x1000){
+      uint32_t lbytes = 0x1000-(addr&0xfff);
+      paddr_write(page_translate(addr),data,lbytes);
+      vaddr_write(addr+lbytes,data>>(8*lbytes),len-lbytes);
+    }
+    else paddr_write(page_translate(addr),data,len);
+  }
 }

@@ -16,30 +16,30 @@ void free_page(void *p) {
 
 /* The brk() system call handler. */
 int mm_brk(uintptr_t new_brk) {
-	//printf("new_brk = %X\n", new_brk);
-	printf("current->cur_brk = %X\n", current->cur_brk);
-	if (current->cur_brk == 0) {
-		uintptr_t pa, va;
-		current->cur_brk = current->max_brk = new_brk;
-		for (va = (new_brk) & ~0xfff; va < new_brk; va += PGSIZE) { //取高20位
-			pa = (uintptr_t)new_page(1);
-			_map(&current->as, (void *)va, (void *)pa, 1);
-		}
-	} 
-	else {
-		if (new_brk > current->max_brk) {
-			uintptr_t pa, va;
-			// printf("va = 0x%X\n", (current->max_brk+0xfff) & ~0xfff);
-			for (va = (current->max_brk+0xfff) & ~0xfff; va < new_brk; va += PGSIZE) { //取高20位
-				pa = (uintptr_t)new_page(1);
-				_map(&current->as, (void *)va, (void *)pa, 1);
-			}
-			current->max_brk = va;
-		}
-		current->cur_brk = new_brk;
-	}
-	printf("current->cur_brk = %X\n", current->cur_brk);
-	return 0;
+  //printf("Current break:%d\tNew break:%d\n",current->cur_brk,new_brk);
+  #ifdef HAS_VME
+  if(new_brk < current->max_brk)
+  {
+    current->cur_brk = new_brk;
+    return 0;
+  }
+  else{
+    if((0xfffff&(new_brk>>12))>(0xfffff&((current->max_brk)>>12))){
+      /*printf("Address Maximum break at %d, but a break at %d is needed\n",
+          current->max_brk,new_brk);
+      printf("Maximum break at %d, but a break at %d is needed\n",
+          0xfffff&(current->max_brk)>>12,0xfffff&(new_brk>>12));*/
+    uint32_t npgCnt = (0xfffff&(new_brk>>12)) - (0xfffff&((current->max_brk)>>12));
+    //printf("Brk CR3:%d\n",fake.prot->ptr);
+    for(uint32_t i = 0; i < npgCnt; i++){
+     // printf("Assigning page for virtual address %d in membrk\n",current->max_brk+(i+1)*PGSIZE);
+      _map(&current->as,(void*)(current->max_brk+(i+1)*PGSIZE),new_page(1),0);
+    }}
+    current->max_brk = new_brk;
+    current->cur_brk = new_brk;
+  }
+  #endif
+  return 0;
 }
 
 void init_mm() {
