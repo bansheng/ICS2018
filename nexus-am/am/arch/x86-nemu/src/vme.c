@@ -79,24 +79,29 @@ void _switch(_Context *c) {
 }
 
 // 它用于将地址空间p中虚拟地址va所在的虚拟页, 以prot的权限映射到pa所在的物理页. 当prot中的present位为0时, 表示让va的映射无效.
-int _map(_Protect *p, void *va, void *pa, int prot) {
-	PDE *pde, *pgdir = p->ptr;
-	PTE *pgtab;
-
-	pde = &pgdir[PDX(va)]; //指向二级页表
-	if (*pde & prot) { //若已经分配
-		pgtab = (PTE *)PTE_ADDR(*pde);
-		// #define PTE_ADDR(pte)   ((uint32_t)(pte) & ~0xfff) 取高20位
-	} 
-	else { //二级页表重新分配
-		pgtab = (PTE *)pgalloc_usr(1);
-		for (int i = 0; i < NR_PTE; i ++) {
-			pgtab[i] = 0;
-		}
-		*pde = PTE_ADDR(pgtab) | prot;
-	}
-	pgtab[PTX(va)] = PTE_ADDR(pa) | prot; //高20位为地址 低12位为权限
-	return 1;
+int _map(_Protect *p, void *va, void *pa, int mode) {
+  /*TODO: Set the page table in address space p entry corresponding to va
+  The physical address for the entry is pa
+  mode indicates whether the pa is address for page table or page itself*/
+  set_cr0(get_cr0() & (~CR0_PG));
+  uintptr_t pdir = (uintptr_t) (p->ptr);
+  uintptr_t paddr = (uintptr_t) pa;
+  uintptr_t vaddr = (uintptr_t) va;
+  switch(mode){
+    case 0:
+      ;uint32_t pdirent= *((uint32_t*)(((0xfffff000)&pdir)|(((vaddr>>20)&0xffc))));
+      if((pdirent&1)==0){
+        pdirent = (uint32_t)(pgalloc_usr(1));
+        _map(p,va,(void*)pdirent,1);
+      }
+      *((uint32_t*)(((0xfffff000)&pdirent)|((vaddr>>10)&0xffc)))=(paddr&0xfffff000)|PTE_P;
+      break;
+    case 1:
+      *((uint32_t*)(((0xfffff000)&pdir)|((vaddr>>20)&0xffc)))=(paddr&0xfffff000)|PTE_P;
+      break;
+  }
+  set_cr0(get_cr0() | CR0_PG);
+  return 0;
 }
 
 _Context *_ucontext(_Protect *p, _Area ustack, _Area kstack, void *entry, void *args) {
