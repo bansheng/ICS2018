@@ -9,7 +9,10 @@ PCB *current;
 static int fg_pcb = 1;
 
 void switch_pcb(int i){
-    fg_pcb = i + 1;
+    int tmp = i - 2;
+    if(tmp >= 0 && tmp <= 3){
+        fg_pcb = tmp;
+    }
 }
 
 void switch_boot_pcb() {
