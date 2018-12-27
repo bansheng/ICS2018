@@ -36,7 +36,7 @@ void init_proc() {
 	context_uload(&pcb[0], "/bin/hello");
     context_uload(&pcb[1], "/bin/pal");
     context_uload(&pcb[2], "/bin/slider");
-    context_uload(&pcb[3], "/bin/typing");
+    context_uload(&pcb[3], "/bin/typing-am");
 /*	*/
 	 switch_boot_pcb();
 /* 	printf("init proc over\n");*/
