@@ -9,8 +9,8 @@ PCB *current;
 static int fg_pcb = 1;
 
 void switch_pcb(int i){
-    int tmp = i - 2;
-    if(tmp >= 0 && tmp <= 3){
+    int tmp = i - 1;//234
+    if(tmp >= 1 && tmp <= 3){
         fg_pcb = tmp;
     }
 }
