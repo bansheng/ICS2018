@@ -35,7 +35,7 @@ void init_proc() {
 	extern void context_uload(PCB *pcb, const char *filename);
 	context_uload(&pcb[0], "/bin/hello");
     context_uload(&pcb[1], "/bin/pal");
-    context_uload(&pcb[2], "/bin/slider");
+    context_uload(&pcb[2], "/bin/slider-am");
     context_uload(&pcb[3], "/bin/typing-am");
 /*	*/
 	 switch_boot_pcb();
