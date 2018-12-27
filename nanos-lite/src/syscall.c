@@ -18,10 +18,10 @@ _Context* do_syscall(_Context *c) {
 			printf("SYS_yield\n");
 			break;
 		case SYS_exit: 
-/*			naive_uload(NULL, "/bin/init"); */
+			naive_uload(NULL, "/bin/init"); 
 /*			printf("SYS_exit\n");*/
-			_halt(0);
-			break;
+			// _halt(0);
+			// break;
 		case SYS_open:
 /*			printf("SYS_open\n");*/
 			result = fs_open((void *)a[1], a[2], a[3]);

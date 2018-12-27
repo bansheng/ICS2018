@@ -18,7 +18,7 @@ void hello_fun(void *arg) {
 		_yield();
 	}
 }
-
+static uint32_t count = 0;
 void init_proc() {
 	pcb_boot = pcb[0];
 
@@ -27,8 +27,8 @@ void init_proc() {
 /*	context_kload(&pcb[0], (void *)hello_fun);*/
 /*	*/
 	extern void context_uload(PCB *pcb, const char *filename);
-	context_uload(&pcb[0], "/bin/hello");
-	// context_uload(&pcb[1], "/bin/hello");
+	context_uload(&pcb[0], "/bin/pal");
+	context_uload(&pcb[1], "/bin/hello");
 /*	*/
  	switch_boot_pcb();
 /* 	printf("init proc over\n");*/
@@ -39,9 +39,18 @@ _Context* schedule(_Context *prev) {
 	current->cp = prev;
 
 	// always select pcb[0] as the new process
-	current = &pcb[0];
-	// current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
-
+	// current = &pcb[0];
+    
+	if(count++ < 50)
+	    // current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+	{
+		current = &pcb[0];
+	}
+    else
+	{
+		count = 0;
+        current = &pcb[1];
+	}
 	// then return the new context
 	return current->cp;
 }
