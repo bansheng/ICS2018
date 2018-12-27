@@ -20,7 +20,7 @@ void hello_fun(void *arg) {
 }
 static uint32_t count = 0;
 void init_proc() {
-	pcb_boot = pcb[0];
+	// pcb_boot = pcb[0];
 
 /*	*/
 /*	extern void context_kload(PCB *pcb, void *entry);*/
